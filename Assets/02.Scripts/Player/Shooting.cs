@@ -9,6 +9,7 @@ public class Shooting : MonoBehaviour
 
     public GameObject bullet;
     public Transform bulletTransform;
+    private int bulletCount = 7;
     public bool canFire;
 
     private float timer;
@@ -38,10 +39,23 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && canFire)
+        if (Input.GetMouseButtonDown(0) && canFire && bulletCount > 0)
         {
+            bulletCount--;
             canFire = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }
+
+        if (bulletCount <= 0)
+        {
+            StartCoroutine(ReloadBullet());
+        }
+    }
+
+    IEnumerator ReloadBullet()
+    {
+        yield return new WaitForSeconds(3f);
+
+        bulletCount = 7;
     }
 }

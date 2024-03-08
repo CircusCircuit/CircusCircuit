@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     float moveX;
     Rigidbody2D rb;
     bool isGround, isHead, isBase;
+    bool isJump = false;
+    bool isDodge = false;
     bool facingRight = true;
 
     [Header("Base")]
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     GameObject platform;
 
+    Vector2 moveVec;
+    Vector2 dodgeVec;
 
     // Start is called before the first frame update
     void Start()
@@ -38,12 +42,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // [ 올라가기 및 점프 ]
-        if (Input.GetKeyDown(KeyCode.W) && isGround)
-        {
-            //print("Jump");
-
-            rb.velocity = Vector2.up * jumpPower;
-        }
+        Jump();
 
         // [ 내려오기 ]
         if (Input.GetKeyDown(KeyCode.S) && isGround)
@@ -59,19 +58,8 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // [ 무기발사 ]
-        if (Input.GetMouseButtonDown(0))
-        {
-            //GameObject bulletClone = Instantiate(bulletPrefab, firePoint.transform.position,
-            //    firePoint.transform.rotation);
-            //bulletClone.transform.localScale = transform.localScale;
-        }
-
         // [ 구르기(회피) ]
-        if (Input.GetMouseButtonDown(1))
-        {
-
-        }
+        Dodge();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -92,15 +80,87 @@ public class PlayerController : MonoBehaviour
         if (isGround)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+
+            //anim.SetBool("isJump", false);
+            isJump = false;
         }
 
         moveX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
+        Move();
+
 
         //if (moveX > 0 && !facingRight) { Flip(); }  //오른쪽 이동인데 왼쪽 보고 있으면 뒤집기
         //else if (moveX < 0 && facingRight) { Flip(); } //왼쪽 이동인데 오른쪽 보고 있으면 뒤집기
+
+        //i.조준점보다 플레이어의x좌표가 오른쪽에 있는 경우
+        //-> 플레이어는 왼쪽을 바라봄
+
+        //ii.조준점과 플레이어의x좌표가 완전히 일치하여 일직선상에 위치할 경우
+        //-> 플레이어의 기존 방향 유지
+
+        //iii.조준점보다 플레이어의 x좌표가 왼쪽에 있는 경우
+        //-> 플레이어는 오른쪽을 바라봄
     }
 
+    // [ 이동 ]
+    void Move()
+    {
+        moveVec = new Vector2(moveX * moveSpeed, rb.velocity.y)/*.normalized*/;
+
+        rb.velocity = moveVec;
+
+        if (isDodge)
+            moveVec = dodgeVec;
+
+        //anim.SetBool("isRun", moveVec != Vector2.zero);
+        //anim.SetBool("isWalk", wDown);
+    }
+
+    // [ 점프 ]
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && isGround && isDodge == false)
+        {
+            rb.AddForce(Vector2.up * jumpPower);
+            //anim.SetBool("isJump", true);
+            //anim.SetTrigger("doJump");
+            isJump = true;
+        }
+    }
+
+    // [ 구르기 ]
+    void Dodge()
+    {
+        if (Input.GetMouseButtonDown(1) && moveVec != Vector2.zero && isJump == false && isDodge == false)
+        {
+            dodgeVec = moveVec;
+            moveSpeed *= 2;
+            //anim.SetTrigger("doDodge");
+
+            isDodge = true;
+            transform.GetChild(0).GetComponent<Shooting>().enabled = false;
+
+            StartCoroutine(DodgeOut()); //밸런스 딜레이
+        }
+    }
+    IEnumerator DodgeOut()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        moveSpeed *= 0.5f;
+
+        StartCoroutine(DodgeDelay());
+    }
+    IEnumerator DodgeDelay()
+    {
+        yield return new WaitForSeconds(1f);
+
+        isDodge = false;
+        transform.GetChild(0).GetComponent<Shooting>().enabled = true;
+    }
+
+
+    // [ 뒤집기 ]
     void Flip()
     {
         facingRight = !facingRight;

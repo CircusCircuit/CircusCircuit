@@ -2,37 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Player
 {
-    private Vector3 mousePos;
-    private Camera mainCam;
-    Rigidbody2D rb;
-    public float force;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Bullet : MonoBehaviour
     {
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        rb = GetComponent<Rigidbody2D>();
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        private Vector3 mousePos;
+        private Camera mainCam;
+        Rigidbody2D rb;
+        public float force;
 
-        Vector3 direction = mousePos - transform.position;
-        Vector3 rotation = transform.position - mousePos;
+        // Start is called before the first frame update
+        void Start()
+        {
+            mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            rb = GetComponent<Rigidbody2D>();
+            mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
-        float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            Vector3 direction = mousePos - transform.position;
+            Vector3 rotation = transform.position - mousePos;
 
-        transform.rotation = Quaternion.Euler(0, 0, rot + 90);
-    }
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
+            float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
-    // Update is called once per frame
-    void Update()
-    {
-        //rb.velocity = new Vector2(speed * transform.localScale.x, 0);
-    }
+            transform.rotation = Quaternion.Euler(0, 0, rot + 90);
+        }
 
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
+        // Update is called once per frame
+        void Update()
+        {
+            //rb.velocity = new Vector2(speed * transform.localScale.x, 0);
+        }
+
+        private void OnBecameInvisible()
+        {
+            Destroy(gameObject);
+        }
     }
 }
+

@@ -64,3 +64,6 @@ crashlytics-build.properties
 UserSettings/Layouts/default-2021.dwlt
 Assets/Firebase/Plugins/x86_64/FirebaseCppApp-11_5_0.bundle
 Assets/3rdParty/Firebase/Plugins/x86_64/FirebaseCppApp-11_5_0.bundle
+
+
+.vscode/

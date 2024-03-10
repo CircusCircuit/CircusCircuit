@@ -89,8 +89,8 @@ public class PlayerController : MonoBehaviour
         Move();
 
 
-        //if (moveX > 0 && !facingRight) { Flip(); }  //오른쪽 이동인데 왼쪽 보고 있으면 뒤집기
-        //else if (moveX < 0 && facingRight) { Flip(); } //왼쪽 이동인데 오른쪽 보고 있으면 뒤집기
+        if (moveX > 0 && !facingRight) { Flip(); }  //오른쪽 이동인데 왼쪽 보고 있으면 뒤집기
+        else if (moveX < 0 && facingRight) { Flip(); } //왼쪽 이동인데 오른쪽 보고 있으면 뒤집기
 
         //i.조준점보다 플레이어의x좌표가 오른쪽에 있는 경우
         //-> 플레이어는 왼쪽을 바라봄

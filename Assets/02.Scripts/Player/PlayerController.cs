@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
     bool isJump = false;
     bool isDodge = false;
     bool facingRight = true;
+    bool isAttacked = false;
 
     [Header("Base")]
+    float hp = 4;
     public float moveSpeed;
     public float jumpPower;
     public float checkRadius;
@@ -64,7 +66,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        platform = collision.gameObject;
+        if (collision.gameObject.layer == 6)
+        {
+            platform = collision.gameObject;
+        }
+        else
+        {
+            isAttacked = true;
+
+            if (hp <= 0) { Die(); }
+            MinusHp(collision.transform.tag);
+
+            StartCoroutine(NoAttack());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
     }
 
     private void FixedUpdate()
@@ -88,18 +107,8 @@ public class PlayerController : MonoBehaviour
         moveX = Input.GetAxisRaw("Horizontal");
         Move();
 
-
-        if (moveX > 0 && !facingRight) { Flip(); }  //오른쪽 이동인데 왼쪽 보고 있으면 뒤집기
-        else if (moveX < 0 && facingRight) { Flip(); } //왼쪽 이동인데 오른쪽 보고 있으면 뒤집기
-
-        //i.조준점보다 플레이어의x좌표가 오른쪽에 있는 경우
-        //-> 플레이어는 왼쪽을 바라봄
-
-        //ii.조준점과 플레이어의x좌표가 완전히 일치하여 일직선상에 위치할 경우
-        //-> 플레이어의 기존 방향 유지
-
-        //iii.조준점보다 플레이어의 x좌표가 왼쪽에 있는 경우
-        //-> 플레이어는 오른쪽을 바라봄
+        if (CrosshairCursor.instance.mouseCursorPos.x > 0 && !facingRight) { Flip(); }
+        else if (CrosshairCursor.instance.mouseCursorPos.x < 0 && facingRight) { Flip(); }
     }
 
     // [ 이동 ]
@@ -126,6 +135,9 @@ public class PlayerController : MonoBehaviour
             //anim.SetTrigger("doJump");
             isJump = true;
         }
+
+        //점프 중 몬스터의 물리 공격, 탄막 공격, 충돌을 무적 상태로 회피한다.
+        StartCoroutine(NoAttack());
     }
 
     // [ 구르기 ]
@@ -175,5 +187,45 @@ public class PlayerController : MonoBehaviour
 
         platform.GetComponent<BoxCollider2D>().isTrigger = false;
         platform = null;
+    }
+
+    void MinusHp(string tag)
+    {
+        switch (tag)
+        {
+            case "bullet":
+                hp -= 1;
+                return;
+            //case "물리공격":
+            //    hp -= 1;
+            //    return;
+            case "Untagged":
+                hp -= 0.5f;
+                return;
+        }
+
+        isAttacked = false;
+        getHp();
+    }
+
+    public float getHp()
+    {
+        return hp;
+    }
+
+    IEnumerator NoAttack()
+    {
+        yield return new WaitForSeconds(2f);
+
+        //2초간 무적상태
+        //몬스터 물리, 탄막, 충돌을 무적 상태로 회피
+
+    }
+
+    void Die()
+    {
+        print("Die상태 스테이지1부터 재시작");
+
+        //챕터1의 스테이지 1부터 재시작
     }
 }

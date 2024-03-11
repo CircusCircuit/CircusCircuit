@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class CrosshairCursor : MonoBehaviour
 {
+    public static CrosshairCursor instance;
+
+    public Vector2 mouseCursorPos;
+
     private void Awake()
     {
+        instance = this;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        Vector2 mouseCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = mouseCursorPos;
     }
 }

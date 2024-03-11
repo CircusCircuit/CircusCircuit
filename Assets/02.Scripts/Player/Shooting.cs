@@ -15,10 +15,12 @@ public class Shooting : MonoBehaviour
     private float timer;
     public float timeBetweenFiring;
 
+    private GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -28,6 +30,7 @@ public class Shooting : MonoBehaviour
         Vector3 rotation = mousePos - transform.position;
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
+        transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
 
         if (!canFire)
         {
@@ -44,6 +47,7 @@ public class Shooting : MonoBehaviour
             bulletCount--;
             canFire = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            print("ÀÜ¿© ÃÑ¾Ë: " + bulletCount);
         }
 
         if (bulletCount <= 0)
@@ -57,5 +61,6 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         bulletCount = 7;
+        print("Bullet ÀçÀåÀü, " + bulletCount);
     }
 }

@@ -42,7 +42,7 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && canFire && bulletCount > 0)
+        if (Input.GetMouseButtonDown(0) && canFire && bulletCount > 0 && GameManager.Instance.Clear1 == false)
         {
             bulletCount--;
             canFire = false;

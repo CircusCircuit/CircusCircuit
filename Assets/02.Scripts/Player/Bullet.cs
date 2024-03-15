@@ -33,9 +33,24 @@ namespace Player
             //rb.velocity = new Vector2(speed * transform.localScale.x, 0);
         }
 
+
+        //화면밖으로 나가면 destory
         private void OnBecameInvisible()
         {
             Destroy(gameObject);
+        }
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            //print(collision.gameObject.name);
+
+            if (collision.gameObject.layer == 8)
+            {
+                print("layer는 ground");
+
+                Destroy(gameObject);
+            }
         }
     }
 }

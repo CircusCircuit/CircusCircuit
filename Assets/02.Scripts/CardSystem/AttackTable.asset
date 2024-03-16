@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77821ad15ad6364cbbabad7abe8bce3, type: 3}
+  m_Name: AttackTable
+  m_EditorClassIdentifier: Assembly-CSharp::CardDropSo
+  cards:
+  - card: {fileID: 11400000, guid: 48a5ee43fc181734e8c7e4e3de1b3437, type: 2}
+    weight: 50
+  - card: {fileID: 11400000, guid: 78411173fb99ae441af254ade6d7ff47, type: 2}
+    weight: 30
+  - card: {fileID: 11400000, guid: 1f1671a01de1b4c49a1947d91c7c924b, type: 2}
+    weight: 15
+  - card: {fileID: 11400000, guid: ec1a161d821940943b2678ee91825098, type: 2}
+    weight: 5

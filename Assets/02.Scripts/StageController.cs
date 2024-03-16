@@ -1,29 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static CardDropSO;
 
 public class StageController : MonoBehaviour
 {
     [SerializeField] GameObject Lever;
     Animator anim;
     bool isLever;
-    Button cardUI1, cardUI2, cardUI3;
 
-    public CardDropSO card;
+    int cardSetCount = 3;
+    [SerializeField] GameObject[] card;
+
+    public CardDropSO cardDropSO;
+    CardSO.Murtiple[] showCard;
+    CardSO.Murtiple pickCard;
+
+    GameObject invenObj;
 
     private void Awake()
     {
-        cardUI1 = Lever.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Button>();
-        cardUI2 = Lever.transform.GetChild(1).GetChild(3).gameObject.GetComponent<Button>();
-        cardUI3 = Lever.transform.GetChild(1).GetChild(4).gameObject.GetComponent<Button>();
+        //for (int i = 0; i < cardSetCount; i++)
+        //{
+        //    //card[i] = Lever.transform.GetChild(1).GetChild(i + 2).gameObject;
+        //    cardUI[i] = card[i].GetComponent<Button>();
+        //}
+
+        invenObj = Lever.transform.GetChild(2).gameObject;
+
+        showCard = new CardSO.Murtiple[cardSetCount];
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -71,18 +86,36 @@ public class StageController : MonoBehaviour
         var length = anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(length);
 
-        cardUI1.enabled = true;
-        cardUI2.enabled = true;
-        cardUI3 .enabled = true;
+        RandomCard();
     }
 
     public void SelectCard()
     {
-        //print(card.TimesPick().cardName);
+        invenObj.SetActive(true);
 
-        GameObject Inven = Lever.transform.GetChild(2).gameObject;
-        Inven.SetActive(true);
+        for (int i = 0; i < cardSetCount; i++)
+        {
+            if (EventSystem.current.currentSelectedGameObject.name == "Card" + (i + 1))
+            {
+                //print("누른 버튼은 " + EventSystem.current.currentSelectedGameObject.name + " 이고 보내는건 " + showCard[i].cardName);
+                pickCard =  showCard[i];
+            }
+        }
+    }
 
-        Inven.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = card.TimesPick().cardImage;
+    public CardSO.Murtiple SendCard()
+    {
+        return pickCard;
+    }
+
+    public void RandomCard()
+    {
+        for (int i = 0; i < cardSetCount; i++)
+        {
+            card[i].GetComponent<Button>().enabled = true;
+
+            showCard[i] = cardDropSO.TimesPick();
+            card[i].GetComponent<Image>().sprite = showCard[i].cardImage;
+        }
     }
 }

@@ -17,12 +17,12 @@ MonoBehaviour:
   - cardName: "\uCD5C\uB300\uCD1D\uC54C1"
     cardImage: {fileID: 21300000, guid: caac078b38418e840b8681dd4b5993cb, type: 3}
     weight: 70
-    increase: 100
+    increase: 1
   - cardName: "\uCD5C\uB300\uCD1D\uC54C2"
     cardImage: {fileID: 21300000, guid: caac078b38418e840b8681dd4b5993cb, type: 3}
     weight: 20
-    increase: 200
+    increase: 2
   - cardName: "\uCD5C\uB300\uCD1D\uC54C3"
     cardImage: {fileID: 21300000, guid: caac078b38418e840b8681dd4b5993cb, type: 3}
     weight: 10
-    increase: 300
+    increase: 3

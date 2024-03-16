@@ -78,7 +78,7 @@ public class StageController : MonoBehaviour
 
     public void SelectCard()
     {
-        print(card.TimesPick().cardName);
+        //print(card.TimesPick().cardName);
 
         GameObject Inven = Lever.transform.GetChild(2).gameObject;
         Inven.SetActive(true);

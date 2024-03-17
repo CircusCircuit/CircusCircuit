@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Enemy;
 namespace Player
 {
     public class Bullet : MonoBehaviour
     {
         private Vector3 mousePos;
         private Camera mainCam;
+
         Rigidbody2D rb;
         public float force;
 
@@ -51,7 +52,17 @@ namespace Player
 
                 Destroy(gameObject);
             }
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                EnemyStatus enemyStatus = collision.gameObject.GetComponent<EnemyStatus>();
+                if (enemyStatus != null)
+                {
+                    enemyStatus.TakeDamage(5);
+                }
+                Destroy(gameObject);
+            }
         }
+        
     }
 }
 

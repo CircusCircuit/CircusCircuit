@@ -7,10 +7,10 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        DetectPlayerInRange();
+        DetectPlayerInRange(10f, true);
     }
 
-    void DetectPlayerInRange(float detectionRange = 10f, bool isHorizontal = false)
+    void DetectPlayerInRange(float detectionRange = 5f, bool isHorizontal = false)
     {
         // 플레이어의 위치
         Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
@@ -33,15 +33,21 @@ public class EnemyAi : MonoBehaviour
         }
         else
         {
-            if (distanceToPlayerY <= 5f)
+            if (distanceToPlayerY <= 1f)
             {
+                //적 기준 왼쪽 위치
                 if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
                 {
-                    Debug.Log("Player detected!");
+                    Debug.Log("Player left detected!");
+                }
+                //적 기준 오른쪽 위치
+                else if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
+                {
+                    Debug.Log("Player Right detected!");
                 }
                 else{
-                Debug.Log("Player undetected!");    
-            }
+                    Debug.Log("Player undetected!");    
+                }
             }
         }
     }

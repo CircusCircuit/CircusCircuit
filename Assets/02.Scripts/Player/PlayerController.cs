@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
             //case "물리공격":
             //    hp -= 1;
             //    return;
-            case "monster":
+            case "Enemy":
                 hp -= 0.5f;
                 return;
         }

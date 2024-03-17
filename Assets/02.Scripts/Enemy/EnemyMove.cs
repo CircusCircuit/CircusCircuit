@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
+using TMPro;
 using UnityEngine;
 
 namespace Enemy
@@ -8,65 +10,96 @@ namespace Enemy
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
-        private EnemyAttack enemyAttatkScript;
-        
-        private float health = 10;
-        public int nextmove;
-        public bool detected = false;
+        private EnemyAttack enemyAttack;
+        private bool isDetectPlatfrom;
+        private bool isJump = false;
 
-        private float cooldownTimer = 1f;
-        
+        public int nextmove;
+        public float dashDuration = 0.5f;
+        public float dashSpeed = 10f;
         // Start is called before the first frame update
         void Awake()
         {
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
-            Invoke("Think", 3);
-            enemyAttatkScript = GetComponent<EnemyAttack>();
+            enemyAttack = GetComponent<EnemyAttack>();
+            Invoke("Dash", 3);
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (cooldownTimer > 0f)
-            {   
-                cooldownTimer -= Time.fixedDeltaTime;
-            }
             //move
-            rigid.velocity = new Vector2(nextmove * 3, rigid.velocity.y);
+            rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
 
             //Platform Check
-            if (detected == false)
+            if (isDetectPlatfrom ==false)
             {
                 Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
-                Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-                RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-                if (rayHit.collider == null)
-                {
+                Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
+                Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
+                RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.3f, 1, LayerMask.GetMask("Ground"));
+                if (rayHitFoword.collider != null){
+                    enemyAttack.FireBullet_8();
                     Turn();
+
+                }
+                if (rayHitDown.collider == null && isJump == false)
+                {
+                    if(Random.value>0.5f){
+                        CancelInvoke("Stop");
+                        UpJump();
+                        Invoke("Stop",1f);
+                    }
+                    else{
+                        CancelInvoke("Stop");
+                        DownJump();
+                        Invoke("Stop",1f);
+                    }
+                }
+
+                if (rayHitDown.collider != null){
+                    isJump = false;
                 }
             }
-
-            //Player Check
-            DetectPlayerInRange(3, true);
-
-            cooldownTimer = enemyAttatkScript.FireBullet_16(cooldownTimer);
+            
+            
+            
         }
 
         //몬스터 행동 결정 함수, 재귀
-        void Think()
+        void Dash()
         {
-            //다음 활동 설정
-            nextmove = Random.Range(-1, 2);
-
+            //-1, 1중 결정
+            nextmove = Random.Range(-1, 1)*2 + 1;
+    
             //방향전환
             if (nextmove != 0)
             {
                 spriteRenderer.flipX = nextmove == 1;
+                Invoke("Stop", dashDuration); 
             }
+            
+            Invoke("Dash", 3+dashDuration);
+        }
+        void Stop(){
+            nextmove = 0;
+        }
 
-            //재귀
-            Invoke("Think", 3);
+        void UpJump()
+        {
+            Debug.Log("upjump");
+            rigid.velocity = new Vector2(rigid.velocity.x/5, 30f);
+            isJump = true;
+            Debug.Log("isJump"+isJump);
+        }
+        void DownJump()
+        {
+            Debug.Log("downjump");
+            rigid.velocity = new Vector2(rigid.velocity.x, 15f);
+            isJump = true;
+            Debug.Log("isJump"+isJump);
         }
 
         void Turn()
@@ -74,58 +107,10 @@ namespace Enemy
             Debug.Log("Turn!");
             nextmove = nextmove * -1;
             spriteRenderer.flipX = nextmove == 1;
-            CancelInvoke("Think");
-            Invoke("Think", 2);
+            CancelInvoke("Dash");
+            Invoke("Dash", 2);
         }
 
-        void DetectPlayerInRange(float detectionRange = 10f, bool horizontal = false)
-        {
-            // 플레이어의 위치
-            Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-            // 몬스터와 플레이어의 거리 계산
-            float distanceToPlayerX = Mathf.Abs(playerPosition.x - transform.position.x);
-            float distanceToPlayerY = Mathf.Abs(playerPosition.y - transform.position.y);
-
-            if (horizontal == false)
-            {
-                // 만약 플레이어가 감지 범위 내에 있다면
-                if (distanceToPlayerX <= detectionRange)
-                {
-                    // 플레이어를 감지했을 때 수행할 동작을 추가합니다.
-                    Debug.Log("Player detected!");
-                }
-            }
-            else
-            {
-                if (nextmove > 0)
-                {
-                    if (distanceToPlayerY <= 5f)
-                    {
-                        if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
-                        {
-                            Debug.Log("Player detected!");
-                            detected = true;
-                            CancelInvoke("Think");
-                            nextmove = 5;
-                        }
-                    }
-                }
-                else
-                {
-                    if (distanceToPlayerY <= 5f)
-                    {
-                        if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
-                        {
-                            nextmove = -5;
-                            detected = true;
-                            CancelInvoke("Think");
-                            Debug.Log("Player detected!");
-                        }
-                    }
-                }
-            }
-        }
     }
 
 }

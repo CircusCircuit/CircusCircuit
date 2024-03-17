@@ -15,14 +15,14 @@ MonoBehaviour:
   Atype: 00000000
   mul:
   - cardName: "\uACF5\uACA9\uB825\uC99D\uAC001"
-    cardImage: {fileID: 21300000, guid: caac078b38418e840b8681dd4b5993cb, type: 3}
+    cardImage: {fileID: 21300000, guid: 790413f6a65734910beddf97779d0d3a, type: 3}
     weight: 70
     increase: 100
   - cardName: "\uACF5\uACA9\uB825\uC99D\uAC002"
-    cardImage: {fileID: 21300000, guid: caac078b38418e840b8681dd4b5993cb, type: 3}
+    cardImage: {fileID: 21300000, guid: 0ceeceaa695e146c68071e329884b129, type: 3}
     weight: 20
     increase: 200
   - cardName: "\uACF5\uACA9\uB825\uC99D\uAC003"
-    cardImage: {fileID: 21300000, guid: caac078b38418e840b8681dd4b5993cb, type: 3}
+    cardImage: {fileID: 21300000, guid: 6e7f8e118e70440a392b3bde23a80954, type: 3}
     weight: 10
     increase: 300

@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
     Vector2 moveVec;
     Vector2 dodgeVec;
 
+    StageController stageController;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>(); 
 
         //Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
     }
@@ -79,11 +82,21 @@ public class PlayerController : MonoBehaviour
 
             StartCoroutine(NoAttack());
         }
+
+        if (collision.gameObject.name == "Lever")
+        {
+            stageController.isLever = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        print(collision.gameObject);
 
+        if (collision.gameObject.name == "Lever")
+        {
+            stageController.isLever = true;
+        }
     }
 
     private void FixedUpdate()

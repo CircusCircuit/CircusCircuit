@@ -24,21 +24,14 @@ public class StageController : MonoBehaviour
 
     private void Awake()
     {
-        //for (int i = 0; i < cardSetCount; i++)
-        //{
-        //    //card[i] = Lever.transform.GetChild(1).GetChild(i + 2).gameObject;
-        //    cardUI[i] = card[i].GetComponent<Button>();
-        //}
-
-        invenObj = Lever.transform.GetChild(2).gameObject;
-
+        //invenObj = GameObject.FindWithTag("Inventory");
         showCard = new CardSO.Murtiple[cardSetCount];
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        invenObj = GameObject.FindWithTag("Inventory").transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame

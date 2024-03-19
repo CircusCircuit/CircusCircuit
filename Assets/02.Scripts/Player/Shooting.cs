@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class Shooting : MonoBehaviour
     public float timeBetweenFiring;
 
     private GameObject player;
+
+    [SerializeField] TextMeshProUGUI bulletTxt;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,7 @@ public class Shooting : MonoBehaviour
             canFire = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
             print("ÀÜ¿© ÃÑ¾Ë: " + bulletCount);
+            bulletTxt.text = "BULLET X " + bulletCount;
         }
 
         if (bulletCount <= 0)
@@ -62,5 +67,6 @@ public class Shooting : MonoBehaviour
 
         bulletCount = 7;
         print("Bullet ÀçÀåÀü, " + bulletCount);
+        bulletTxt.text = "BULLET X " + bulletCount;
     }
 }

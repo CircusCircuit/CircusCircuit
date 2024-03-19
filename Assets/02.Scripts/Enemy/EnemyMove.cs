@@ -12,6 +12,9 @@ namespace Enemy
         SpriteRenderer spriteRenderer;
         private EnemyAttack enemyAttack;
         private bool isDetectPlatfrom;
+        public bool isFire =false;
+        private bool isDetectPlayer =false;
+
         private bool isJump = false;
 
         public int nextmove;
@@ -23,7 +26,7 @@ namespace Enemy
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
-            Invoke("Dash", 3);
+            Invoke("Think", 3);
         }
 
         // Update is called once per frame
@@ -31,7 +34,8 @@ namespace Enemy
         {
             //move
             rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
-
+            
+            DetectPlayerInRange(10f, true);
             //Platform Check
             if (isDetectPlatfrom ==false)
             {
@@ -39,7 +43,7 @@ namespace Enemy
                 Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
                 Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
                 RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.3f, 1, LayerMask.GetMask("Ground"));
+                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.3f, 1, LayerMask.GetMask("Wall"));
                 if (rayHitFoword.collider != null){
                     enemyAttack.FireBullet_8();
                     Turn();
@@ -47,33 +51,59 @@ namespace Enemy
                 }
                 if (rayHitDown.collider == null && isJump == false)
                 {
-                    if(Random.value>0.5f){
-                        CancelInvoke("Stop");
-                        UpJump();
-                        Invoke("Stop",1f);
-                    }
-                    else{
-                        CancelInvoke("Stop");
-                        DownJump();
-                        Invoke("Stop",1f);
-                    }
+                    // if(Random.value>0.5f){
+                    //     CancelInvoke("Stop");
+                    //     UpJump();
+                    //     Invoke("Stop",1f);
+                    // }
+                    // else{
+                    CancelInvoke("Stop");
+                    CancelInvoke("Think");
+                    DownJump();
+                    Invoke("Stop",1f);
+                    Invoke("Think",3f);
+
+                    isFire =false;
+                    // }
                 }
 
                 if (rayHitDown.collider != null){
                     isJump = false;
                 }
             }
-            
-            
-            
         }
-
+        
         //몬스터 행동 결정 함수, 재귀
+        void Think(){
+            if(isFire){
+                enemyAttack.FireBullet_8();
+                Invoke("Think",2f);
+                isFire = false;
+            }
+            else{
+                Dash();
+                isFire = true;
+            }
+        }
         void Dash()
-        {
-            //-1, 1중 결정
-            nextmove = Random.Range(-1, 1)*2 + 1;
-    
+        {   
+            if(! isDetectPlayer){
+                //-1, 1중 결정
+                nextmove = Random.Range(-1, 1)*2 + 1;
+            }
+            else{
+                
+                // 플레이어의 위치
+                Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position; 
+        
+                if(playerPosition.x - transform.position.x <= 0){
+                    nextmove = -1;
+                }
+                else{
+                    nextmove = 1;
+                }
+            }
+            
             //방향전환
             if (nextmove != 0)
             {
@@ -81,7 +111,7 @@ namespace Enemy
                 Invoke("Stop", dashDuration); 
             }
             
-            Invoke("Dash", 3+dashDuration);
+            Invoke("Think", 3+dashDuration);
         }
         void Stop(){
             nextmove = 0;
@@ -109,6 +139,55 @@ namespace Enemy
             spriteRenderer.flipX = nextmove == 1;
             CancelInvoke("Dash");
             Invoke("Dash", 2);
+        }
+        void DetectPlayerInRange(float detectionRange = 5f, bool isHorizontal = false)
+        {
+            // 플레이어의 위치
+            Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+            // 몬스터와 플레이어의 거리 계산
+            float distanceToPlayerX = Mathf.Abs(playerPosition.x - transform.position.x);
+            float distanceToPlayerY = Mathf.Abs(playerPosition.y - transform.position.y);
+
+            //수평감지 여부 판단
+            if (isHorizontal == false)
+            {
+                // 만약 플레이어가 감지 범위 내에 있다면
+                if (distanceToPlayerX <= detectionRange)
+                {
+                    Debug.Log("Player detected!");
+                    isDetectPlayer = true;
+                }
+                else{
+                    Debug.Log("Player undetected!");
+                    isDetectPlayer = false;
+                }
+            }
+            else
+            {
+                if (distanceToPlayerY <= 1f)
+                {
+                    //적 기준 왼쪽 위치
+                    if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
+                    {
+                        Debug.Log("Player left detected!");
+                        isDetectPlayer = true;
+
+                    }
+                    //적 기준 오른쪽 위치
+                    else if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
+                    {
+                        Debug.Log("Player Right detected!");
+                        isDetectPlayer = true;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Player undetected!");    
+                    isDetectPlayer = false;
+
+                }
+            }
         }
 
     }

@@ -10,28 +10,15 @@ using static CardDropSO;
 public class StageController : MonoBehaviour
 {
     [SerializeField] GameObject Lever;
-    Animator anim;
-    bool isLever;
+    [SerializeField] Animator anim;
+    public bool isLever;
 
-    int cardSetCount = 3;
-    [SerializeField] GameObject[] card;
-
-    public CardDropSO cardDropSO;
-    CardSO.Murtiple[] showCard;
-    CardSO.Murtiple pickCard;
-
-    GameObject invenObj;
-
-    private void Awake()
-    {
-        //invenObj = GameObject.FindWithTag("Inventory");
-        showCard = new CardSO.Murtiple[cardSetCount];
-    }
+    [SerializeField] CardController cardController;
 
     // Start is called before the first frame update
     void Start()
     {
-        invenObj = GameObject.FindGameObjectWithTag("Inventory").transform.GetChild(0).gameObject;
+        
     }
 
     // Update is called once per frame
@@ -42,14 +29,9 @@ public class StageController : MonoBehaviour
             CreateLever();
         }
 
-        Interaction();
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "Lever")
+        if (isLever)
         {
-            isLever = true;
+            Interaction();
         }
     }
 
@@ -66,7 +48,6 @@ public class StageController : MonoBehaviour
     void CreateLever()
     {
         Lever.gameObject.SetActive(true);
-        anim = Lever.transform.GetChild(1).gameObject.GetComponent<Animator>();
     }
 
     IEnumerator CurtainCall()
@@ -79,36 +60,6 @@ public class StageController : MonoBehaviour
         var length = anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(length);
 
-        RandomCard();
-    }
-
-    public void SelectCard()
-    {
-        invenObj.SetActive(true);
-
-        for (int i = 0; i < cardSetCount; i++)
-        {
-            if (EventSystem.current.currentSelectedGameObject.name == "Card" + (i + 1))
-            {
-                //print("누른 버튼은 " + EventSystem.current.currentSelectedGameObject.name + " 이고 보내는건 " + showCard[i].cardName);
-                pickCard =  showCard[i];
-            }
-        }
-    }
-
-    public CardSO.Murtiple SendCard()
-    {
-        return pickCard;
-    }
-
-    public void RandomCard()
-    {
-        for (int i = 0; i < cardSetCount; i++)
-        {
-            card[i].GetComponent<Button>().enabled = true;
-
-            showCard[i] = cardDropSO.TimesPick();
-            card[i].GetComponent<Image>().sprite = showCard[i].cardImage;
-        }
+        cardController.RandomCard();
     }
 }

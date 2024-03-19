@@ -8,6 +8,7 @@ TagManager:
   - playerbullet
   - Enemy
   - Inventory
+  - CardController
   layers:
   - Default
   - TransparentFX

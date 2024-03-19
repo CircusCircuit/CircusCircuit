@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     CardSO.Murtiple getCard;
     CardSO.Murtiple[] card;
     public GameObject[] slot;
-    StageController stageController;
+    CardController cardController;
 
     int slotCount = 0;
     int maxSlot = 15;
@@ -18,10 +18,10 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+        cardController = GameObject.Find("CardController").GetComponent<CardController>();
         card = new CardSO.Murtiple[maxSlot];
 
-        print(stageController.SendCard().cardName);
+        print(cardController.SendCard().cardName);
         ShowCard();
     }
 
@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
 
     void ShowCard()
     {
-        getCard = stageController.SendCard();
+        getCard = cardController.SendCard();
 
         if (getCard != null)
         {

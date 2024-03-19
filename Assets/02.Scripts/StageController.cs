@@ -31,7 +31,7 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        invenObj = GameObject.FindWithTag("Inventory").transform.GetChild(0).gameObject;
+        invenObj = GameObject.FindGameObjectWithTag("Inventory").transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame

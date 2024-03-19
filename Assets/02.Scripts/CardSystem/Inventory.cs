@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
         stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
         card = new CardSO.Murtiple[maxSlot];
 
+        print(stageController.SendCard().cardName);
         ShowCard();
     }
 

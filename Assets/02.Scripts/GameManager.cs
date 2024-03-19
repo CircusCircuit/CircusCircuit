@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public bool Clear1
     {
         get { return isClear1; }
+        set { isClear1 = value; }
     }
 
 
@@ -28,9 +29,9 @@ public class GameManager : MonoBehaviour
         DetectClear();
     }
 
-    //클리어 조건 검사
+    //클리어 조건 검사 -> 
     void DetectClear()
     {
-
+        
     }
 }

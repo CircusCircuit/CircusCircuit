@@ -32,45 +32,49 @@ namespace Enemy
         // Update is called once per frame
         void FixedUpdate()
         {
-            //move
-            rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
-            
-            DetectPlayerInRange(10f, true);
-            //Platform Check
-            if (isDetectPlatfrom ==false)
-            {
-                Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
-                Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
-                Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
-                RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.3f, 1, LayerMask.GetMask("Wall"));
-                if (rayHitFoword.collider != null){
-                    enemyAttack.FireBullet_8();
-                    Turn();
-
-                }
-                if (rayHitDown.collider == null && isJump == false)
-                {
-                    // if(Random.value>0.5f){
-                    //     CancelInvoke("Stop");
-                    //     UpJump();
-                    //     Invoke("Stop",1f);
-                    // }
-                    // else{
-                    CancelInvoke("Stop");
-                    CancelInvoke("Think");
-                    DownJump();
-                    Invoke("Stop",1f);
-                    Invoke("Think",3f);
-
-                    isFire =false;
-                    // }
-                }
-
-                if (rayHitDown.collider != null){
-                    isJump = false;
-                }
+            if(!isJump){
+                enemyAttack.FireBullet_Rapid();
+                isJump=true;
             }
+            //move
+            // rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
+            
+            // DetectPlayerInRange(10f, true);
+            // //Platform Check
+            // if (isDetectPlatfrom ==false)
+            // {
+            //     Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
+            //     Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
+            //     Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
+            //     RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+            //     RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.3f, 1, LayerMask.GetMask("Wall"));
+            //     if (rayHitFoword.collider != null){
+            //         enemyAttack.FireBullet_8();
+            //         Turn();
+
+            //     }
+            //     if (rayHitDown.collider == null && isJump == false)
+            //     {
+            //         // if(Random.value>0.5f){
+            //         //     CancelInvoke("Stop");
+            //         //     UpJump();
+            //         //     Invoke("Stop",1f);
+            //         // }
+            //         // else{
+            //         CancelInvoke("Stop");
+            //         CancelInvoke("Think");
+            //         DownJump();
+            //         Invoke("Stop",1f);
+            //         Invoke("Think",3f);
+
+            //         isFire =false;
+            //         // }
+            //     }
+
+            //     if (rayHitDown.collider != null){
+            //         isJump = false;
+            //     }
+            // }
         }
         
         //몬스터 행동 결정 함수, 재귀
@@ -189,7 +193,7 @@ namespace Enemy
                 }
             }
         }
-
+    
     }
 
 }

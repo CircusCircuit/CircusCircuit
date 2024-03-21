@@ -4,20 +4,22 @@ using System.Data.Common;
 using TMPro;
 using UnityEngine;
 
-namespace Enemy{
+namespace Enemy
+{
     public class EnemyMove : MonoBehaviour
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
         private EnemyAttack enemyAttack;
-        private bool isDetectPlatfrom;
-        public bool isFire =false;
-        private bool isDetectPlayer =false;
 
+        public bool isFire = false;
+        private bool isDetectPlayer = false;
         private bool isJump = false;
-
+        public bool isAttack = false;
+        
+        private bool isKnockback = false;
         public int nextmove;
-        public float dashDuration = 0.5f;
+        // public float dashDuration = 0.5f;
         public float dashSpeed = 10f;
         // Start is called before the first frame update
         void Awake()
@@ -25,31 +27,34 @@ namespace Enemy{
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
-            Invoke("Think",1);
+            Invoke("Think", 1);
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            //move
-            Move();
-            
-            // DetectPlayerInRange(10f, true);
-
-            //     if (rayHitDown.collider != null){
-            //         isJump = false;
-            //     }
-            // }
+            if(!isKnockback){
+                if(!isAttack){
+                    Move(2f);
+                }
+                else{
+                    Dash(10f);
+                }
+                DetectPlayerInRange(5f, true);
+            }
         }
-        public void Think(){
+        public void Think()
+        {
             nextmove = Random.Range(-1, 2);
             //방향전환
             if (nextmove != 0)
             {
-                spriteRenderer.flipX = nextmove == 1; 
+                spriteRenderer.flipX = nextmove == 1;
             }
-            
-            Invoke("Think",3);
+            else{
+                enemyAttack.FireBullet_8();
+            }
+            Invoke("Think", 3);
         }
         void Turn()
         {
@@ -59,95 +64,133 @@ namespace Enemy{
         void UpJump()
         {
             Debug.Log("upjump");
-            rigid.velocity = new Vector2(rigid.velocity.x, 15f);
+            rigid.velocity = new Vector2(rigid.velocity.x * 3f, 25f);
+            isJump = true;
+        }
+        void DownJump()
+        {
+            Debug.Log("upjump");
+            rigid.velocity = new Vector2(rigid.velocity.x * 2f, 10f);
             isJump = true;
             // Debug.Log("isJump"+isJump);
         }
-        void Move(float moveSpeed = 2f){
-            if(!isJump){
-                rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y);
+        void Move(float moveSpeed = 2f)
+        {
+            if (!isJump)
+            {
+                rigid.velocity = new Vector2(nextmove * moveSpeed, 0);
             }
             
+            Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
+            Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
+            Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
+            RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
 
-            if (isDetectPlatfrom ==false)
+            if (rayHitDown.collider == null && !isJump)
             {
-                Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
-                Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
-                Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
-                RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
-                
-                if (rayHitDown.collider == null && !isJump){
-                    if(Random.value<0.5){
-                        Turn();
-                        Debug.Log("Turn by ground");
-                        CancelInvoke("Think");
-                        Invoke("Think",2);
-                    }
-                    else{
-                        UpJump();
-                        Debug.Log("Jump by ground");
-                        CancelInvoke("Think");
-                        Invoke("Think",2);
-                    }
-                }
-                else{
-                    isJump=false;
-                }
-                if (rayHitFoword.collider != null){
-                    Debug.Log("Turn by wall");
+                if (Random.value < 0.5)
+                {
                     Turn();
                     CancelInvoke("Think");
-                    Invoke("Think",2);
+                    Invoke("Think", 2);
+                }
+                else
+                {
+                    if (Random.value < 0.7)
+                    {
+                        UpJump();
+                        CancelInvoke("Think");
+                        Invoke("Think", 2);
+                    }
+                    else
+                    {
+                        DownJump();
+                        CancelInvoke("Think");
+                        Invoke("Think", 2);
+                    }
                 }
             }
-        }
-      
+            if (rayHitDown.collider != null)
+            {
+                rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y*0.3f);
+                isJump = false;
+            }
+            if (rayHitFoword.collider != null)
+            {
+                Turn();
+                CancelInvoke("Think");
+                Invoke("Think", 2);
+            }
 
-        //몬스터 행동 결정 함수, 재귀
-     
-        void Dash()
+        }
+        public void Dash(float dashSpeed = 10f)
         {   
-            if(! isDetectPlayer){
-                //-1, 1중 결정
-                nextmove = Random.Range(-1, 1)*2 + 1;
+            CancelInvoke("Think");
+            
+            if (!isJump)
+            {
+                rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
+            }
+
+            Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
+            Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
+            Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
+            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
+            RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+
+            if (rayHitFoword.collider != null)
+            {
+                enemyAttack.FireBullet_8();
+                Knockback(transform.position.normalized);
+                CancelInvoke("Think");
+                
+            }
+            if (rayHitDown.collider == null)
+            {
+                isJump = true;
             }
             else{
-                
-                // 플레이어의 위치
-                Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position; 
-        
-                if(playerPosition.x - transform.position.x <= 0){
-                    nextmove = -1;
-                }
-                else{
-                    nextmove = 1;
-                }
+                isJump = false;
             }
-            
-            //방향전환
-            if (nextmove != 0)
-            {
-                spriteRenderer.flipX = nextmove == 1;
-                Invoke("Stop", dashDuration); 
-            }
-            
-            Invoke("Think", 3+dashDuration);
+
         }
-        void Stop(){
+        public void Knockback(Vector2 direction)
+        {
+            float knockbackForce = 5f;
+            float knockbackDuration = 1.5f;
+            
+            if (!isKnockback)
+            {
+                // Vector2 collisionDirection = (collision.transform.position - transform.position).normalized;
+
+                // knockbackDirection에 주어진 방향으로 힘을 가해서 몬스터를 밀어냅니다.
+                rigid.velocity = Vector2.zero; // 이전의 속도를 초기화합니다.
+                rigid.AddForce(direction * -knockbackForce, ForceMode2D.Impulse);
+
+                // knockbackDuration 후에 knockback 상태를 해제합니다.
+                Invoke("EndKnockback", knockbackDuration);
+
+                isKnockback = true;
+            }
+        }
+        void EndKnockback(){
+            Debug.Log("knockback");
+            isAttack = false;
+            isKnockback = false;
+            nextmove *= -1;
+            spriteRenderer.flipX = nextmove == 1;
+            Invoke("Think", 2f);
+        }
+        void Stop()
+        {
             nextmove = 0;
         }
 
-       
-        void DownJump()
-        {
-            Debug.Log("downjump");
-            rigid.velocity = new Vector2(rigid.velocity.x, 15f);
-            isJump = true;
-            Debug.Log("isJump"+isJump);
-        }
 
-       
+
+
+
         void DetectPlayerInRange(float detectionRange = 5f, bool isHorizontal = false)
         {
             // 플레이어의 위치
@@ -164,11 +207,12 @@ namespace Enemy{
                 if (distanceToPlayerX <= detectionRange)
                 {
                     Debug.Log("Player detected!");
-                    isDetectPlayer = true;
+                    isAttack = true;
                 }
-                else{
+                else
+                {
                     Debug.Log("Player undetected!");
-                    isDetectPlayer = false;
+                    isAttack = false;
                 }
             }
             else
@@ -179,25 +223,25 @@ namespace Enemy{
                     if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
                     {
                         Debug.Log("Player left detected!");
-                        isDetectPlayer = true;
+                        isAttack = true;
 
                     }
                     //적 기준 오른쪽 위치
                     else if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
                     {
                         Debug.Log("Player Right detected!");
-                        isDetectPlayer = true;
+                        isAttack = true;
                     }
                 }
                 else
                 {
-                    Debug.Log("Player undetected!");    
-                    isDetectPlayer = false;
+                    Debug.Log("Player undetected!");
+                    isAttack = false;
 
                 }
             }
         }
-    
+
     }
 
 }

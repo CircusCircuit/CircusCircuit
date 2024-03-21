@@ -13,25 +13,97 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    [SerializeField]
-    bool isClear1;
+    // [ 스테이지 관련 ]
+    [SerializeField] bool isClear1;
+    [SerializeField] bool isClear2;
 
+    // [ 플레이어 관련 ]
+    float hp = 4;
+    float attackPoewr = 100;
+    int curBulletCount = 7;
+    int maxBullet = 7;
+    //float bulletForce = 15;
+    float attackSpeed = 1;
+    float playerSpeed = 5;
+
+    // [ 몬스터 관련 ]
+    float M_attackedDamage = 1;
+
+    // [ 덱 관련 ]
+    bool isCardEnhance = false;
+
+
+
+
+    public float PlayerHp
+    {
+        get { return hp; }
+        set { hp = value; }
+    }
+
+    public int CurBulletCount
+    {
+        get { return curBulletCount; }
+        set { curBulletCount = value; }
+    }
+
+    public int MaxBullet
+    {
+        get { return maxBullet; }
+        set { maxBullet = value; }
+    }
+
+    public float AttackPoewr
+    {
+        get { return attackPoewr; }
+        set { attackPoewr = value; }
+    }
+
+    //public float BulletForce
+    //{
+    //    get { return bulletForce; }
+    //    set { bulletForce = value; }
+    //}
+
+    public float AttackSpeed
+    {
+        get { return attackSpeed; }
+        set { attackSpeed = value; }
+    }
+
+    public float PlayerSpeed
+    {
+        get { return playerSpeed; }
+        set { playerSpeed = value; }
+    }
+
+    public bool IsCardEnhance
+    {
+        get { return isCardEnhance; }
+        set { isCardEnhance= value; }
+    }
+
+
+
+    public float M_AttackDamage
+    {
+        get { return M_attackedDamage; }
+        set { M_attackedDamage = value; }
+    }
+
+
+
+
+    //클리어 확인
     public bool Clear1
     {
         get { return isClear1; }
         set { isClear1 = value; }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public bool Clear2
     {
-        DetectClear();
-    }
-
-    //클리어 조건 검사 -> 
-    void DetectClear()
-    {
-        
+        get { return isClear2; }
+        set { isClear2 = value; }
     }
 }

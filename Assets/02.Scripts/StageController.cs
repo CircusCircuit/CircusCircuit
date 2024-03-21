@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static CardDropSO;
 
@@ -24,7 +25,11 @@ public class StageController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.Clear1)
+        if (GameManager.Instance.Clear1 && SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            CreateLever();
+        }
+        if (GameManager.Instance.Clear2 && SceneManager.GetActiveScene().buildIndex == 2)
         {
             CreateLever();
         }

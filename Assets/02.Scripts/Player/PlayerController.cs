@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     float moveX;
     Rigidbody2D rb;
-    bool isGround, isHead, isBase;
+    bool isGround, isHead, isBase, isPushDownKey;
     bool isJump = false;
     bool isDodge = false;
     bool facingRight = true;
     bool isAttacked = false;
 
     [Header("Base")]
-    float hp = 4;
-    public float moveSpeed;
     public float jumpPower;
     public float checkRadius;
 
@@ -22,23 +21,31 @@ public class PlayerController : MonoBehaviour
     public Transform headCheck;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public LayerMask wallLayer;
 
     [Header("Shot")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-
-    GameObject platform;
 
     Vector2 moveVec;
     Vector2 dodgeVec;
 
     StageController stageController;
 
+    BoxCollider2D playerCollider;
+    SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        playerCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>(); 
+        stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
 
         //Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
     }
@@ -52,16 +59,10 @@ public class PlayerController : MonoBehaviour
         // [ 내려오기 ]
         if (Input.GetKeyDown(KeyCode.S) && isGround)
         {
-            platform.GetComponent<BoxCollider2D>().isTrigger = true;
-
-            StartCoroutine(WaitFalling());
+            isPushDownKey = true;
         }
 
-        // [ 상호작용 ]
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-
-        }
+        if (GameManager.Instance.PlayerHp <= 0) { Die(); }
 
         // [ 구르기(회피) ]
         Dodge();
@@ -71,13 +72,16 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.layer == 6)
         {
-            platform = collision.gameObject;
+            //platform = collision.gameObject;
+
+            //print("collisionEnter -> " + platform.name);
+            //playerCollider.isTrigger = true;
         }
         else
         {
             isAttacked = true;
 
-            if (hp <= 0) { Die(); }
+            //if (GameManager.Instance.PlayerHp <= 0) { Die(); }
             MinusHp(collision.transform.tag);
 
             StartCoroutine(NoAttack());
@@ -89,13 +93,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        playerCollider.isTrigger = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.gameObject);
+        playerCollider.isTrigger = false;
 
         if (collision.gameObject.name == "Lever")
         {
             stageController.isLever = true;
+        }
+        else
+        {
+            isAttacked = true;
+
+            //if (GameManager.Instance.PlayerHp <= 0) { Die(); }
+            MinusHp(collision.transform.tag);
+
+            StartCoroutine(NoAttack());
         }
     }
 
@@ -103,18 +121,23 @@ public class PlayerController : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         isHead = Physics2D.OverlapCircle(headCheck.position, checkRadius, groundLayer);
+        isBase = Physics2D.OverlapCircle(groundCheck.position, checkRadius, wallLayer);
 
         if (isHead)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
 
-        if (isGround)
+        if (isGround || isBase)
         {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-
             //anim.SetBool("isJump", false);
             isJump = false;
+        }
+
+        if (isPushDownKey && isGround)
+        {
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            isPushDownKey = false;
         }
 
         moveX = Input.GetAxisRaw("Horizontal");
@@ -127,7 +150,7 @@ public class PlayerController : MonoBehaviour
     // [ 이동 ]
     void Move()
     {
-        moveVec = new Vector2(moveX * moveSpeed, rb.velocity.y)/*.normalized*/;
+        moveVec = new Vector2(moveX * GameManager.Instance.PlayerSpeed, rb.velocity.y)/*.normalized*/;
 
         rb.velocity = moveVec;
 
@@ -141,12 +164,15 @@ public class PlayerController : MonoBehaviour
     // [ 점프 ]
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.W) && isGround && isDodge == false)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            rb.AddForce(Vector2.up * jumpPower);
-            //anim.SetBool("isJump", true);
-            //anim.SetTrigger("doJump");
-            isJump = true;
+            if ((isGround && !isDodge) || isBase)
+            {
+                rb.AddForce(Vector2.up * jumpPower);
+                //anim.SetBool("isJump", true);
+                //anim.SetTrigger("doJump");
+                isJump = true;
+            }
         }
 
         //점프 중 몬스터의 물리 공격, 탄막 공격, 충돌을 무적 상태로 회피한다.
@@ -159,7 +185,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && moveVec != Vector2.zero && isJump == false && isDodge == false)
         {
             dodgeVec = moveVec;
-            moveSpeed *= 2;
+            GameManager.Instance.PlayerSpeed *= 2;
             //anim.SetTrigger("doDodge");
 
             isDodge = true;
@@ -172,7 +198,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        moveSpeed *= 0.5f;
+        GameManager.Instance.PlayerSpeed *= 0.5f;
 
         StartCoroutine(DodgeDelay());
     }
@@ -194,37 +220,38 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
-    IEnumerator WaitFalling()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        platform.GetComponent<BoxCollider2D>().isTrigger = false;
-        platform = null;
-    }
-
     void MinusHp(string tag)
     {
         switch (tag)
         {
-            case "bullet":
-                hp -= 1;
+            case "EnemyBullet":
+                GameManager.Instance.PlayerHp -= 1;
+                StartCoroutine(AttackedEffect());
                 return;
             //case "물리공격":
             //    hp -= 1;
             //    return;
             case "Enemy":
-                hp -= 0.5f;
+                GameManager.Instance.PlayerHp -= 0.5f;
+                StartCoroutine(AttackedEffect());
                 return;
         }
 
         isAttacked = false;
-        getHp();
     }
 
-    public float getHp()
+    IEnumerator AttackedEffect()
     {
-        return hp;
+        for (int i = 0; i < 3; i++)
+        {
+            spriteRenderer.color = new Color32(243, 114, 114, 255);
+            yield return new WaitForSeconds(0.1f);
+
+            spriteRenderer.color = new Color32(255, 255, 255, 255);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
+
 
     IEnumerator NoAttack()
     {
@@ -239,6 +266,6 @@ public class PlayerController : MonoBehaviour
     {
         print("Die상태 스테이지1부터 재시작");
 
-        //챕터1의 스테이지 1부터 재시작
+        SceneManager.LoadScene(1);
     }
 }

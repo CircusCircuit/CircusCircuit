@@ -40,7 +40,7 @@ namespace Enemy{
         private void OnTriggerEnter(Collider other){
             Debug.Log("get");
             if (other.CompareTag("playerbullet")){
-                TakeDamage(GameManager.Instance.M_AttackDamage = 1);
+                // TakeDamage(GameManager.Instance.M_AttackDamage = 1);
                 Debug.Log("ahh");
             }
         }

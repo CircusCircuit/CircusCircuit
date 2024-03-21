@@ -31,7 +31,7 @@ public class DrawPlayerHp : MonoBehaviour
 
     void DrawHp()
     {
-        switch (player.GetComponent<PlayerController>().getHp())
+        switch (GameManager.Instance.PlayerHp)
         {
             case 4:
                 fourth.sprite = full;

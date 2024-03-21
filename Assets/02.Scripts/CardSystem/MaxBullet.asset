@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2349f4f7eb9ac344b10712c9a4ee70e, type: 3}
   m_Name: MaxBullet
   m_EditorClassIdentifier: 
-  Atype: 03000000
   mul:
-  - cardName: "\uCD5C\uB300\uCD1D\uC54C1"
+  - Atype: 3
+    cardName: "\uCD5C\uB300\uCD1D\uC54C1"
     cardImage: {fileID: 21300000, guid: ec1a8f1a7a46a43cd9bed1d4783008f2, type: 3}
     weight: 70
     increase: 1
-  - cardName: "\uCD5C\uB300\uCD1D\uC54C2"
+  - Atype: 3
+    cardName: "\uCD5C\uB300\uCD1D\uC54C2"
     cardImage: {fileID: 21300000, guid: 3c5bd5137b32f4bcf8e73a3ccb1fea18, type: 3}
     weight: 20
     increase: 2
-  - cardName: "\uCD5C\uB300\uCD1D\uC54C3"
+  - Atype: 3
+    cardName: "\uCD5C\uB300\uCD1D\uC54C3"
     cardImage: {fileID: 21300000, guid: fb27476acae8d4239beabd1f330e8870, type: 3}
     weight: 10
     increase: 3

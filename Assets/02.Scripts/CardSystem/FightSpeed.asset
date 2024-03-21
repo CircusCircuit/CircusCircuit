@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2349f4f7eb9ac344b10712c9a4ee70e, type: 3}
   m_Name: FightSpeed
   m_EditorClassIdentifier: 
-  Atype: 01000000
   mul:
-  - cardName: "\uACF5\uC18D\uC99D\uAC001"
+  - Atype: 1
+    cardName: "\uACF5\uC18D\uC99D\uAC001"
     cardImage: {fileID: 21300000, guid: 346dd9cc67f2c4cb3ac1cc909a959e33, type: 3}
     weight: 70
     increase: 100
-  - cardName: "\uACF5\uC18D\uC99D\uAC002"
+  - Atype: 1
+    cardName: "\uACF5\uC18D\uC99D\uAC002"
     cardImage: {fileID: 21300000, guid: 7d493a0ca29e14ca58105c9d50638bf7, type: 3}
     weight: 20
     increase: 200
-  - cardName: "\uACF5\uC18D\uC99D\uAC003"
+  - Atype: 1
+    cardName: "\uACF5\uC18D\uC99D\uAC003"
     cardImage: {fileID: 21300000, guid: 26a1ddaa549ca4f729595a442bec8357, type: 3}
     weight: 10
     increase: 300

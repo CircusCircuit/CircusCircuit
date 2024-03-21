@@ -10,7 +10,7 @@ namespace Player
         private Camera mainCam;
 
         Rigidbody2D rb;
-        public float force;
+        float force = 15;
 
         // Start is called before the first frame update
         void Start()
@@ -48,7 +48,7 @@ namespace Player
 
             if (collision.gameObject.layer == 8)
             {
-                print("layer´Â ground");
+                //print("layer´Â ground");
 
                 Destroy(gameObject);
             }

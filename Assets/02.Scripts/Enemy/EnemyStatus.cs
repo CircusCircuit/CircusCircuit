@@ -5,7 +5,7 @@ namespace Enemy{
     public class EnemyStatus : MonoBehaviour
     {
         private float defaultEnemyHP = 10;
-        private float attackedDamage = 1;
+        //private float attackedDamage = 1;
         private float currentEnemyHP;
         private bool isAttacked = false;
         private EnemyAttack enemyAttack;
@@ -40,7 +40,7 @@ namespace Enemy{
         private void OnTriggerEnter(Collider other){
             Debug.Log("get");
             if (other.CompareTag("playerbullet")){
-                TakeDamage(attackedDamage = 1);
+                TakeDamage(GameManager.Instance.M_AttackDamage = 1);
                 Debug.Log("ahh");
             }
         }

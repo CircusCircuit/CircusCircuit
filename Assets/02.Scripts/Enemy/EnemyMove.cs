@@ -4,8 +4,7 @@ using System.Data.Common;
 using TMPro;
 using UnityEngine;
 
-namespace Enemy
-{
+namespace Enemy{
     public class EnemyMove : MonoBehaviour
     {
         Rigidbody2D rigid;
@@ -26,65 +25,68 @@ namespace Enemy
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
-            Invoke("Think", 3);
+            Invoke("Think",1);
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
             //move
-            rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
+            Move();
             
-            DetectPlayerInRange(10f, true);
-            //Platform Check
+            // DetectPlayerInRange(10f, true);
+
+            //     if (rayHitDown.collider != null){
+            //         isJump = false;
+            //     }
+            // }
+        }
+        public void Think(){
+            nextmove = Random.Range(-1, 2);
+            
+            //방향전환
+            if (nextmove != 0)
+            {
+                spriteRenderer.flipX = nextmove == 1; 
+            }
+            
+            Invoke("Think",3);
+        }
+        void Move(float moveSpeed = 2f){
+            
+            rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y);
+
             if (isDetectPlatfrom ==false)
             {
                 Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
                 Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
                 Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
                 RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.3f, 1, LayerMask.GetMask("Wall"));
+                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 1, LayerMask.GetMask("Wall"));
+                
+                if (rayHitDown.collider == null){
+                    if(Random.value<0.5){
+                        Turn();
+                        CancelInvoke("Think");
+                        Invoke("Think",2);
+                    }
+                    else{
+                        Turn();
+                        CancelInvoke("Think");
+                        Invoke("Think",2);
+                    }
+                }
                 if (rayHitFoword.collider != null){
-                    enemyAttack.FireBullet_8();
                     Turn();
-
-                }
-                if (rayHitDown.collider == null && isJump == false)
-                {
-                    // if(Random.value>0.5f){
-                    //     CancelInvoke("Stop");
-                    //     UpJump();
-                    //     Invoke("Stop",1f);
-                    // }
-                    // else{
-                    CancelInvoke("Stop");
                     CancelInvoke("Think");
-                    DownJump();
-                    Invoke("Stop",1f);
-                    Invoke("Think",3f);
-
-                    isFire =false;
-                    // }
-                }
-
-                if (rayHitDown.collider != null){
-                    isJump = false;
+                    Invoke("Think",2);
                 }
             }
         }
-        
+      
+
         //몬스터 행동 결정 함수, 재귀
-        void Think(){
-            if(isFire){
-                enemyAttack.FireBullet_8();
-                Invoke("Think",2f);
-                isFire = false;
-            }
-            else{
-                Dash();
-                isFire = true;
-            }
-        }
+     
         void Dash()
         {   
             if(! isDetectPlayer){
@@ -189,7 +191,7 @@ namespace Enemy
                 }
             }
         }
-
+    
     }
 
 }

@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // [ 스테이지 관련 ]
     [SerializeField] bool isClear1;
     [SerializeField] bool isClear2;
 
+    // [ 플레이어 관련 ]
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount = 7;
@@ -24,7 +26,12 @@ public class GameManager : MonoBehaviour
     float attackSpeed = 1;
     float playerSpeed = 5;
 
+    // [ 몬스터 관련 ]
+    float M_attackedDamage = 1;
+
+    // [ 덱 관련 ]
     bool isCardEnhance = false;
+
 
 
 
@@ -76,6 +83,13 @@ public class GameManager : MonoBehaviour
         set { isCardEnhance= value; }
     }
 
+
+
+    public float M_AttackDamage
+    {
+        get { return M_attackedDamage; }
+        set { M_attackedDamage = value; }
+    }
 
 
 

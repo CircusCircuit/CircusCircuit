@@ -133,7 +133,7 @@ public class Inventory : MonoBehaviour
             switch (adapt.Atype)
             {
                 case CardSO.Murtiple.AttackType.FightPower:
-                    //몬스터 데미지 배로 가함.
+                    GameManager.Instance.M_AttackDamage *= adapt.increase / 100;
                     return;
 
                 case CardSO.Murtiple.AttackType.FightSpeed:

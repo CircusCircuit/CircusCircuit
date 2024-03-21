@@ -43,7 +43,6 @@ namespace Enemy{
         }
         public void Think(){
             nextmove = Random.Range(-1, 2);
-            
             //방향전환
             if (nextmove != 0)
             {
@@ -52,9 +51,23 @@ namespace Enemy{
             
             Invoke("Think",3);
         }
+        void Turn()
+        {
+            nextmove = nextmove * -1;
+            spriteRenderer.flipX = nextmove == 1;
+        }
+        void UpJump()
+        {
+            Debug.Log("upjump");
+            rigid.velocity = new Vector2(rigid.velocity.x, 15f);
+            isJump = true;
+            // Debug.Log("isJump"+isJump);
+        }
         void Move(float moveSpeed = 2f){
+            if(!isJump){
+                rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y);
+            }
             
-            rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y);
 
             if (isDetectPlatfrom ==false)
             {
@@ -62,21 +75,27 @@ namespace Enemy{
                 Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
                 Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
                 RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 1, LayerMask.GetMask("Wall"));
+                RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
                 
-                if (rayHitDown.collider == null){
+                if (rayHitDown.collider == null && !isJump){
                     if(Random.value<0.5){
                         Turn();
+                        Debug.Log("Turn by ground");
                         CancelInvoke("Think");
                         Invoke("Think",2);
                     }
                     else{
-                        Turn();
+                        UpJump();
+                        Debug.Log("Jump by ground");
                         CancelInvoke("Think");
                         Invoke("Think",2);
                     }
                 }
+                else{
+                    isJump=false;
+                }
                 if (rayHitFoword.collider != null){
+                    Debug.Log("Turn by wall");
                     Turn();
                     CancelInvoke("Think");
                     Invoke("Think",2);
@@ -119,13 +138,7 @@ namespace Enemy{
             nextmove = 0;
         }
 
-        void UpJump()
-        {
-            Debug.Log("upjump");
-            rigid.velocity = new Vector2(rigid.velocity.x/5, 30f);
-            isJump = true;
-            Debug.Log("isJump"+isJump);
-        }
+       
         void DownJump()
         {
             Debug.Log("downjump");
@@ -134,14 +147,7 @@ namespace Enemy{
             Debug.Log("isJump"+isJump);
         }
 
-        void Turn()
-        {
-            Debug.Log("Turn!");
-            nextmove = nextmove * -1;
-            spriteRenderer.flipX = nextmove == 1;
-            CancelInvoke("Dash");
-            Invoke("Dash", 2);
-        }
+       
         void DetectPlayerInRange(float detectionRange = 5f, bool isHorizontal = false)
         {
             // 플레이어의 위치

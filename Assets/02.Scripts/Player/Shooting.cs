@@ -14,7 +14,7 @@ public class Shooting : MonoBehaviour
     public bool canFire;
 
     private float timer;
-    public float timeBetweenFiring;
+    //public float timeBetweenFiring;
 
     private GameObject player;
 
@@ -43,7 +43,7 @@ public class Shooting : MonoBehaviour
         if (!canFire)
         {
             timer += Time.deltaTime;
-            if (timer > timeBetweenFiring)
+            if (timer > GameManager.Instance.AttackSpeed)
             {
                 canFire = true;
                 timer = 0;

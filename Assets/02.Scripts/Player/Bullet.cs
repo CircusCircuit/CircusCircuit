@@ -10,7 +10,7 @@ namespace Player
         private Camera mainCam;
 
         Rigidbody2D rb;
-        //public float force;
+        float force = 15;
 
         // Start is called before the first frame update
         void Start()
@@ -22,7 +22,7 @@ namespace Player
             Vector3 direction = mousePos - transform.position;
             Vector3 rotation = transform.position - mousePos;
 
-            rb.velocity = new Vector2(direction.x, direction.y).normalized * GameManager.Instance.BulletForce;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
             float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
             transform.rotation = Quaternion.Euler(0, 0, rot + 90);

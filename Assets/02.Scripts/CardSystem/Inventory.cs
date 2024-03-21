@@ -120,9 +120,6 @@ public class Inventory : MonoBehaviour
         this.gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
-        print("원래 총알은 7, 변한 최대총알은 " + GameManager.Instance.MaxBullet);
-        print("원래 공속은 15, 변한 공속은 " + GameManager.Instance.BulletForce);
-        print("원래 이속은 5, 변한 이속은 " + GameManager.Instance.PlayerSpeed);
 
         //사용한거 버려야함!!!
     }
@@ -140,7 +137,7 @@ public class Inventory : MonoBehaviour
                     return;
 
                 case CardSO.Murtiple.AttackType.FightSpeed:
-                    GameManager.Instance.BulletForce *= adapt.increase / 100;
+                    GameManager.Instance.AttackSpeed /= adapt.increase / 100;
                     return;
 
                 case CardSO.Murtiple.AttackType.MoveSpeed:

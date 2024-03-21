@@ -14,10 +14,4 @@ public class LoadScenceController : MonoBehaviour
     {
         Time.timeScale = 1;
     }
-
-    //public void InvenOkButton()
-    //{
-    //    this.gameObject.SetActive(false);
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    //}
 }

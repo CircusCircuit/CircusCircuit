@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,10 +33,12 @@ public class PlayerController : MonoBehaviour
     StageController stageController;
 
     BoxCollider2D playerCollider;
+    SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
@@ -59,11 +62,7 @@ public class PlayerController : MonoBehaviour
             isPushDownKey = true;
         }
 
-        // [ 상호작용 ]
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-
-        }
+        if (GameManager.Instance.PlayerHp <= 0) { Die(); }
 
         // [ 구르기(회피) ]
         Dodge();
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             isAttacked = true;
 
-            if (GameManager.Instance.PlayerHp <= 0) { Die(); }
+            //if (GameManager.Instance.PlayerHp <= 0) { Die(); }
             MinusHp(collision.transform.tag);
 
             StartCoroutine(NoAttack());
@@ -106,6 +105,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "Lever")
         {
             stageController.isLever = true;
+        }
+        else
+        {
+            isAttacked = true;
+
+            //if (GameManager.Instance.PlayerHp <= 0) { Die(); }
+            MinusHp(collision.transform.tag);
+
+            StartCoroutine(NoAttack());
         }
     }
 
@@ -216,25 +224,34 @@ public class PlayerController : MonoBehaviour
     {
         switch (tag)
         {
-            case "bullet":
+            case "EnemyBullet":
                 GameManager.Instance.PlayerHp -= 1;
+                StartCoroutine(AttackedEffect());
                 return;
             //case "물리공격":
             //    hp -= 1;
             //    return;
             case "Enemy":
                 GameManager.Instance.PlayerHp -= 0.5f;
+                StartCoroutine(AttackedEffect());
                 return;
         }
 
         isAttacked = false;
-        //getHp();
     }
 
-    //public float getHp()
-    //{
-    //    return GameManager.Instance.PlayerHp;
-    //}
+    IEnumerator AttackedEffect()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            spriteRenderer.color = new Color32(243, 114, 114, 255);
+            yield return new WaitForSeconds(0.1f);
+
+            spriteRenderer.color = new Color32(255, 255, 255, 255);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
 
     IEnumerator NoAttack()
     {
@@ -249,6 +266,6 @@ public class PlayerController : MonoBehaviour
     {
         print("Die상태 스테이지1부터 재시작");
 
-        //챕터1의 스테이지 1부터 재시작
+        SceneManager.LoadScene(1);
     }
 }

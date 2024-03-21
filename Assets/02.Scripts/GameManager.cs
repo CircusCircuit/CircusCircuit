@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     float attackPoewr = 100;
     int curBulletCount = 7;
     int maxBullet = 7;
-    float bulletForce = 15;
+    //float bulletForce = 15;
+    float attackSpeed = 1;
     float playerSpeed = 5;
 
     bool isCardEnhance = false;
@@ -51,10 +52,16 @@ public class GameManager : MonoBehaviour
         set { attackPoewr = value; }
     }
 
-    public float BulletForce
+    //public float BulletForce
+    //{
+    //    get { return bulletForce; }
+    //    set { bulletForce = value; }
+    //}
+
+    public float AttackSpeed
     {
-        get { return bulletForce; }
-        set { bulletForce = value; }
+        get { return attackSpeed; }
+        set { attackSpeed = value; }
     }
 
     public float PlayerSpeed

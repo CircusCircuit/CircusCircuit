@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     float moveX;
     Rigidbody2D rb;
-    bool isGround, isHead, isBase, isPushDownKey;
+    bool isGround, isHead, isBase, isSky, isPushDownKey;
     bool isJump = false;
     bool isDodge = false;
     bool facingRight = true;
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     Vector2 dodgeVec;
 
     StageController stageController;
+    [SerializeField] Shooting shooting;
 
     BoxCollider2D playerCollider;
     SpriteRenderer spriteRenderer;
@@ -68,6 +69,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        playerCollider.isTrigger = false;
+
         if ((!isDodge || !isJump) && collision.gameObject.tag == "Enemy" && !isAttacked)
         {
             //몬스터 충돌 시.
@@ -98,8 +101,9 @@ public class PlayerController : MonoBehaviour
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         isHead = Physics2D.OverlapCircle(headCheck.position, checkRadius, groundLayer);
         isBase = Physics2D.OverlapCircle(groundCheck.position, checkRadius, wallLayer);
+        isSky = Physics2D.OverlapCircle(headCheck.position, checkRadius, wallLayer);
 
-        if (isHead)
+        if (isHead && !isSky)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
@@ -165,7 +169,7 @@ public class PlayerController : MonoBehaviour
             //anim.SetTrigger("doDodge");
 
             isDodge = true;
-            transform.GetChild(0).GetComponent<Shooting>().enabled = false;
+            shooting.canFire = false;
 
             StartCoroutine(DodgeOut()); //밸런스 딜레이
         }
@@ -183,7 +187,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         isDodge = false;
-        transform.GetChild(0).GetComponent<Shooting>().enabled = true;
+        shooting.canFire = true;
     }
 
 

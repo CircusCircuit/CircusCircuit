@@ -7,9 +7,12 @@ namespace Enemy
     public class EnemyAttack : MonoBehaviour
     {
         public GameObject bulletPrefab;
+        private EnemyMove enemyMove;
         public bool isDelay;
         // Start is called before the first frame update
-
+        void Awake(){
+            enemyMove= GetComponent<EnemyMove>();
+        }
         IEnumerator FireBulletCoroutine()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -36,10 +39,12 @@ namespace Enemy
                 Vector2 bulletDirection = directionToPlayer;
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
 
-                yield return new WaitForSeconds(0.5f); // 0.5초 대기
+                yield return new WaitForSeconds(0.1f); 
             }
+            enemyMove.isAttack = false;
         }
         public void FireBullet(){
+            
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
@@ -55,8 +60,8 @@ namespace Enemy
             float bulletSpeed = 10f;
             Vector2 bulletDirection = directionToPlayer;
             bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
-
-    
+            enemyMove.isAttack = false;
+            
         }
         public void FireBullet_Rapid()
         {
@@ -87,7 +92,8 @@ namespace Enemy
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
-            return;
+
+            enemyMove.isAttack =false;
         }
 
         public void FireBullet_16()

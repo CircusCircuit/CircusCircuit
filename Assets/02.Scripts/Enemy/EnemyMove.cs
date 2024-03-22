@@ -15,12 +15,17 @@ namespace Enemy
         public bool isFire = false;
         private bool isDetectPlayer = false;
         private bool isJump = false;
+        private bool isFly = true;
         public bool isAttack = false;
-        bool isFacingLeft = true;
+        private bool isFacingLeft = true;
         private bool isKnockback = false;
-        public int nextmove;
+        public int nextmove = 1;
+        public float cooldownTimer = 3f;
         // public float dashDuration = 0.5f;
         public float dashSpeed = 10f;
+        Vector2 startPosition; // 시작 위치
+
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -28,40 +33,91 @@ namespace Enemy
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
             Invoke("Think", 1);
+            startPosition = transform.position;
+
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (!isKnockback)
-            {
-                if (!isAttack)
-                {
-                    Move(2f);
-                    DetectPlayerInRange(5f, true);
-                }
-                else
-                {
-                    Dash(10f);
-                }
+            if(cooldownTimer>0f){
+                cooldownTimer -= Time.deltaTime;
+            }
+            // if (!isKnockback)
+            // {
+            //     if (!isAttack)
+            //     {
+            //         Move(2f);
+            //         DetectPlayerInRange(5f, true);
+            //     }
+            //     else
+            //     {
+            //         Dash(10f);
+            //     }
 
+            // }
+
+            if (isFly)
+            {
+                Fly();
+                
+            }
+            
+            DetectPlayerInRange(3f);
+            
+        }
+
+        void Fly(float moveSpeed = 2f)
+        {
+            float maxDistance = 0.75f; // 오브젝트와 중앙 사이의 최대 거리
+
+            isFly = true;
+
+            // 일정 범위 내에서 위아래로 이동하기 위한 코드 추가
+            float maxY = startPosition.y + maxDistance;
+            float minY = startPosition.y - maxDistance;
+
+            // 현재 위치가 일정 범위를 벗어나면 방향을 바꿔줍니다.
+            if (transform.position.y >= maxY || transform.position.y <= minY)
+            {
+                nextmove *= -1;
+            }
+
+            // 이동 속도 적용
+            if(!isAttack){
+                rigid.velocity = new Vector2(0, nextmove * moveSpeed);
+            }
+            else{
+                rigid.velocity = new Vector2(0, 0);
             }
         }
         public void Think()
         {
-            nextmove = Random.Range(-1, 2);
-            //방향전환
-            if (nextmove != 0)
+            if (!isFly)
             {
-                spriteRenderer.flipX = nextmove == 1;
-                isFacingLeft = !isFacingLeft;
+                nextmove = Random.Range(-1, 2);
+                if (nextmove != 0)
+                {
+                    spriteRenderer.flipX = nextmove == 1;
+                    isFacingLeft = !isFacingLeft;
+                }
+                else
+                {
+                    enemyAttack.FireBullet_8();
+                }
             }
             else
             {
-                enemyAttack.FireBullet_8();
+                if (Random.value < 0.4)
+                {
+                    isAttack = true;
+                    enemyAttack.FireBullet_8();
+                }
             }
+
             Invoke("Think", 3);
         }
+
         void Turn()
         {
             nextmove = nextmove * -1;
@@ -200,9 +256,6 @@ namespace Enemy
         }
 
 
-
-
-
         void DetectPlayerInRange(float detectionRange = 5f, bool isHorizontal = false)
         {
             // 플레이어의 위치
@@ -211,20 +264,29 @@ namespace Enemy
             // 몬스터와 플레이어의 거리 계산
             float distanceToPlayerX = Mathf.Abs(playerPosition.x - transform.position.x);
             float distanceToPlayerY = Mathf.Abs(playerPosition.y - transform.position.y);
-
+            float distance = Mathf.Sqrt(distanceToPlayerX * distanceToPlayerX + distanceToPlayerY * distanceToPlayerY);
+   
             //수평감지 여부 판단
             if (isHorizontal == false)
             {
                 // 만약 플레이어가 감지 범위 내에 있다면
-                if (distanceToPlayerX <= detectionRange)
+                if (distance <= detectionRange)
                 {
-                    Debug.Log("Player detected!");
-                    isAttack = true;
-                }
-                else
-                {
-                    Debug.Log("Player undetected!");
-                    isAttack = false;
+                    // Debug.Log("Player detected!");
+                    if(cooldownTimer <= 0 ){
+                        if(Random.value>0.3){
+                            isAttack= true;
+                            enemyAttack.FireBullet();
+                            cooldownTimer = 2f;
+                        }
+                        else{
+                            CancelInvoke("Think");
+                            Invoke("Think",4f);
+                            isAttack= true;
+                            enemyAttack.FireBullet_Rapid();
+                            cooldownTimer = 2f;
+                        }
+                    }
                 }
             }
             else

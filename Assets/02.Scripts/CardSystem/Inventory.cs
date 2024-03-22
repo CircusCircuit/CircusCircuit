@@ -120,6 +120,8 @@ public class Inventory : MonoBehaviour
         this.gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
+        Cursor.visible = false;
+
 
         //사용한거 버려야함!!!
     }

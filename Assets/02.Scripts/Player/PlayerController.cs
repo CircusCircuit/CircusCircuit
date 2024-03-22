@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D playerCollider;
     SpriteRenderer spriteRenderer;
 
+    GameObject FailUI;
+
     private void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+        FailUI = GameObject.FindWithTag("FailUI").transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -61,7 +64,10 @@ public class PlayerController : MonoBehaviour
             isPushDownKey = true;
         }
 
-        if (GameManager.Instance.PlayerHp <= 0) { Die(); }
+        if (GameManager.Instance.PlayerHp <= 0)
+        {
+            Die();
+        }
 
         // [ 구르기(회피) ]
         Dodge();
@@ -244,7 +250,22 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        print("Die상태 스테이지1부터 재시작");
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            FailUI.SetActive(true);
+
+            StartCoroutine(RestartScene());
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            FailUI.SetActive(true);
+        }
+    }
+
+    IEnumerator RestartScene()
+    {
+        yield return new WaitForSeconds(0.3f);
 
         SceneManager.LoadScene(1);
     }

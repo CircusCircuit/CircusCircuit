@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class EnemyRespawnManager : MonoBehaviour
 {
@@ -22,8 +23,17 @@ public class EnemyRespawnManager : MonoBehaviour
                 SpawnMonster();
                 completeFlag =true;
             }
-            else{
-                GameManager.Instance.Clear1 = true;
+            else
+            {
+                switch (SceneManager.GetActiveScene().buildIndex)
+                {
+                    case 1:
+                        GameManager.Instance.Clear1 = true;
+                        return;
+                    case 2:
+                        GameManager.Instance.Clear2 = true;
+                        return;
+                }
             }
         }
     }

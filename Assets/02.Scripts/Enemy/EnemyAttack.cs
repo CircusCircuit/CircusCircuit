@@ -92,7 +92,6 @@ namespace Enemy
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
-
             enemyMove.isAttack =false;
         }
 

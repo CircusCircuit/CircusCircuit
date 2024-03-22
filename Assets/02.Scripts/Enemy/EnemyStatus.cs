@@ -31,10 +31,6 @@ namespace Enemy{
             {
                 Debug.Log("attacted");
                 TakeDamage(0.5f);
-                enemyAttack.FireBullet_8();
-                CancelInvoke("enemyMove.Stop");
-                enemyMove.nextmove *= -1; 
-                enemyMove.isFire = false;
             }
         }
         private void OnTriggerEnter(Collider other){

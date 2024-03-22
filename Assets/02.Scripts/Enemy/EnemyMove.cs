@@ -16,7 +16,7 @@ namespace Enemy
         private bool isDetectPlayer = false;
         private bool isJump = false;
         public bool isAttack = false;
-        
+        bool isFacingLeft = true;
         private bool isKnockback = false;
         public int nextmove;
         // public float dashDuration = 0.5f;
@@ -33,14 +33,18 @@ namespace Enemy
         // Update is called once per frame
         void FixedUpdate()
         {
-            if(!isKnockback){
-                if(!isAttack){
+            if (!isKnockback)
+            {
+                if (!isAttack)
+                {
                     Move(2f);
+                    DetectPlayerInRange(5f, true);
                 }
-                else{
+                else
+                {
                     Dash(10f);
                 }
-                DetectPlayerInRange(5f, true);
+
             }
         }
         public void Think()
@@ -50,8 +54,10 @@ namespace Enemy
             if (nextmove != 0)
             {
                 spriteRenderer.flipX = nextmove == 1;
+                isFacingLeft = !isFacingLeft;
             }
-            else{
+            else
+            {
                 enemyAttack.FireBullet_8();
             }
             Invoke("Think", 3);
@@ -60,6 +66,7 @@ namespace Enemy
         {
             nextmove = nextmove * -1;
             spriteRenderer.flipX = nextmove == 1;
+            isFacingLeft = !isFacingLeft;
         }
         void UpJump()
         {
@@ -80,7 +87,7 @@ namespace Enemy
             {
                 rigid.velocity = new Vector2(nextmove * moveSpeed, 0);
             }
-            
+
             Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
             Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
             Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
@@ -113,7 +120,7 @@ namespace Enemy
             }
             if (rayHitDown.collider != null)
             {
-                rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y*0.3f);
+                rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y * 0.3f);
                 isJump = false;
             }
             if (rayHitFoword.collider != null)
@@ -125,9 +132,9 @@ namespace Enemy
 
         }
         public void Dash(float dashSpeed = 10f)
-        {   
+        {
             CancelInvoke("Think");
-            
+
             if (!isJump)
             {
                 rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
@@ -138,19 +145,21 @@ namespace Enemy
             Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
             RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
             RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+            RaycastHit2D rayHitplayer = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
 
-            if (rayHitFoword.collider != null)
+            if (rayHitFoword.collider != null || rayHitplayer.collider != null)
             {
                 enemyAttack.FireBullet_8();
                 Knockback(transform.position.normalized);
                 CancelInvoke("Think");
-                
             }
+
             if (rayHitDown.collider == null)
             {
                 isJump = true;
             }
-            else{
+            else
+            {
                 isJump = false;
             }
 
@@ -159,32 +168,35 @@ namespace Enemy
         {
             float knockbackForce = 5f;
             float knockbackDuration = 1.5f;
-            
+
             if (!isKnockback)
             {
+                isKnockback = true;
                 // Vector2 collisionDirection = (collision.transform.position - transform.position).normalized;
 
                 // knockbackDirection에 주어진 방향으로 힘을 가해서 몬스터를 밀어냅니다.
                 rigid.velocity = Vector2.zero; // 이전의 속도를 초기화합니다.
-                rigid.AddForce(direction * -knockbackForce, ForceMode2D.Impulse);
+                rigid.AddForce(direction * -knockbackForce * 2f, ForceMode2D.Impulse);
 
                 // knockbackDuration 후에 knockback 상태를 해제합니다.
                 Invoke("EndKnockback", knockbackDuration);
 
-                isKnockback = true;
+
             }
         }
-        void EndKnockback(){
+        void EndKnockback()
+        {
             Debug.Log("knockback");
             isAttack = false;
             isKnockback = false;
             nextmove *= -1;
             spriteRenderer.flipX = nextmove == 1;
+            isFacingLeft = !isFacingLeft;
             Invoke("Think", 2f);
         }
         void Stop()
         {
-            nextmove = 0;
+            rigid.velocity = new Vector2(0, 0);
         }
 
 
@@ -219,26 +231,41 @@ namespace Enemy
             {
                 if (distanceToPlayerY <= 1f)
                 {
-                    //적 기준 왼쪽 위치
-                    if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
+                    if (isFacingLeft)
                     {
-                        Debug.Log("Player left detected!");
-                        isAttack = true;
-
+                        // 플레이어가 몬스터의 왼쪽에 있고 감지 범위 내에 있다면
+                        if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
+                        {
+                            Debug.Log("Player detected on the left!");
+                            isAttack = true;
+                        }
+                        else
+                        {
+                            Debug.Log("Player undetected!");
+                            isAttack = false;
+                        }
                     }
-                    //적 기준 오른쪽 위치
-                    else if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
+                    else // 몬스터가 오른쪽을 보고 있을 때
                     {
-                        Debug.Log("Player Right detected!");
-                        isAttack = true;
+                        // 플레이어가 몬스터의 오른쪽에 있고 감지 범위 내에 있다면
+                        if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
+                        {
+                            Debug.Log("Player detected on the right!");
+                            isAttack = true;
+                        }
+                        else
+                        {
+                            Debug.Log("Player undetected!");
+                            isAttack = false;
+                        }
                     }
                 }
                 else
                 {
                     Debug.Log("Player undetected!");
                     isAttack = false;
-
                 }
+
             }
         }
 

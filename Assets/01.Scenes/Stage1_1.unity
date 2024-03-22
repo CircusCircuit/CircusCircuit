@@ -946,7 +946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &261103094
 Transform:
   m_ObjectHideFlags: 0
@@ -1662,12 +1662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e00d30068c8237408014ca94039b3d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterObject:
-  - {fileID: 1388502884}
-  - {fileID: 145405103}
-  - {fileID: 1388502884}
-  - {fileID: 145405103}
-  - {fileID: 261103093}
   waveObject: {fileID: 261103093}
 --- !u!4 &389237665
 Transform:
@@ -3830,7 +3824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1580756419
 Transform:
   m_ObjectHideFlags: 0

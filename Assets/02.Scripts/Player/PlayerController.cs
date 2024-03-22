@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     float moveX;
     Rigidbody2D rb;
-    bool isGround, isHead, isBase, isPushDownKey;
+    bool isGround, isHead, isBase, isSky, isPushDownKey;
     bool isJump = false;
     bool isDodge = false;
     bool facingRight = true;
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     Vector2 dodgeVec;
 
     StageController stageController;
+    [SerializeField] Shooting shooting;
 
     BoxCollider2D playerCollider;
     SpriteRenderer spriteRenderer;
@@ -46,8 +47,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
-
-        //Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
     }
 
     // Update is called once per frame
@@ -70,50 +69,30 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 6)
-        {
-            //platform = collision.gameObject;
-
-            //print("collisionEnter -> " + platform.name);
-            //playerCollider.isTrigger = true;
-        }
-        else
-        {
-            isAttacked = true;
-
-            //if (GameManager.Instance.PlayerHp <= 0) { Die(); }
-            MinusHp(collision.transform.tag);
-
-            StartCoroutine(NoAttack());
-        }
-
-        if (collision.gameObject.name == "Lever")
-        {
-            stageController.isLever = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
         playerCollider.isTrigger = false;
+
+        if ((!isDodge || !isJump) && collision.gameObject.tag == "Enemy" && !isAttacked)
+        {
+            //몬스터 충돌 시.
+            isAttacked = true;
+            MinusHp(collision.transform.tag);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         playerCollider.isTrigger = false;
 
+        if ((!isDodge || !isJump) && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
+        {
+            //총알 피격 시.
+            isAttacked = true;
+            MinusHp(collision.transform.tag);
+        }
+
         if (collision.gameObject.name == "Lever")
         {
             stageController.isLever = true;
-        }
-        else
-        {
-            isAttacked = true;
-
-            //if (GameManager.Instance.PlayerHp <= 0) { Die(); }
-            MinusHp(collision.transform.tag);
-
-            StartCoroutine(NoAttack());
         }
     }
 
@@ -122,8 +101,9 @@ public class PlayerController : MonoBehaviour
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         isHead = Physics2D.OverlapCircle(headCheck.position, checkRadius, groundLayer);
         isBase = Physics2D.OverlapCircle(groundCheck.position, checkRadius, wallLayer);
+        isSky = Physics2D.OverlapCircle(headCheck.position, checkRadius, wallLayer);
 
-        if (isHead)
+        if (isHead && !isSky)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
@@ -189,7 +169,7 @@ public class PlayerController : MonoBehaviour
             //anim.SetTrigger("doDodge");
 
             isDodge = true;
-            transform.GetChild(0).GetComponent<Shooting>().enabled = false;
+            shooting.canFire = false;
 
             StartCoroutine(DodgeOut()); //밸런스 딜레이
         }
@@ -207,7 +187,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         isDodge = false;
-        transform.GetChild(0).GetComponent<Shooting>().enabled = true;
+        shooting.canFire = true;
     }
 
 
@@ -227,6 +207,7 @@ public class PlayerController : MonoBehaviour
             case "EnemyBullet":
                 GameManager.Instance.PlayerHp -= 1;
                 StartCoroutine(AttackedEffect());
+                StartCoroutine(NoAttack());
                 return;
             //case "물리공격":
             //    hp -= 1;
@@ -234,10 +215,9 @@ public class PlayerController : MonoBehaviour
             case "Enemy":
                 GameManager.Instance.PlayerHp -= 0.5f;
                 StartCoroutine(AttackedEffect());
+                StartCoroutine(NoAttack());
                 return;
         }
-
-        isAttacked = false;
     }
 
     IEnumerator AttackedEffect()
@@ -255,11 +235,11 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator NoAttack()
     {
-        yield return new WaitForSeconds(2f);
-
         //2초간 무적상태
         //몬스터 물리, 탄막, 충돌을 무적 상태로 회피
 
+        yield return new WaitForSeconds(2f);
+        isAttacked = false;
     }
 
     void Die()

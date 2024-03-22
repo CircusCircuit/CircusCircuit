@@ -15,7 +15,10 @@ namespace Enemy
         public bool isFire = false;
         private bool isDetectPlayer = false;
         private bool isJump = false;
-        private bool isFly = true;
+        public bool isFly = false;
+        public bool isGround = false;
+        public bool isDying = false;
+
         public bool isAttack = false;
         private bool isFacingLeft = true;
         private bool isKnockback = false;
@@ -40,31 +43,45 @@ namespace Enemy
         // Update is called once per frame
         void FixedUpdate()
         {
-            if(cooldownTimer>0f){
-                cooldownTimer -= Time.deltaTime;
-            }
-            // if (!isKnockback)
-            // {
-            //     if (!isAttack)
-            //     {
-            //         Move(2f);
-            //         DetectPlayerInRange(5f, true);
-            //     }
-            //     else
-            //     {
-            //         Dash(10f);
-            //     }
-
-            // }
-
-            if (isFly)
+            if (!isDying)
             {
-                Fly();
-                
+                if (cooldownTimer > 0f)
+                {
+                    cooldownTimer -= Time.deltaTime;
+                }
+
+                if (isGround)
+                {
+                    if (!isKnockback)
+                    {
+                        if (!isAttack)
+                        {
+                            Move(2f);
+                            DetectPlayerInRange(5f, true);
+                        }
+                        else
+                        {
+                            Dash(10f);
+                        }
+
+                    }
+                }
+
+
+                if (isFly)
+                {
+                    Fly();
+                    DetectPlayerInRange(7f);
+                }
             }
-            
-            DetectPlayerInRange(3f);
-            
+            else{
+                CancelInvoke();
+                rigid.velocity = new Vector2(0, 0);
+
+            }
+
+
+
         }
 
         void Fly(float moveSpeed = 2f)
@@ -84,15 +101,18 @@ namespace Enemy
             }
 
             // 이동 속도 적용
-            if(!isAttack){
+            if (!isAttack)
+            {
                 rigid.velocity = new Vector2(0, nextmove * moveSpeed);
             }
-            else{
+            else
+            {
                 rigid.velocity = new Vector2(0, 0);
             }
         }
         public void Think()
         {
+
             if (!isFly)
             {
                 nextmove = Random.Range(-1, 2);
@@ -110,8 +130,12 @@ namespace Enemy
             {
                 if (Random.value < 0.4)
                 {
-                    isAttack = true;
-                    enemyAttack.FireBullet_8();
+                    if (cooldownTimer <= 0f)
+                    {
+                        isAttack = true;
+                        enemyAttack.FireBullet_8();
+                        cooldownTimer = 2f;
+                    }
                 }
             }
 
@@ -149,7 +173,6 @@ namespace Enemy
             Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
             RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
             RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
-
             if (rayHitDown.collider == null && !isJump)
             {
                 if (Random.value < 0.5)
@@ -179,12 +202,13 @@ namespace Enemy
                 rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y * 0.3f);
                 isJump = false;
             }
-            if (rayHitFoword.collider != null)
+            if (rayHitFoword.collider != null )
             {
                 Turn();
                 CancelInvoke("Think");
                 Invoke("Think", 2);
             }
+
 
         }
         public void Dash(float dashSpeed = 10f)
@@ -201,9 +225,10 @@ namespace Enemy
             Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
             RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
             RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-            RaycastHit2D rayHitplayer = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
+            RaycastHit2D rayHitPlayer = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
 
-            if (rayHitFoword.collider != null || rayHitplayer.collider != null)
+
+            if (rayHitFoword.collider != null || rayHitPlayer.collider != null)
             {
                 enemyAttack.FireBullet_8();
                 Knockback(transform.position.normalized);
@@ -254,8 +279,18 @@ namespace Enemy
         {
             rigid.velocity = new Vector2(0, 0);
         }
-
-
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                if(!isAttack){
+                    Turn();
+                }
+                else{
+                    Knockback(transform.position.normalized);
+                }
+            }
+        }
         void DetectPlayerInRange(float detectionRange = 5f, bool isHorizontal = false)
         {
             // 플레이어의 위치
@@ -265,7 +300,7 @@ namespace Enemy
             float distanceToPlayerX = Mathf.Abs(playerPosition.x - transform.position.x);
             float distanceToPlayerY = Mathf.Abs(playerPosition.y - transform.position.y);
             float distance = Mathf.Sqrt(distanceToPlayerX * distanceToPlayerX + distanceToPlayerY * distanceToPlayerY);
-   
+
             //수평감지 여부 판단
             if (isHorizontal == false)
             {
@@ -273,16 +308,19 @@ namespace Enemy
                 if (distance <= detectionRange)
                 {
                     // Debug.Log("Player detected!");
-                    if(cooldownTimer <= 0 ){
-                        if(Random.value>0.3){
-                            isAttack= true;
+                    if (cooldownTimer <= 0)
+                    {
+                        if (Random.value > 0.3)
+                        {
+                            isAttack = true;
                             enemyAttack.FireBullet();
                             cooldownTimer = 2f;
                         }
-                        else{
+                        else
+                        {
                             CancelInvoke("Think");
-                            Invoke("Think",4f);
-                            isAttack= true;
+                            Invoke("Think", 4f);
+                            isAttack = true;
                             enemyAttack.FireBullet_Rapid();
                             cooldownTimer = 2f;
                         }

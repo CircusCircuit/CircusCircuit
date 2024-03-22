@@ -16,10 +16,12 @@ public class StageController : MonoBehaviour
 
     [SerializeField] CardController cardController;
 
+    GameObject SuccUI;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SuccUI = GameObject.FindWithTag("SuccUI").transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -37,6 +39,11 @@ public class StageController : MonoBehaviour
         if (isLever)
         {
             Interaction();
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 2 && GameManager.Instance.Clear2)
+        {
+            SuccUI.gameObject.SetActive(true);
         }
     }
 
@@ -66,5 +73,6 @@ public class StageController : MonoBehaviour
         yield return new WaitForSeconds(length);
 
         cardController.RandomCard();
+        Cursor.visible = true;
     }
 }

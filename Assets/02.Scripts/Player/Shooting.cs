@@ -52,11 +52,13 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 && !Lever.activeSelf)
         {
-            GameManager.Instance.CurBulletCount--;
-            canFire = false;
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
-            print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
+            GameManager.Instance.CurBulletCount -= 1;
             bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+
+            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+
+            canFire = false;
+            //print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
         }
 
         if (GameManager.Instance.CurBulletCount <= 0)

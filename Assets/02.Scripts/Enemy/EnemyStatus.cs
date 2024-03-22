@@ -39,11 +39,11 @@ namespace Enemy
             Debug.Log("get");
             if (other.CompareTag("playerbullet"))
             {
-                TakeDamage(GameManager.Instance.M_AttackDamage = 1);
+                TakeDamage(GameManager.Instance.M_AttackDamage);
                 Debug.Log("ahh");
             }
         }
-        public void TakeDamage(float damage = 1)
+        public void TakeDamage(float damage)
         {
             Debug.Log(":(");
             currentEnemyHP -= damage;

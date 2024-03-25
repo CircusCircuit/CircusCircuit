@@ -227,6 +227,8 @@ MonoBehaviour:
   bullet: {fileID: 7697859408948438073, guid: dfb0b6d2d552f1940b90c66318a82940, type: 3}
   bulletTransform: {fileID: 1718156012466787958}
   canFire: 1
+  loadingObj: {fileID: 0}
+  loadingImg: {fileID: 0}
 --- !u!1 &1718156013285010583
 GameObject:
   m_ObjectHideFlags: 0

@@ -57,7 +57,7 @@ namespace Player
                 EnemyStatus enemyStatus = collision.gameObject.GetComponent<EnemyStatus>();
                 if (enemyStatus != null)
                 {
-                    enemyStatus.TakeDamage(5);
+                    enemyStatus.TakeDamage(GameManager.Instance.M_AttackDamage);
                 }
                 Destroy(gameObject);
             }

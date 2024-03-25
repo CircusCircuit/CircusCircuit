@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     float playerSpeed = 5;
 
     // [ 몬스터 관련 ]
-    float M_attackedDamage = 1;
+    float M_attackedDamage = 5;
 
     // [ 덱 관련 ]
     bool isCardEnhance = false;

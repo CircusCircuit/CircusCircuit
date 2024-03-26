@@ -10,6 +10,8 @@ TagManager:
   - Inventory
   - CardController
   - EnemyBullet
+  - FailUI
+  - SuccUI
   layers:
   - Default
   - TransparentFX

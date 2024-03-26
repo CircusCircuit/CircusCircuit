@@ -5,14 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    GameObject openCanvas;
 
-    private void Awake()
-    {
-        Instance = this;
-
-        DontDestroyOnLoad(gameObject);
-    }
-
+   
     // [ 스테이지 관련 ]
     [SerializeField] bool isClear1;
     [SerializeField] bool isClear2;
@@ -20,19 +15,41 @@ public class GameManager : MonoBehaviour
     // [ 플레이어 관련 ]
     float hp = 4;
     float attackPoewr = 100;
-    int curBulletCount = 7;
+    int curBulletCount;
     int maxBullet = 7;
     //float bulletForce = 15;
     float attackSpeed = 1;
     float playerSpeed = 5;
 
     // [ 몬스터 관련 ]
-    float M_attackedDamage = 1;
+    float M_attackedDamage = 5;
 
     // [ 덱 관련 ]
     bool isCardEnhance = false;
 
 
+    private void Awake()
+    {
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+
+        curBulletCount = maxBullet;
+
+        openCanvas = GameObject.Find("OpenCanvas").gameObject;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(CloseOpenCurtain());
+    }
+    
+    IEnumerator CloseOpenCurtain()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        Destroy(openCanvas);
+    }
 
 
     public float PlayerHp

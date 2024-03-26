@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
@@ -21,6 +23,11 @@ public class Shooting : MonoBehaviour
     TextMeshProUGUI bulletTxt;
     GameObject Lever;
 
+    GameObject loadingObj;
+    Image loadingImg;
+
+    float curTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +36,9 @@ public class Shooting : MonoBehaviour
         bulletTxt = GameObject.Find("Bullet").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
         Lever = GameObject.FindWithTag("GameController").transform.GetChild(0).gameObject;
+
+        loadingObj = GameObject.FindWithTag("GameController").transform.GetChild(2).GetChild(0).gameObject;
+        loadingImg = loadingObj.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -39,6 +49,8 @@ public class Shooting : MonoBehaviour
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
         transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
+
+        loadingObj.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 1.5f, 0));
 
         if (!canFire)
         {
@@ -52,25 +64,56 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 && !Lever.activeSelf)
         {
-            GameManager.Instance.CurBulletCount--;
-            canFire = false;
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
-            print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
+            GameManager.Instance.CurBulletCount -= 1;
             bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+
+            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+
+            canFire = false;
+            //print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
         }
 
         if (GameManager.Instance.CurBulletCount <= 0)
         {
-            StartCoroutine(ReloadBullet());
+            BeAttacked();
         }
+    }
+
+    void BeAttacked()
+    {
+        canFire = false;
+
+        StartCoroutine(ReloadBullet());
+        StartCoroutine(LoadingUI());
     }
 
     IEnumerator ReloadBullet()
     {
+        print("ReloadBullet È£Ãâ");
+
         yield return new WaitForSeconds(3f);
 
+        GameManager.Instance.CurBulletCount = 0;
         GameManager.Instance.CurBulletCount = GameManager.Instance.MaxBullet;
-        print("Bullet ÀçÀåÀü, " + GameManager.Instance.CurBulletCount);
+        //print("Bullet ÀçÀåÀü, " + GameManager.Instance.CurBulletCount);
         bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+
+        curTime = 0;
+        loadingImg.fillAmount = 0;
+
+        canFire = true;
+
+        StopAllCoroutines();
+    }
+
+    IEnumerator LoadingUI()
+    {
+        while (curTime <= 230)
+        {
+            curTime += Time.deltaTime;
+            loadingImg.fillAmount = curTime / 230;
+
+            yield return new WaitForFixedUpdate();
+        }
     }
 }

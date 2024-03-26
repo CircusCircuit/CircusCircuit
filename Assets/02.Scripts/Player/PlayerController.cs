@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D playerCollider;
     SpriteRenderer spriteRenderer;
 
+    GameObject FailUI;
+
     private void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+        FailUI = GameObject.FindWithTag("FailUI").transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -61,7 +64,10 @@ public class PlayerController : MonoBehaviour
             isPushDownKey = true;
         }
 
-        if (GameManager.Instance.PlayerHp <= 0) { Die(); }
+        if (GameManager.Instance.PlayerHp <= 0)
+        {
+            Die();
+        }
 
         // [ 구르기(회피) ]
         Dodge();
@@ -71,7 +77,12 @@ public class PlayerController : MonoBehaviour
     {
         playerCollider.isTrigger = false;
 
-        if ((!isDodge || !isJump) && collision.gameObject.tag == "Enemy" && !isAttacked)
+
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (isGround && !isDodge && collision.gameObject.tag == "Enemy" && !isAttacked)
         {
             //몬스터 충돌 시.
             isAttacked = true;
@@ -83,7 +94,7 @@ public class PlayerController : MonoBehaviour
     {
         playerCollider.isTrigger = false;
 
-        if ((!isDodge || !isJump) && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
+        if (isGround && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
         {
             //총알 피격 시.
             isAttacked = true;
@@ -156,13 +167,13 @@ public class PlayerController : MonoBehaviour
         }
 
         //점프 중 몬스터의 물리 공격, 탄막 공격, 충돌을 무적 상태로 회피한다.
-        StartCoroutine(NoAttack());
+        //StartCoroutine(NoAttack(null));
     }
 
     // [ 구르기 ]
     void Dodge()
     {
-        if (Input.GetMouseButtonDown(1) && moveVec != Vector2.zero && isJump == false && isDodge == false)
+        if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && isJump == false && isDodge == false)
         {
             dodgeVec = moveVec;
             GameManager.Instance.PlayerSpeed *= 2;
@@ -202,22 +213,8 @@ public class PlayerController : MonoBehaviour
 
     void MinusHp(string tag)
     {
-        switch (tag)
-        {
-            case "EnemyBullet":
-                GameManager.Instance.PlayerHp -= 1;
-                StartCoroutine(AttackedEffect());
-                StartCoroutine(NoAttack());
-                return;
-            //case "물리공격":
-            //    hp -= 1;
-            //    return;
-            case "Enemy":
-                GameManager.Instance.PlayerHp -= 0.5f;
-                StartCoroutine(AttackedEffect());
-                StartCoroutine(NoAttack());
-                return;
-        }
+        StartCoroutine(AttackedEffect());
+        StartCoroutine(NoAttack(tag));
     }
 
     IEnumerator AttackedEffect()
@@ -233,10 +230,23 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    IEnumerator NoAttack()
+    IEnumerator NoAttack(string tag)
     {
         //2초간 무적상태
         //몬스터 물리, 탄막, 충돌을 무적 상태로 회피
+
+        if (isAttacked)
+        {
+            if (tag == "EnemyBullet")
+            {
+                GameManager.Instance.PlayerHp -= 1;
+            }
+            if (tag == "Enemy")
+            {
+                GameManager.Instance.PlayerHp -= 0.5f;
+            }
+        }
+
 
         yield return new WaitForSeconds(2f);
         isAttacked = false;
@@ -244,7 +254,22 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        print("Die상태 스테이지1부터 재시작");
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            FailUI.SetActive(true);
+
+            StartCoroutine(RestartScene());
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            FailUI.SetActive(true);
+        }
+    }
+
+    IEnumerator RestartScene()
+    {
+        yield return new WaitForSeconds(0.3f);
 
         SceneManager.LoadScene(1);
     }

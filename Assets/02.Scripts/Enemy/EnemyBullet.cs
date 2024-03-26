@@ -30,12 +30,14 @@ namespace Enemy{
         }
 
         // 총알이 충돌하면 호출되는 함수
-        void OnTriggerEnter2D(Collider2D other)
+         void OnTriggerEnter2D(Collider2D other)
         {
             // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
             if (other.CompareTag("Ground") || !other.isTrigger)
             {
-                DestroyBullet();
+                if(!other.CompareTag("Enemy")&&!other.CompareTag("EnemyBullet")){
+                    DestroyBullet();
+                }
             }
         }
 

@@ -43,43 +43,46 @@ namespace Enemy
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (!isDying)
-            {
-                if (cooldownTimer > 0f)
-                {
-                    cooldownTimer -= Time.deltaTime;
-                }
+            // if (!isDying)
+            // {
+            //     if (cooldownTimer > 0f)
+            //     {
+            //         cooldownTimer -= Time.deltaTime;
+            //     }
 
-                if (isGround)
-                {
-                    if (!isKnockback)
-                    {
-                        if (!isAttack)
-                        {
-                            Move(2f);
-                            DetectPlayerInRange(5f, true);
-                        }
-                        else
-                        {
-                            Dash(10f);
-                        }
+            //     if (isGround)
+            //     {
+            //         if (!isKnockback)
+            //         {
+            //             if (!isAttack)
+            //             {
+            //                 Move(2f);
+            //                 DetectPlayerInRange(5f, true);
+            //             }
+            //             else
+            //             {
+            //                 Dash(10f);
+            //             }
 
-                    }
-                }
+            //         }
+            //     }
 
 
-                if (isFly)
-                {
-                    Fly();
-                    DetectPlayerInRange(7f);
-                }
+            //     if (isFly)
+            //     {
+            //         Fly();
+            //         DetectPlayerInRange(7f);
+            //     }
+            // }
+            // else{
+            //     CancelInvoke();
+            //     rigid.velocity = new Vector2(0, 0);
+
+            // }
+            if(cooldownTimer<=0f){
+                enemyAttack.FireBullet_8();
+                cooldownTimer = 1.5f;
             }
-            else{
-                CancelInvoke();
-                rigid.velocity = new Vector2(0, 0);
-
-            }
-
 
 
         }
@@ -163,16 +166,24 @@ namespace Enemy
         }
         void Move(float moveSpeed = 2f)
         {
-            if (!isJump)
+            Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
+            Vector3 downVec = new Vector2(rigid.position.x - 0.5f , rigid.position.y - 0.7f);
+            Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
+            Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
+            Debug.DrawRay(downVec, Vector3.right, new Color(0, 0, 1));
+
+            
+            RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
+            RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector3.right, 1f, LayerMask.GetMask("Enemy"));
+
+
+            if (!isJump || rayHitEnemy.collider != null)
             {
                 rigid.velocity = new Vector2(nextmove * moveSpeed, 0);
             }
 
-            Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
-            Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
-            Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
-            RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
+            
             if (rayHitDown.collider == null && !isJump)
             {
                 if (Random.value < 0.5)
@@ -215,17 +226,21 @@ namespace Enemy
         {
             CancelInvoke("Think");
 
-            if (!isJump)
-            {
-                rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
-            }
-
             Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
+            Vector3 downVec = new Vector2(rigid.position.x - 0.5f , rigid.position.y - 0.7f);
+
             Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
             Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
             RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
             RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+            RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector3.right, 1f, LayerMask.GetMask("Enemy"));
             RaycastHit2D rayHitPlayer = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
+
+            if (!isJump || rayHitEnemy.collider != null)
+            {
+                rigid.velocity = new Vector2(nextmove * dashSpeed, rigid.velocity.y);
+            }
+
 
 
             if (rayHitFoword.collider != null || rayHitPlayer.collider != null)

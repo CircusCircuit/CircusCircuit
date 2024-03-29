@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     float M_attackedDamage = 5;
 
     // [ µ¦ °ü·Ã ]
-    bool isCardEnhance = false;
+    //bool isCardEnhance = false;
 
 
     private void Awake()
@@ -94,11 +94,11 @@ public class GameManager : MonoBehaviour
         set { playerSpeed = value; }
     }
 
-    public bool IsCardEnhance
-    {
-        get { return isCardEnhance; }
-        set { isCardEnhance= value; }
-    }
+    //public bool IsCardEnhance
+    //{
+    //    get { return isCardEnhance; }
+    //    set { isCardEnhance= value; }
+    //}
 
 
 

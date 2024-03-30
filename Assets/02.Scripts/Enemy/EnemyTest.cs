@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyMove : MonoBehaviour
+    public class EnemyTest : MonoBehaviour
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
@@ -35,7 +35,7 @@ namespace Enemy
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
-            Invoke("Think", 1);
+            // Invoke("Think", 1);
             startPosition = transform.position;
 
         }
@@ -43,44 +43,17 @@ namespace Enemy
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (!isDying)
-            {
+      
                 if (cooldownTimer > 0f)
                 {
                     cooldownTimer -= Time.deltaTime;
                 }
-
-                if (isGround)
-                {
-                    if (!isKnockback)
-                    {
-                        if (!isAttack)
-                        {
-                            Move(2f);
-                            DetectPlayerInRange(5f, true);
-                        }
-                        else
-                        {
-                            Dash(10f);
-                        }
-
-                    }
+                if(cooldownTimer<=0f){
+                    enemyAttack.FireBullet_Circle12();
+                    cooldownTimer = 5f;
                 }
 
-
-                if (isFly)
-                {
-                    Fly();
-                    DetectPlayerInRange(7f);
-                }
-            }
-            else{
-                CancelInvoke();
-                rigid.velocity = new Vector2(0, 0);
-
-            }
-            
-
+               
         }
 
         void Fly(float moveSpeed = 2f)

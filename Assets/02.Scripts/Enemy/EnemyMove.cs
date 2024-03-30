@@ -43,47 +43,43 @@ namespace Enemy
         // Update is called once per frame
         void FixedUpdate()
         {
-            // if (!isDying)
-            // {
-            //     if (cooldownTimer > 0f)
-            //     {
-            //         cooldownTimer -= Time.deltaTime;
-            //     }
+            if (!isDying)
+            {
+                if (cooldownTimer > 0f)
+                {
+                    cooldownTimer -= Time.deltaTime;
+                }
 
-            //     if (isGround)
-            //     {
-            //         if (!isKnockback)
-            //         {
-            //             if (!isAttack)
-            //             {
-            //                 Move(2f);
-            //                 DetectPlayerInRange(5f, true);
-            //             }
-            //             else
-            //             {
-            //                 Dash(10f);
-            //             }
+                if (isGround)
+                {
+                    if (!isKnockback)
+                    {
+                        if (!isAttack)
+                        {
+                            Move(2f);
+                            DetectPlayerInRange(5f, true);
+                        }
+                        else
+                        {
+                            Dash(10f);
+                        }
 
-            //         }
-            //     }
+                    }
+                }
 
 
-            //     if (isFly)
-            //     {
-            //         Fly();
-            //         DetectPlayerInRange(7f);
-            //     }
-            // }
-            // else{
-            //     CancelInvoke();
-            //     rigid.velocity = new Vector2(0, 0);
-
-            // }
-            if(cooldownTimer<=0f){
-                enemyAttack.FireBullet_8();
-                cooldownTimer = 1.5f;
+                if (isFly)
+                {
+                    Fly();
+                    DetectPlayerInRange(7f);
+                }
             }
+            else{
+                CancelInvoke();
+                rigid.velocity = new Vector2(0, 0);
 
+            }
+            
 
         }
 

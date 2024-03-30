@@ -7,6 +7,7 @@ namespace Enemy
     public class EnemyAttack : MonoBehaviour
     {
         public GameObject bulletPrefab;
+        public GameObject gBulletPrefab;
         private EnemyMove enemyMove;
         public bool isDelay;
         // Start is called before the first frame update
@@ -43,6 +44,40 @@ namespace Enemy
             }
             enemyMove.isAttack = false;
         }
+               public void FireBullet_area()
+        {
+            StartCoroutine(FireBulletAreaCoroutine());
+        }
+
+        IEnumerator FireBulletAreaCoroutine()
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            for (int i = 0; i < 20; i++)
+            {
+                // 각 방향에 따른 회전 각도
+                float val = Random.Range(0, 45);
+                float rotation = val - 65;
+
+                // 총알을 회전시켜 생성합니다.
+                float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+                // 원 주위의 랜덤한 위치 계산
+                float spawnX = transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
+                float spawnY = transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
+
+                // 오브젝트 생성
+                GameObject bullet = Instantiate(gBulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                // 총알의 초기 속도 설정
+                float bulletSpeed = 5f;
+                float bulletDirectionX = Mathf.Cos(Mathf.Deg2Rad * rotation);
+                float bulletDirectionY = Mathf.Sin(Mathf.Deg2Rad * rotation);
+                Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
+                bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+                yield return new WaitForSeconds(0.05f); 
+            }
+            enemyMove.isAttack = false;
+        }
         public void FireBullet(){
             
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -66,6 +101,35 @@ namespace Enemy
         public void FireBullet_Rapid()
         {
             StartCoroutine(FireBulletCoroutine());
+        }
+        public void FireBullet_Circle12()
+        {
+            Debug.Log("fire!");
+
+            for (int i = 0; i < 12; i++)
+            {
+                // 각 방향에 따른 회전 각도
+                float randomVector = Random.Range(0, 360);
+                float rotation = randomVector;
+
+                // 총알을 회전시켜 생성합니다.
+                float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+                // 원 주위의 랜덤한 위치 계산
+                float spawnX = transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
+                float spawnY = transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
+
+                // 오브젝트 생성
+                GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                // 총알의 초기 속도 설정
+                float randomVelocity = Random.Range(5,10);
+                float bulletSpeed = randomVelocity;
+                float bulletDirectionX = Mathf.Cos(Mathf.Deg2Rad * rotation);
+                float bulletDirectionY = Mathf.Sin(Mathf.Deg2Rad * rotation);
+                Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
+                bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+            }
+            enemyMove.isAttack =false;
         }
         public void FireBullet_8()
         {

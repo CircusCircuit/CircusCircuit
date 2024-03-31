@@ -58,6 +58,7 @@ namespace Player
                 if (enemyStatus != null)
                 {
                     enemyStatus.TakeDamage(GameManager.Instance.M_AttackDamage);
+                    print(GameManager.Instance.M_AttackDamage);
                 }
                 Destroy(gameObject);
             }

@@ -3983,7 +3983,7 @@ MonoBehaviour:
   m_Elasticity: 0.001
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 30
+  m_ScrollSensitivity: 60
   m_Viewport: {fileID: 3920070456749697687}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 2541183082965424646}
@@ -4776,7 +4776,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: -17}
+  m_SizeDelta: {x: 35, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4223144568021830248
 CanvasRenderer:
@@ -6098,6 +6098,8 @@ MonoBehaviour:
   - {fileID: 3893722841517475831}
   - {fileID: 6387667806689200610}
   - {fileID: 3525319404305796942}
+  cardDropSO: {fileID: 11400000, guid: a7aefe193d59f7b4cbf605e39bf26a85, type: 2}
+  cardSO: {fileID: 0}
 --- !u!1 &6928921569483889091
 GameObject:
   m_ObjectHideFlags: 0

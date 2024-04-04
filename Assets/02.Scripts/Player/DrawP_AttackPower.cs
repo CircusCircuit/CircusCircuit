@@ -27,6 +27,6 @@ public class DrawP_AttackPower : MonoBehaviour
 
     void UpdateAttackPower(Scene scene, LoadSceneMode mode)
     {
-        powerText.text = "POWER " + GameManager.Instance.M_AttackDamage * 100 + "%";
+        powerText.text = "POWER " + GameManager.Instance.M_AttackDamage/*+ "%"*/;
     }
 }

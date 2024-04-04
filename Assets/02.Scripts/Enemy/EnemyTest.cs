@@ -49,7 +49,7 @@ namespace Enemy
                     cooldownTimer -= Time.deltaTime;
                 }
                 if(cooldownTimer<=0f){
-                    enemyAttack.FireBullet_Circle12();
+                    enemyAttack.FireBullet_area();
                     cooldownTimer = 5f;
                 }
 

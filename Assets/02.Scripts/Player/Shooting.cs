@@ -101,17 +101,15 @@ public class Shooting : MonoBehaviour
         curTime = 0;
         loadingImg.fillAmount = 0;
 
-        canFire = true;
-
         StopAllCoroutines();
     }
 
     IEnumerator LoadingUI()
     {
-        while (curTime <= 90)
+        while (curTime <= 180)
         {
             curTime += Time.deltaTime;
-            loadingImg.fillAmount = curTime / 90;
+            loadingImg.fillAmount = curTime / 180;
 
             yield return new WaitForFixedUpdate();
         }

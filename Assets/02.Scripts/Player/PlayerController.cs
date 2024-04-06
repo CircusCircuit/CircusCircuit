@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (isGround && !isDodge && collision.gameObject.tag == "Enemy" && !isAttacked)
+        if (/*isGround && */!isDodge && collision.gameObject.tag == "Enemy" && !isAttacked)
         {
             //몬스터 충돌 시.
             isAttacked = true;

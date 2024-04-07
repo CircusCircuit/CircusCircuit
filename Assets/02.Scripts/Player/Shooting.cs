@@ -114,4 +114,11 @@ public class Shooting : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
+
+    public void GunFlip()
+    {
+        Vector3 scale = transform.localScale;
+        scale.y *= -1;
+        transform.localScale = scale;
+    }
 }

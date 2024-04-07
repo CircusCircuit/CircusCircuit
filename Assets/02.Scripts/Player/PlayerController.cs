@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 moveVec;
     Vector2 dodgeVec;
+    Vector2 curPos;
 
     StageController stageController;
     [SerializeField] Shooting shooting;
@@ -76,8 +77,6 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         playerCollider.isTrigger = false;
-
-
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -209,6 +208,21 @@ public class PlayerController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+
+        shooting.GunFlip();
+    }
+
+    public void getChangedPos(Vector2 pos)
+    {
+        curPos = this.transform.position;
+        this.transform.position = pos;
+        StartCoroutine(MoveEffect());
+    }
+
+    IEnumerator MoveEffect()
+    {
+        yield return new WaitForSeconds(3f);
+        this.transform.position = curPos;
     }
 
     void MinusHp(string tag)

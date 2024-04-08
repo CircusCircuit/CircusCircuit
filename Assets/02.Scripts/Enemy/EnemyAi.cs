@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyMove : MonoBehaviour
+    public class EnemyAi : MonoBehaviour
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
@@ -18,7 +18,6 @@ namespace Enemy
         public bool isFly = false;
         public bool isGround = false;
         public bool isDying = false;
-
 
         public bool isAttack = false;
         private bool isFacingLeft = true;
@@ -72,6 +71,8 @@ namespace Enemy
                     Fly();
                     DetectPlayerInRange(7f);
                 }
+
+
 
             }
             else{

@@ -44,11 +44,10 @@ namespace Enemy
             }
             enemyMove.isAttack = false;
         }
-               public void FireBullet_area()
+        public void FireBullet_area()
         {
             StartCoroutine(FireBulletAreaCoroutine());
         }
-
         IEnumerator FireBulletAreaCoroutine()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -158,7 +157,6 @@ namespace Enemy
             }
             enemyMove.isAttack =false;
         }
-
         public void FireBullet_16()
         {
             Debug.Log("fire!");
@@ -185,7 +183,6 @@ namespace Enemy
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
         }
-
         public void FireBullet_8_16()
         {
             FireBullet_8();
@@ -196,7 +193,6 @@ namespace Enemy
                 FireBullet_16();
             }
         }
-
         public IEnumerator CountAttackDelay()
         {
             yield return new WaitForSeconds(0.5f);

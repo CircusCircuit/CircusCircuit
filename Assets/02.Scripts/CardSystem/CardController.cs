@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static CardDropSO;
 
 public class CardController : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class CardController : MonoBehaviour
     GameObject invenObj;
     int cardSetCount = 3;
     [SerializeField] GameObject[] card;
+
+    int randNum = 0;
 
     private void Awake()
     {
@@ -25,12 +29,6 @@ public class CardController : MonoBehaviour
         invenObj = GameObject.FindGameObjectWithTag("Inventory").transform.GetChild(0).gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SelectCard()
     {
         invenObj.SetActive(true);
@@ -39,8 +37,9 @@ public class CardController : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject.name == "Card" + (i + 1))
             {
-                //print("누른 버튼은 " + EventSystem.current.currentSelectedGameObject.name + " 이고 보내는건 " + showCard[i].cardName);
                 pickCard = showCard[i];
+
+                GameManager.Instance.FreeFeather -= FeatherDeburf(pickCard);
             }
         }
     }
@@ -59,5 +58,25 @@ public class CardController : MonoBehaviour
             showCard[i] = cardDropSO.TimesPick();
             card[i].GetComponent<Image>().sprite = showCard[i].cardImage;
         }
+    }
+
+    int FeatherDeburf(CardSO.Murtiple growth)
+    {
+        switch (growth.number)
+        {
+            case 1:
+                randNum = Random.Range(0, 5);
+                return randNum;
+
+            case 2:
+                randNum = Random.Range(0, 10);
+                return randNum;
+
+            case 3:
+                randNum = Random.Range(0, 20);
+                return randNum;
+        }
+
+        return randNum;
     }
 }

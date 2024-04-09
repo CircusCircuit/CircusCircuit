@@ -26,8 +26,6 @@ public class Shooting : MonoBehaviour
     GameObject loadingObj;
     Image loadingImg;
 
-    float curTime = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -98,20 +96,26 @@ public class Shooting : MonoBehaviour
         //print("Bullet ¿Á¿Â¿¸, " + GameManager.Instance.CurBulletCount);
         bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
 
-        curTime = 0;
+        //curTime = 0;
         loadingImg.fillAmount = 0;
+        loadingObj.SetActive(false);
 
-        StopAllCoroutines();
+        //StopAllCoroutines();
     }
 
     IEnumerator LoadingUI()
     {
-        while (curTime <= 180)
+        loadingObj.SetActive(true);
+
+        float curTime = 0;
+        float totalTime = 3;
+
+        while (curTime <= totalTime)
         {
             curTime += Time.deltaTime;
-            loadingImg.fillAmount = curTime / 180;
+            loadingImg.fillAmount = curTime / totalTime;
 
-            yield return new WaitForFixedUpdate();
+            yield return /*new WaitForFixedUpdate()*/null;
         }
     }
 

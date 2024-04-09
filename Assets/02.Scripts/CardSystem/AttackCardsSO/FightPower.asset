@@ -12,17 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2349f4f7eb9ac344b10712c9a4ee70e, type: 3}
   m_Name: FightPower
   m_EditorClassIdentifier: 
-  Atype: 00000000
   mul:
-  - cardName: "\uACF5\uACA9\uB825\uC99D\uAC001"
+  - Atype: 0
+    number: 1
+    cardName: "\uACF5\uACA9\uB825\uC99D\uAC001"
     cardImage: {fileID: 21300000, guid: 790413f6a65734910beddf97779d0d3a, type: 3}
     weight: 70
     increase: 100
-  - cardName: "\uACF5\uACA9\uB825\uC99D\uAC002"
+  - Atype: 0
+    number: 2
+    cardName: "\uACF5\uACA9\uB825\uC99D\uAC002"
     cardImage: {fileID: 21300000, guid: 0ceeceaa695e146c68071e329884b129, type: 3}
     weight: 20
     increase: 200
-  - cardName: "\uACF5\uACA9\uB825\uC99D\uAC003"
+  - Atype: 0
+    number: 3
+    cardName: "\uACF5\uACA9\uB825\uC99D\uAC003"
     cardImage: {fileID: 21300000, guid: 6e7f8e118e70440a392b3bde23a80954, type: 3}
     weight: 10
     increase: 300

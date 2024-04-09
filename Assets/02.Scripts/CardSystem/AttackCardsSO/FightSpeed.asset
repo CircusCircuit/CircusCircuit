@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mul:
   - Atype: 1
+    number: 1
     cardName: "\uACF5\uC18D\uC99D\uAC001"
     cardImage: {fileID: 21300000, guid: 346dd9cc67f2c4cb3ac1cc909a959e33, type: 3}
     weight: 70
     increase: 100
   - Atype: 1
+    number: 2
     cardName: "\uACF5\uC18D\uC99D\uAC002"
     cardImage: {fileID: 21300000, guid: 7d493a0ca29e14ca58105c9d50638bf7, type: 3}
     weight: 20
     increase: 200
   - Atype: 1
+    number: 3
     cardName: "\uACF5\uC18D\uC99D\uAC003"
     cardImage: {fileID: 21300000, guid: 26a1ddaa549ca4f729595a442bec8357, type: 3}
     weight: 10

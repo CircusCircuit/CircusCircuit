@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount;
+    float freeFeather = 50;
 
     int maxBullet = 7;
     float attackSpeed = 1;
@@ -95,6 +96,12 @@ public class GameManager : MonoBehaviour
     {
         get { return M_attackedDamage; }
         set { M_attackedDamage = value; }
+    }
+
+    public float FreeFeather
+    {
+        get { return freeFeather; }
+        set { freeFeather = value; }
     }
 
 

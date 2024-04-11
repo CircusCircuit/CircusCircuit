@@ -51,13 +51,19 @@ namespace Enemy
         IEnumerator FireBulletAreaCoroutine()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+            Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 
             for (int i = 0; i < 20; i++)
             {
                 // 각 방향에 따른 회전 각도
                 float val = Random.Range(0, 45);
-                float rotation = val - 65;
-
+                float rotation = val;
+                if(playerPosition.x > transform.position.x){
+                    rotation -= 65;
+                }
+                else{
+                    rotation -= 155;
+                }
                 // 총알을 회전시켜 생성합니다.
                 float radius = 1f; // 반지름 값은 적절히 조정하십시오.
 

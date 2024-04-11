@@ -8,11 +8,9 @@ namespace Enemy
         private float defaultEnemyHP = 10;
         //private float attackedDamage = 1;
         private float currentEnemyHP;
-        private bool isAttacked = false;
         private EnemyAttack enemyAttack;
         private EnemyMove enemyMove;
         private SpriteRenderer spriteRenderer;
-        private float cooldownTimer = 0f;
         // Start is called before the first frame update
         void Start()
         {
@@ -55,7 +53,7 @@ namespace Enemy
         }
         private void Die()
         {
-            enemyMove.isDying = true;
+            // enemyMove.isDying = true;
             StartCoroutine(ShrinkAndDestroy());
         }
         IEnumerator AttackedEffect()

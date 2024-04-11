@@ -8,12 +8,12 @@ namespace Enemy
     {
         public GameObject bulletPrefab;
         public GameObject gBulletPrefab;
-        private EnemyMove enemyMove;
+        // private EnemyMove enemyMove;
         public bool isDelay;
         // Start is called before the first frame update
-        void Awake(){
-            enemyMove= GetComponent<EnemyMove>();
-        }
+        // void Awake(){
+        //     enemyMove= GetComponent<EnemyMove>();
+        // }
         IEnumerator FireBulletCoroutine()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -42,7 +42,7 @@ namespace Enemy
 
                 yield return new WaitForSeconds(0.1f); 
             }
-            enemyMove.isAttack = false;
+            
         }
         public void FireBullet_area()
         {
@@ -75,7 +75,7 @@ namespace Enemy
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
                 yield return new WaitForSeconds(0.05f); 
             }
-            enemyMove.isAttack = false;
+            
         }
         public void FireBullet(){
             
@@ -94,7 +94,7 @@ namespace Enemy
             float bulletSpeed = 10f;
             Vector2 bulletDirection = directionToPlayer;
             bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
-            enemyMove.isAttack = false;
+            
             
         }
         public void FireBullet_Rapid()
@@ -128,11 +128,11 @@ namespace Enemy
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
-            enemyMove.isAttack =false;
+            
         }
         public void FireBullet_8()
         {
-            Debug.Log("fire!");
+            // Debug.Log("fire!");
 
             for (int i = 0; i < 8; i++)
             {
@@ -155,11 +155,11 @@ namespace Enemy
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
-            enemyMove.isAttack =false;
+            
         }
         public void FireBullet_16()
         {
-            Debug.Log("fire!");
+            // Debug.Log("fire!");
 
             for (int i = 0; i < 16; i++)
             {

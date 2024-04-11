@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyAi : MonoBehaviour
+    public class Hulahoop : MonoBehaviour
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;

@@ -16,16 +16,20 @@ public class GameManager : MonoBehaviour
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount;
+    float freeFeather = 50;
+
     int maxBullet = 7;
-    //float bulletForce = 15;
     float attackSpeed = 1;
     float playerSpeed = 5;
 
     // [ 몬스터 관련 ]
     float M_attackedDamage = 5;
 
-    // [ 덱 관련 ]
-    //bool isCardEnhance = false;
+    //계수
+    public float coeffFightPower = 1;
+    public float coeffFightSpeed = 1;
+    public float coeffMoveSpeed = 1;
+    public int coeffMaxBullet = 0;
 
 
     private void Awake()
@@ -76,12 +80,6 @@ public class GameManager : MonoBehaviour
         set { attackPoewr = value; }
     }
 
-    //public float BulletForce
-    //{
-    //    get { return bulletForce; }
-    //    set { bulletForce = value; }
-    //}
-
     public float AttackSpeed
     {
         get { return attackSpeed; }
@@ -94,18 +92,16 @@ public class GameManager : MonoBehaviour
         set { playerSpeed = value; }
     }
 
-    //public bool IsCardEnhance
-    //{
-    //    get { return isCardEnhance; }
-    //    set { isCardEnhance= value; }
-    //}
-
-
-
     public float M_AttackDamage
     {
         get { return M_attackedDamage; }
         set { M_attackedDamage = value; }
+    }
+
+    public float FreeFeather
+    {
+        get { return freeFeather; }
+        set { freeFeather = value; }
     }
 
 

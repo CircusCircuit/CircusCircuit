@@ -7,33 +7,71 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
-public class Inventory : MonoBehaviour
+public class Inventory : CardAdaptManager
 {
     CardSO.Murtiple getCard;
-    CardSO.Murtiple[] card;
     public GameObject[] slot;
     CardController cardController;
 
-    int slotCount = 0;
-    int maxSlot = 15;
-    GameObject slotName;
+    public class SlotCardInfo
+    {
+        public GameObject slotObj;
+        public List<CardSO.Murtiple> cardInfo = new List<CardSO.Murtiple>();
+        //public CardSO.Murtiple cardInfo;
+        //public CardSO.Murtiple[] mergeCardInfo = new CardSO.Murtiple[5];
+        public bool isPicked = false;
+        public bool isMerged = false;
+    }
+    List<SlotCardInfo> slotInfo = new List<SlotCardInfo>();
 
-    //5°³ ÀÌ»ó ¼±ÅÃ ½Ã, Ã¹¹øÂ° ¼±ÅÃ Ä«µå »èÁ¦¿ë
-    //int[] pickedSlotNumb = new int[5];
-    Queue<int> _pickedQueue = new Queue<int>();
-    int pickCount = 0;
+    [SerializeField] Sprite mergeCardImg;
 
-    int[] pickedCardNumb/* = new int[5]*/;
+    private void Awake()
+    {
+        TestForMurtiCard();
+    }
 
+    [SerializeField] CardDropSO cardDropSO;
+    void TestForMurtiCard()
+    {
+
+        SlotCardInfo info1 = new SlotCardInfo();
+        info1.cardInfo.Add(cardDropSO.cards[0].card.mul[0]);
+        SlotCardInfo info2 = new SlotCardInfo();
+        info2.cardInfo.Add(cardDropSO.cards[0].card.mul[0]);
+        SlotCardInfo info3 = new SlotCardInfo();
+        info3.cardInfo.Add(cardDropSO.cards[1].card.mul[0]);
+        SlotCardInfo info4 = new SlotCardInfo();
+        info4.cardInfo.Add(cardDropSO.cards[2].card.mul[0]);
+        SlotCardInfo info5 = new SlotCardInfo();
+        info5.cardInfo.Add(cardDropSO.cards[3].card.mul[0]);
+        SlotCardInfo info6 = new SlotCardInfo();
+        info6.cardInfo.Add(cardDropSO.cards[0].card.mul[1]);
+
+        slotInfo.Add(info1);
+        slotInfo.Add(info2);
+        slotInfo.Add(info3);
+        slotInfo.Add(info4);
+        slotInfo.Add(info5);
+        slotInfo.Add(info6);
+
+
+        for (int i = 0; i < slotInfo.Count/*slotCount*/; i++)
+        {
+            slotInfo[i].slotObj = slot[i].gameObject;
+            slotInfo[i].slotObj.GetComponent<Image>().sprite = slotInfo[i].cardInfo[0].cardImage;
+
+            slotInfo[i].slotObj.gameObject.SetActive(true);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         cardController = GameObject.Find("CardController").GetComponent<CardController>();
-        card = new CardSO.Murtiple[maxSlot];
 
-        print(cardController.SendCard().cardName);
         ShowCard();
     }
 
@@ -43,63 +81,95 @@ public class Inventory : MonoBehaviour
 
         if (getCard != null)
         {
-            card[slotCount] = getCard;
+            int numb = slotInfo.Count;
 
-            slot[slotCount].gameObject.SetActive(true);
-            slot[slotCount].GetComponent<Image>().sprite = card[slotCount].cardImage;
-            slotCount++;
+            SlotCardInfo info = new SlotCardInfo();
+            info.cardInfo.Add(getCard);
+
+            slotInfo.Add(info);
+
+            slotInfo[numb].slotObj = slot[numb].gameObject;
+            slotInfo[numb].slotObj.GetComponent<Image>().sprite = slotInfo[numb].cardInfo[0].cardImage;
+            slotInfo[numb].slotObj.gameObject.SetActive(true);
 
             getCard = null;
         }
     }
 
-    //5°³ ¼±ÅÃ Á¦¾î 
+    //Control choosing 5 cards
     public void ChooseCard()
     {
-        slotName = EventSystem.current.currentSelectedGameObject;
+        GameObject pickedSlotObj = EventSystem.current.currentSelectedGameObject;
 
-        //5°³ ÀÌ»ó ¼±ÅÃ½Ã -> Ã¹¹øÂ°°Å »©°í ¸¶Áö¸·°Å ¼±ÅÃ
-        if (_pickedQueue.Count > 5)
+        //Choosing exceed 5
+        if (savePickedCards.Count > 4)
         {
-            //Ã¹¹øÂ°·Î ¼±ÅÃÇÑ Ä«µåÀÇ ÇÁ·¹ÀÓ ÇØÁ¦ ¹× Ã¹¹øÂ°°Å »©±â
-            if (_pickedQueue == null) return;
+            if (savePickedCards == null) return;
 
-            //ÇÁ·¹ÀÓ ÇØÁ¦
-            //slot[pickedSlotNumb[0]].transform.GetChild(0).gameObject.SetActive(false);
-            slot[_pickedQueue.Peek()].transform.GetChild(0).gameObject.SetActive(false);
+            //First selected Card unFrame, Remove in savelist of Slotnumber & SlotCardInfo, isPicked == false
 
-            //µ¥ÀÌÅÍ »©±â
-            _pickedQueue.Dequeue();
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    pickedSlotNumb[i] = pickedSlotNumb[i + 1];
-            //}
-            //pickedSlotNumb[4] = 0;
-            //pickCount = 3;
+            int firstPickedCardNumber = savePickedCards[0].pickedSlotNumb;
+            savePickedCards.RemoveAt(0);
+
+            slotInfo[firstPickedCardNumber].slotObj.transform.GetChild(0).gameObject.SetActive(false);
+            slotInfo[firstPickedCardNumber].isPicked = false;
         }
 
-        //¼±ÅÃÇÑ ½½·ÔÀÇ ÇÁ·¹ÀÓ È°¼ºÈ­
-        slotName.transform.GetChild(0).gameObject.SetActive(true);
+        //seleted Frame activation
+        pickedSlotObj.transform.GetChild(0).gameObject.SetActive(true);
 
-        //pickedSlotNumb[pickCount++] = int.Parse(slotName.name);
-        _pickedQueue.Enqueue(int.Parse(slotName.name));
+        //ì„ íƒí•œ ìŠ¬ë¡¯ ë²ˆí˜¸, ì¹´ë“œ ì •ë³´ ë¦¬ìŠ¤íŠ¸ì— ì €ìž¥
+        int pickedSlotNumber = int.Parse(pickedSlotObj.name);
+
+        var pickedInfo = new SavePickedCard();
+        if (slotInfo[pickedSlotNumber].cardInfo.Count == 5)
+        {
+            pickedInfo.pickedSlotNumb = pickedSlotNumber;
+
+            int idx = 0;
+            foreach (var picked in slotInfo[pickedSlotNumber].cardInfo)
+            {
+                pickedInfo.pickedSlotCard.Add(slotInfo[pickedSlotNumber].cardInfo[idx++]);
+            }
+        }
+        else/* (slotInfo[pickedSlotNumber].cardInfo.Count == 1)*/
+        {
+            //ì„ íƒ ìŠ¬ë¡¯ë²ˆí˜¸
+            pickedInfo.pickedSlotNumb = pickedSlotNumber;
+            //ì„ íƒ ìŠ¬ë¡¯ì¹´ë“œì •ë³´
+            pickedInfo.pickedSlotCard.Add(slotInfo[pickedSlotNumber].cardInfo[0]);
+        }
+        savePickedCards.Add(pickedInfo);
+
+        //ìŠ¬ë¡¯ ì„ íƒ ì—¬ë¶€ ë°˜ì˜
+        slotInfo[pickedSlotNumber].isPicked = true;
     }
 
     public void UnUseCard()
     {
-        //¹è¿­¿¡¼­ »©±â
-        //pickedSlotNumb[pickCount - 1] = 0;
-        //pickCount--;
-        _pickedQueue.Dequeue();
-        EventSystem.current.currentSelectedGameObject.SetActive(false);
+        GameObject pickedFrameObj = EventSystem.current.currentSelectedGameObject;
+        int frameNumb = int.Parse(pickedFrameObj.name.Replace("Frame", ""));
+
+        pickedFrameObj.SetActive(false);
+        slotInfo[frameNumb].isPicked = false;
+
+        int getIndex = 0;
+        for (int i = 0; i < savePickedCards.Count; i++)
+        {
+            if (savePickedCards[i].pickedSlotNumb == frameNumb)
+            {
+                getIndex = i;
+                break;
+            }
+        }
+
+        savePickedCards.RemoveAt(getIndex);
     }
 
     public void InvenOkButton()
     {
-        SavePickedCard();
-
-        // ¼±ÅÃÇÑ Ä«µå°¡ ¾øÀ¸¸é
-        if (pickedCardNumb == null)
+        // ì„ íƒí•œ ì¹´ë“œê°€ ì—†ìœ¼ë©´
+        if (savePickedCards == null)
         {
             this.gameObject.SetActive(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -107,26 +177,33 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        if (pickedCardNumb.Length > 5)
+        if (savePickedCards.Count > 5)
         {
-            Debug.Log("Ä«µå ¼±ÅÃ 5°³ ÃÊ°ú, -> Ä«µå Àû¿ë ¿À·ù");
+            Debug.Log("ì¹´ë“œ ì„ íƒ 5ê°œ ì´ˆê³¼ -> ì¹´ë“œ ì ìš© ì˜¤ë¥˜" + "Seleted cards are exceed 5 -> Error adaption");
             return;
         }
 
-        if (pickedCardNumb.Length < 5)
+        if (savePickedCards.Count < 5)
         {
-            //5°³ ¹Ì¸¸ Ä«µå ¼±ÅÃ -> ÀÚµ¿ ÀåÂø
-            //(¼Ò¸ðÇü Ä«µåÀÇ °æ¿ì, ÀåÂø ½Ã ÀÚµ¿ »èÁ¦µÊ.(-> ÀçÀåÂø ºÒ°¡)
-            //ex. °ø°Ý200% + °ø°Ý200% ÀåÂøÇÏ¸é -> °ø°Ý 4¹èµÊ
+            //5ê°œ ë¯¸ë§Œ ì¹´ë“œ ì„ íƒ -> ìžë™ ìž¥ì°©
+            //(ì†Œëª¨í˜• ì¹´ë“œì˜ ê²½ìš°, ìž¥ì°© ì‹œ ìžë™ ì‚­ì œë¨.(-> ìž¬ìž¥ì°© ë¶ˆê°€)
             CardAdaptionCalc();
         }
-        if (pickedCardNumb.Length == 5)
+        if (savePickedCards.Count == 5)
         {
-            //5°³ Ä«µå ¼±ÅÃ -> ÇÕ¼º -> °­È­µÈ Ä«µå ÀÚµ¿ ÀåÂø
-            //µ¿ÀÏÇÑ À¯ÇüÀÇ Ä«µå ÇÕ¼º ½Ã 50%È®·ü·Î ÇØ´ç À¯ÇüÀÇ 1.5¹è °­È­
-            //ex. °ø°Ý200% + °ø°Ý200% + °ø¼Ó300% + ÃÖ´ëÃÑ¾Ë1 + hp1Áõ°¡ -> °ø°Ý"600%, °ø¼Ó300%, ÃÖ´ëÃÑ¾Ë1, hp1Áõ°¡
+            //5ê°œ ì¹´ë“œ ì„ íƒ -> í•©ì„± -> ê°•í™”ëœ ì¹´ë“œ ìžë™ ìž¥ì°©
+            //ë™ì¼í•œ ìœ í˜•ì˜ ì¹´ë“œ í•©ì„± ì‹œ 50%í™•ë¥ ë¡œ í•´ë‹¹ ìœ í˜•ì˜ 1.5ë°° ê°•í™”
             MergeCard();
         }
+
+        //ê³µê²© ì¦ê°€ ë¹„ìœ¨ ê³„ì‚°
+        GameManager.Instance.M_AttackDamage *= GameManager.Instance.coeffFightPower;
+        GameManager.Instance.AttackSpeed /= GameManager.Instance.coeffFightSpeed;
+        GameManager.Instance.PlayerSpeed *= GameManager.Instance.coeffMoveSpeed;
+        GameManager.Instance.MaxBullet += GameManager.Instance.coeffMaxBullet;
+
+         //ì‚¬ìš© ì¹´ë“œ ì œê±° ->
+        RemoveUsedCard();
 
         this.gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -134,72 +211,78 @@ public class Inventory : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void SavePickedCard()
-    {
-        for (int i = 0; i < slotCount; i++)
-        {
-            //ÇÁ·¹ÀÓÀÌ È°¼ºÈ­µÈ ½½·Ô ¹øÈ£ ÀúÀå
-            if (slot[i].transform.GetChild(0).gameObject.activeSelf)
-            {
-                pickedCardNumb[i] = int.Parse(slot[i].name) - 1;
-            }
-        }
-    }
-
-    void CardAdaptionCalc()
-    {
-        //ÃÊ±âÈ­ ÇÏ°í °è»ê ÇÊ¿ä ->
-        InitializedRate();
-
-        for (int i = 0; i < /*pickCount*/pickedCardNumb.Length; i++)
-        {
-            var adapt = card[/*pickedSlotNumb*/pickedCardNumb[i] - 1];
-
-            switch (adapt.Atype)
-            {
-                case CardSO.Murtiple.AttackType.FightPower:
-                    GameManager.Instance.M_AttackDamage += adapt.increase / 100;
-                    return;
-
-                case CardSO.Murtiple.AttackType.FightSpeed:
-                    GameManager.Instance.AttackSpeed /= (adapt.increase / 100) + 1;
-                    return;
-
-                case CardSO.Murtiple.AttackType.MoveSpeed:
-                    GameManager.Instance.PlayerSpeed += adapt.increase / 100;
-                    return;
-
-                case CardSO.Murtiple.AttackType.MaxBullet:
-                    GameManager.Instance.MaxBullet += adapt.increase;
-                    return;
-            }
-        }
-
-        //»ç¿ë Ä«µå Á¦°Å ->
-        RemoveUsedCard();
-    }
-
-    void InitializedRate()
-    {
-        GameManager.Instance.M_AttackDamage = 5;
-        GameManager.Instance.AttackSpeed = 1;
-        GameManager.Instance.PlayerSpeed = 5;
-        GameManager.Instance.MaxBullet = 7;
-    }
 
     void RemoveUsedCard()
     {
-        pickCount = 0;
-        for (int i = 0; i < pickCount - 1; i++)
+        int idx = 0;
+        foreach (var _slot in slotInfo)
         {
-            card[pickedCardNumb[i] - 1] = null;
-            slot[pickedCardNumb[i]].gameObject.SetActive(false);
-            slot[pickedCardNumb[i]].transform.GetChild(0).gameObject.SetActive(false);
+            if (slotInfo[idx].isPicked && !slotInfo[idx].isMerged)
+            {
+                slotInfo[idx].isPicked = false;
+                slotInfo[idx].slotObj.transform.GetChild(0).gameObject.SetActive(false);
+                slotInfo[idx].slotObj.GetComponent<Image>().sprite = null;
+                slotInfo[idx].slotObj.gameObject.SetActive(false);
+            }
+            ++idx;
         }
+
+        savePickedCards.Clear();
+
+        SlotReArrange();
     }
 
-    void MergeCard()
+    void SlotReArrange()
     {
-        InitializedRate();
+        //ë¹„í™œì„±í™”ëœ slotInfoì˜ ë‚´ìš©ë¬¼ ë¹„ìš°ê¸°, foreachë¬¸ ì•ˆì—ì„œëŠ” list ì‚­ì œ ì•ˆë¨.
+        for (int i = slotInfo.Count - 1; i >= 0; i--)
+        {
+            if (slotInfo[i].slotObj.activeSelf == false)
+            {
+                slotInfo.RemoveAt(i);
+            }
+        }
+
+        //ìŠ¬ë¡¯ ì „ì²´ ë¹„í™œì„±í™”
+        int idx = 0;
+        foreach (var _slot in slot)
+        {
+            slot[idx].transform.GetChild(0).gameObject.SetActive(false);
+            slot[idx].GetComponent<Image>().sprite = null;
+            slot[idx].gameObject.SetActive(false);
+
+            ++idx;
+        }
+
+        //ë¨¸ì§€ì¹´ë“œ ì •ë³´ ì €ìž¥
+        if (mergeInfoList != null)
+        {
+            for (int i = 0; i < mergeInfoList.Count; i++)
+            {
+                //slotInfo[i].cardInfo = mergeInfos[i];
+                SlotCardInfo info = new SlotCardInfo();
+                info.cardInfo.Add(mergeInfoList[i][0]);
+                info.cardInfo.Add(mergeInfoList[i][1]);
+                info.cardInfo.Add(mergeInfoList[i][2]);
+                info.cardInfo.Add(mergeInfoList[i][3]);
+                info.cardInfo.Add(mergeInfoList[i][4]);
+
+                slotInfo.Insert(i, info);
+
+                slotInfo[i].isMerged = true;
+                slotInfo[i].slotObj = slot[i].gameObject;
+                slotInfo[i].slotObj.GetComponent<Image>().sprite = mergeCardImg;
+                slotInfo[i].slotObj.gameObject.SetActive(true);
+            }
+        }
+
+        //ìŠ¬ë¡¯ ì²«ì¹¸ë¶€í„° ë‹¤ì‹œ ì±„ìš°ê¸°
+        for (int i = mergeInfoList.Count; i < slotInfo.Count + mergeInfoList.Count - 1; i++)
+        {
+            slotInfo[i].slotObj = slot[i].gameObject;
+
+            slotInfo[i].slotObj.GetComponent<Image>().sprite = slotInfo[i].cardInfo[0].cardImage;
+            slotInfo[i].slotObj.gameObject.SetActive(true);
+        }
     }
 }

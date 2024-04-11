@@ -20,6 +20,8 @@ public class CardSO : ScriptableObject
         }
         public AttackType Atype;
 
+        //카드 번호
+        public int number;
         //카드 이름
         public string cardName;
         //카드 이미지

@@ -26,8 +26,6 @@ public class Shooting : MonoBehaviour
     GameObject loadingObj;
     Image loadingImg;
 
-    float curTime = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +68,7 @@ public class Shooting : MonoBehaviour
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
 
             canFire = false;
-            //print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
+            print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
         }
 
         if (GameManager.Instance.CurBulletCount <= 0)
@@ -98,22 +96,33 @@ public class Shooting : MonoBehaviour
         //print("Bullet ÀçÀåÀü, " + GameManager.Instance.CurBulletCount);
         bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
 
-        curTime = 0;
+        //curTime = 0;
         loadingImg.fillAmount = 0;
+        loadingObj.SetActive(false);
 
-        canFire = true;
-
-        StopAllCoroutines();
+        //StopAllCoroutines();
     }
 
     IEnumerator LoadingUI()
     {
-        while (curTime <= 230)
+        loadingObj.SetActive(true);
+
+        float curTime = 0;
+        float totalTime = 3;
+
+        while (curTime <= totalTime)
         {
             curTime += Time.deltaTime;
-            loadingImg.fillAmount = curTime / 230;
+            loadingImg.fillAmount = curTime / totalTime;
 
-            yield return new WaitForFixedUpdate();
+            yield return /*new WaitForFixedUpdate()*/null;
         }
+    }
+
+    public void GunFlip()
+    {
+        Vector3 scale = transform.localScale;
+        scale.y *= -1;
+        transform.localScale = scale;
     }
 }

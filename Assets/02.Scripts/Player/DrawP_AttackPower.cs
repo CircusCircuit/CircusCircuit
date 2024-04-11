@@ -6,12 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class DrawP_AttackPower : MonoBehaviour
 {
-    TextMeshProUGUI powerText;
-
-    private void Awake()
-    {
-        powerText = this.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-    }
+    [SerializeField] TextMeshProUGUI powerTxt;
+    [SerializeField] TextMeshProUGUI featherTxt;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +23,7 @@ public class DrawP_AttackPower : MonoBehaviour
 
     void UpdateAttackPower(Scene scene, LoadSceneMode mode)
     {
-        powerText.text = "POWER " + GameManager.Instance.M_AttackDamage * 100 + "%";
+        powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage + "%";
+        featherTxt.text = "Free Feather " + GameManager.Instance.FreeFeather + "%";
     }
 }

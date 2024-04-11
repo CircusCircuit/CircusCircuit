@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
+  gBulletPrefab: {fileID: 0}
   isDelay: 0
 --- !u!114 &41079195
 MonoBehaviour:
@@ -790,6 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
+  gBulletPrefab: {fileID: 0}
   isDelay: 0
 --- !u!114 &145405106
 MonoBehaviour:
@@ -1842,6 +1844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
+  gBulletPrefab: {fileID: 0}
   isDelay: 0
 --- !u!114 &310628020
 MonoBehaviour:
@@ -2791,6 +2794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
+  gBulletPrefab: {fileID: 0}
   isDelay: 0
 --- !u!114 &648160808
 MonoBehaviour:
@@ -3119,6 +3123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
+  gBulletPrefab: {fileID: 0}
   isDelay: 0
 --- !u!114 &782019725
 MonoBehaviour:
@@ -5689,7 +5694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1718156013166152686, guid: b6853450db735ff42b8663f880122584, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.96
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1718156013166152686, guid: b6853450db735ff42b8663f880122584, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5819,6 +5824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
+  gBulletPrefab: {fileID: 0}
   isDelay: 0
 --- !u!114 &1388502888
 MonoBehaviour:
@@ -6486,6 +6492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
+  gBulletPrefab: {fileID: 0}
   isDelay: 0
 --- !u!114 &1507636291
 MonoBehaviour:

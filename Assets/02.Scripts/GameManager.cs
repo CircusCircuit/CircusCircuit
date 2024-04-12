@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    GameObject openCanvas;
 
    
     // [ 스테이지 관련 ]
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount;
-    float freeFeather = 50;
+    float freeFeather = 10;
 
     int maxBullet = 7;
     float attackSpeed = 1;
@@ -39,22 +39,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         curBulletCount = maxBullet;
-
-        openCanvas = GameObject.Find("OpenCanvas").gameObject;
     }
-
-    private void Start()
-    {
-        StartCoroutine(CloseOpenCurtain());
-    }
-    
-    IEnumerator CloseOpenCurtain()
-    {
-        yield return new WaitForSeconds(1.5f);
-
-        Destroy(openCanvas);
-    }
-
 
     public float PlayerHp
     {

@@ -11,9 +11,9 @@ namespace Enemy
         // private EnemyMove enemyMove;
         public bool isDelay;
         // Start is called before the first frame update
-        // void Awake(){
-        //     enemyMove= GetComponent<EnemyMove>();
-        // }
+     
+        
+
         IEnumerator FireBulletCoroutine()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");

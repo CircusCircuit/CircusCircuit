@@ -14,7 +14,16 @@ public class Shooting : MonoBehaviour
     public GameObject bullet;
     public Transform bulletTransform;
     public bool canFire;
+    public bool isPlayed=false;
 
+
+
+    public AudioClip shootSound; 
+    public AudioClip reloadSound; 
+
+    private AudioSource audioSource; // AudioSource ????
+
+    
     private float timer;
     //public float timeBetweenFiring;
 
@@ -37,6 +46,9 @@ public class Shooting : MonoBehaviour
 
         loadingObj = GameObject.FindWithTag("GameController").transform.GetChild(2).GetChild(0).gameObject;
         loadingImg = loadingObj.GetComponent<Image>();
+
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -60,8 +72,13 @@ public class Shooting : MonoBehaviour
             }
         }
 
+
+
         if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 && !Lever.activeSelf)
         {
+
+            audioSource.PlayOneShot(shootSound);
+
             GameManager.Instance.CurBulletCount -= 1;
             bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
 
@@ -69,16 +86,27 @@ public class Shooting : MonoBehaviour
 
             canFire = false;
             print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
+            
+
         }
 
+        
         if (GameManager.Instance.CurBulletCount <= 0)
         {
+            if(!isPlayed){
+                audioSource.PlayOneShot(reloadSound);
+                Invoke("AudioLoop", 0.7f);
+                isPlayed = true;
+            }
             BeAttacked();
         }
-    }
 
+    }
+    void AudioLoop(){
+        isPlayed = false;
+    }
     void BeAttacked()
-    {
+    {   
         canFire = false;
 
         StartCoroutine(ReloadBullet());
@@ -95,7 +123,6 @@ public class Shooting : MonoBehaviour
         GameManager.Instance.CurBulletCount = GameManager.Instance.MaxBullet;
         //print("Bullet ÀçÀåÀü, " + GameManager.Instance.CurBulletCount);
         bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
-
         //curTime = 0;
         loadingImg.fillAmount = 0;
         loadingObj.SetActive(false);

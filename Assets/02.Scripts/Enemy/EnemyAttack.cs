@@ -8,12 +8,12 @@ namespace Enemy
     {
         public GameObject bulletPrefab;
         public GameObject gBulletPrefab;
-        private EnemyMove enemyMove;
+        // private EnemyMove enemyMove;
         public bool isDelay;
         // Start is called before the first frame update
-        void Awake(){
-            enemyMove= GetComponent<EnemyMove>();
-        }
+        // void Awake(){
+        //     enemyMove= GetComponent<EnemyMove>();
+        // }
         IEnumerator FireBulletCoroutine()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -42,23 +42,28 @@ namespace Enemy
 
                 yield return new WaitForSeconds(0.1f); 
             }
-            enemyMove.isAttack = false;
+            
         }
-               public void FireBullet_area()
+        public void FireBullet_area()
         {
             StartCoroutine(FireBulletAreaCoroutine());
         }
-
         IEnumerator FireBulletAreaCoroutine()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+            Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 
             for (int i = 0; i < 20; i++)
             {
                 // 각 방향에 따른 회전 각도
                 float val = Random.Range(0, 45);
-                float rotation = val - 65;
-
+                float rotation = val;
+                if(playerPosition.x > transform.position.x){
+                    rotation -= 65;
+                }
+                else{
+                    rotation -= 155;
+                }
                 // 총알을 회전시켜 생성합니다.
                 float radius = 1f; // 반지름 값은 적절히 조정하십시오.
 
@@ -76,7 +81,7 @@ namespace Enemy
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
                 yield return new WaitForSeconds(0.05f); 
             }
-            enemyMove.isAttack = false;
+            
         }
         public void FireBullet(){
             
@@ -95,7 +100,7 @@ namespace Enemy
             float bulletSpeed = 10f;
             Vector2 bulletDirection = directionToPlayer;
             bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
-            enemyMove.isAttack = false;
+            
             
         }
         public void FireBullet_Rapid()
@@ -129,11 +134,11 @@ namespace Enemy
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
-            enemyMove.isAttack =false;
+            
         }
         public void FireBullet_8()
         {
-            Debug.Log("fire!");
+            // Debug.Log("fire!");
 
             for (int i = 0; i < 8; i++)
             {
@@ -156,12 +161,11 @@ namespace Enemy
                 Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
-            enemyMove.isAttack =false;
+            
         }
-
         public void FireBullet_16()
         {
-            Debug.Log("fire!");
+            // Debug.Log("fire!");
 
             for (int i = 0; i < 16; i++)
             {
@@ -185,7 +189,6 @@ namespace Enemy
                 bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
             }
         }
-
         public void FireBullet_8_16()
         {
             FireBullet_8();
@@ -196,7 +199,6 @@ namespace Enemy
                 FireBullet_16();
             }
         }
-
         public IEnumerator CountAttackDelay()
         {
             yield return new WaitForSeconds(0.5f);

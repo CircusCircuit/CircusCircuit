@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-   
+
     // [ 스테이지 관련 ]
+    public int curStageIndex;
     [SerializeField] bool isClear1;
     [SerializeField] bool isClear2;
 

@@ -33,6 +33,12 @@ public class EnemyRespawnManager : MonoBehaviour
                     case 2:
                         GameManager.Instance.Clear2 = true;
                         return;
+                    case 3:
+                        GameManager.Instance.Clear3 = true;
+                        return;
+                    case 4:
+                        GameManager.Instance.Clear4 = true;
+                        return;
                 }
             }
         }

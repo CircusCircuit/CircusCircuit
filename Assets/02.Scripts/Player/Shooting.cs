@@ -16,7 +16,7 @@ public class Shooting : MonoBehaviour
     public bool canFire;
     public bool isPlayed=false;
 
-
+    bool facingRight = true;
 
     public AudioClip shootSound; 
     public AudioClip reloadSound; 
@@ -71,6 +71,11 @@ public class Shooting : MonoBehaviour
                 timer = 0;
             }
         }
+
+
+
+        if (CrosshairCursor.instance.mouseCursorPos.x > 0 && !facingRight) { GunFlip(); }
+        else if (CrosshairCursor.instance.mouseCursorPos.x < 0 && facingRight) { GunFlip(); }
 
 
 
@@ -148,6 +153,8 @@ public class Shooting : MonoBehaviour
 
     public void GunFlip()
     {
+        facingRight = !facingRight;
+
         Vector3 scale = transform.localScale;
         scale.y *= -1;
         transform.localScale = scale;

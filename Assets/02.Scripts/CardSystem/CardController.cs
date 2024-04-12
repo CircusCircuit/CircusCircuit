@@ -8,6 +8,9 @@ using static CardDropSO;
 
 public class CardController : MonoBehaviour
 {
+    private AudioSource audioSource; // AudioSource ÄÄÆ÷³ÍÆ®
+    [SerializeField] AudioClip cardSelectSFX;
+
     public CardDropSO cardDropSO;
     CardSO.Murtiple[] showCard;
     CardSO.Murtiple pickCard;
@@ -21,6 +24,7 @@ public class CardController : MonoBehaviour
     private void Awake()
     {
         showCard = new CardSO.Murtiple[cardSetCount];
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -31,6 +35,7 @@ public class CardController : MonoBehaviour
 
     public void SelectCard()
     {
+        audioSource.PlayOneShot(cardSelectSFX);
         invenObj.SetActive(true);
 
         for (int i = 0; i < cardSetCount; i++)

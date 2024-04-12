@@ -229,8 +229,8 @@ MonoBehaviour:
   bulletTransform: {fileID: 1718156012466787958}
   canFire: 1
   isPlayed: 0
-  shootSound: {fileID: 0}
-  reloadSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: 42102512d125b4321af31732bbb47e00, type: 3}
+  reloadSound: {fileID: 8300000, guid: bc175c825ddad46cbbc247da7ea594fb, type: 3}
 --- !u!82 &5738023831974578254
 AudioSource:
   m_ObjectHideFlags: 0

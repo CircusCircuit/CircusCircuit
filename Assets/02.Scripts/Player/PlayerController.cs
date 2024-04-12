@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         if (isPushDownKey && isGround)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            rb.AddForce(-transform.up * 100f);
+            rb.AddForce(-transform.up * 200f);
             isPushDownKey = false;
         }
 

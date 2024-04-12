@@ -12,6 +12,13 @@ using Random = UnityEngine.Random;
 
 public class StageController : MonoBehaviour
 {
+    public AudioClip reverSound; 
+    public AudioClip curtainCloseSound; 
+    public AudioClip curtainOpenSound; 
+
+
+
+    private AudioSource audioSource; // AudioSource 컴포넌트
     public static StageController Instance { get; private set; }
 
     [SerializeField] GameObject Lever;
@@ -35,6 +42,10 @@ public class StageController : MonoBehaviour
         openCurtain.SetActive(true);
         SuccUI = GameObject.FindWithTag("SuccUI").transform.GetChild(0).gameObject;
         StartCoroutine(OpeningCurtain());
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(curtainOpenSound);
+
     }
 
     IEnumerator OpeningCurtain()
@@ -71,8 +82,11 @@ public class StageController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            audioSource.PlayOneShot(reverSound);
+
             //커튼콜 닫히는 애니메이션
             //팝업으로 공격형 카드 3장
+            audioSource.PlayOneShot(curtainCloseSound);
             StartCoroutine(CurtainCall());
         }
     }

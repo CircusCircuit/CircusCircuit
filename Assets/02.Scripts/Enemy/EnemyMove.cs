@@ -99,6 +99,8 @@ namespace Enemy
             rigid.AddForce(direction * -knockbackForce * 2f, ForceMode2D.Impulse);
 
         }
+
+
         public void EndKnockback()
         {
             Debug.Log("Endknockback");

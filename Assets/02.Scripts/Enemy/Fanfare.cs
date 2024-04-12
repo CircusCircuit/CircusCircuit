@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyAi : MonoBehaviour
+    public class Fanfare : MonoBehaviour
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
@@ -38,7 +38,6 @@ namespace Enemy
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
-            Invoke("Think",1f);
         }
 
         // Update is called once per frame
@@ -51,15 +50,13 @@ namespace Enemy
 
             if (!isDying)
             {   
-                if(cooldownTimer <= 0){
-                    GroundMove(1.5f);
-                    DetectPlayerInRange(5f);
-                }
+
+                DetectPlayerInRange(5f);
 
                 if (isDetectPlayer)
                 {
                     if(cooldownTimer <= 0){
-                        enemyAttack.FireBullet_Circle12();
+                        enemyAttack.FireBullet_area();
                         cooldownTimer = 3f;
                     }
                 }
@@ -92,7 +89,7 @@ namespace Enemy
             else
             {
                 enemymove.Stop();
-                // enemyAttack.FireBullet_8();
+                enemyAttack.FireBullet_8();
             }
             Invoke("Think", 3);
         }

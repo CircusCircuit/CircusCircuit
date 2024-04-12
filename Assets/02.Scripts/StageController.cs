@@ -28,7 +28,7 @@ public class StageController : MonoBehaviour
 
     [SerializeField] CardController cardController;
 
-    GameObject SuccUI;
+    [SerializeField] GameObject SuccUI;
     [SerializeField] GameObject openCurtain;
 
     private void Awake()
@@ -45,9 +45,6 @@ public class StageController : MonoBehaviour
         if (openCurtain == null) { return; }
         openCurtain.SetActive(true);
         StartCoroutine(OpeningCurtain());
-        
-        if (GameObject.FindWithTag("SuccUI") == null) return;
-        SuccUI = GameObject.FindWithTag("SuccUI").transform.GetChild(0).gameObject;
     }
 
     IEnumerator OpeningCurtain()

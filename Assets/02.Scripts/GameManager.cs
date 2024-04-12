@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount;
-    float freeFeather = 50;
+    float freeFeather = 10;
 
     int maxBullet = 7;
     float attackSpeed = 1;

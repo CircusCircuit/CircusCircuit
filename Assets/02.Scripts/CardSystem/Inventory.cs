@@ -11,6 +11,10 @@ using Random = UnityEngine.Random;
 
 public class Inventory : CardAdaptManager
 {
+    private AudioSource audioSource; // AudioSource 컴포넌트
+    [SerializeField] AudioClip cardSelectSFX;
+    [SerializeField] AudioClip okBtnSFX;
+
     CardSO.Murtiple getCard;
     public GameObject[] slot;
     CardController cardController;
@@ -30,6 +34,7 @@ public class Inventory : CardAdaptManager
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         TestForMurtiCard();
     }
 
@@ -99,6 +104,8 @@ public class Inventory : CardAdaptManager
     //Control choosing 5 cards
     public void ChooseCard()
     {
+        audioSource.PlayOneShot(cardSelectSFX);
+
         GameObject pickedSlotObj = EventSystem.current.currentSelectedGameObject;
 
         //Choosing exceed 5
@@ -147,6 +154,8 @@ public class Inventory : CardAdaptManager
 
     public void UnUseCard()
     {
+        audioSource.PlayOneShot(cardSelectSFX);
+
         GameObject pickedFrameObj = EventSystem.current.currentSelectedGameObject;
         int frameNumb = int.Parse(pickedFrameObj.name.Replace("Frame", ""));
 
@@ -168,6 +177,8 @@ public class Inventory : CardAdaptManager
 
     public void InvenOkButton()
     {
+        audioSource.PlayOneShot(okBtnSFX);
+
         // 선택한 카드가 없으면
         if (savePickedCards == null)
         {

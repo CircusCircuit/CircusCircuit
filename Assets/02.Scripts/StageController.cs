@@ -1,27 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static CardDropSO;
+using Random = UnityEngine.Random;
 
 public class StageController : MonoBehaviour
 {
+    public static StageController Instance { get; private set; }
+
     [SerializeField] GameObject Lever;
-    [SerializeField] Animator anim;
     public bool isLever;
+    [SerializeField] Animator anim;
+    [SerializeField] GameObject yellowCurtain;
 
     [SerializeField] CardController cardController;
 
     GameObject SuccUI;
+    [SerializeField] GameObject openCurtain;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        openCurtain.SetActive(true);
         SuccUI = GameObject.FindWithTag("SuccUI").transform.GetChild(0).gameObject;
+        StartCoroutine(OpeningCurtain());
+    }
+
+    IEnumerator OpeningCurtain()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        openCurtain.SetActive(false);
     }
 
     // Update is called once per frame
@@ -74,5 +94,78 @@ public class StageController : MonoBehaviour
 
         cardController.RandomCard();
         Cursor.visible = true;
+    }
+
+
+
+
+    //Whether go to Event Stage
+    public void CheckFetherCondition()
+    {
+        if (GameManager.Instance.FreeFeather < 15)
+        {
+            GameObject.FindGameObjectWithTag("Inventory").transform.GetChild(0).gameObject.SetActive(false);
+            yellowCurtain.SetActive(true);
+            yellowCurtain.transform.GetChild(2).GetComponent<Button>().enabled = true;
+            yellowCurtain.transform.GetChild(3).GetComponent<Button>().enabled = true;
+        }
+    }
+
+    public void SelectBurfFeather()
+    {
+        //ฑ๊ละ น๖วม, ฐ๘ฐÝทย ต๐น๖วม
+        DeBurfAttackCard("Deburf");
+        SceneManager.LoadScene("EventStage");
+    }
+
+    void DeBurfAttackCard(string type)
+    {
+        int rand = Random.Range(0, 2 + 1);
+
+        switch (rand)
+        {
+            case 0:
+                if (type == "Deburf")
+                {
+                    GameManager.Instance.AttackPoewr /= 2;
+                }
+                if (type == "Burf")
+                {
+                    GameManager.Instance.AttackPoewr *= 2;
+                }
+                return;
+
+            case 1:
+                if (type == "Deburf")
+                {
+                    GameManager.Instance.AttackSpeed /= 2;
+                }
+                if (type == "Burf")
+                {
+                    GameManager.Instance.AttackSpeed *= 2;
+                }
+                return;
+
+            case 2:
+                if (type == "Deburf")
+                {
+                    GameManager.Instance.PlayerSpeed /= 2;
+                }
+                if (type == "Burf")
+                {
+                    GameManager.Instance.PlayerSpeed *= 2;
+                }
+                return;
+        }
+    }
+
+    public void SelectDeburfFeather()
+    {
+        //ฑ๊ละ ต๐น๖วม, ฐ๘ฐÝทย น๖วม
+        GameManager.Instance.FreeFeather /= 2;
+        DeBurfAttackCard("Burf");
+
+        GameObject.FindGameObjectWithTag("Inventory").transform.GetChild(0).gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

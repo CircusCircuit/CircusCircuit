@@ -11,7 +11,7 @@ namespace Enemy
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
         private EnemyAttack enemyAttack;
-
+        public float maxFlyDistance = 1.5f; // 오브젝트와 중앙 사이의 최대 거리
         public bool isFacingLeft = true;
         public int nextmove = 1;
         public float cooldownTimer = 3f;
@@ -47,11 +47,11 @@ namespace Enemy
         }
         public void Fly(float moveSpeed = 2f)
         {
-            float maxDistance = 1.5f; // 오브젝트와 중앙 사이의 최대 거리
+            
 
             // 일정 범위 내에서 위아래로 이동하기 위한 코드 추가
-            float maxY = startPosition.y + maxDistance;
-            float minY = startPosition.y - maxDistance;
+            float maxY = startPosition.y + maxFlyDistance;
+            float minY = startPosition.y - maxFlyDistance;
             // 현재 위치가 일정 범위를 벗어나면 방향을 바꿔줍니다.
             if (transform.position.y >= maxY || transform.position.y <= minY)
             {

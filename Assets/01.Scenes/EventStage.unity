@@ -385,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &144073743
 Animator:
   serializedVersion: 4
@@ -4251,6 +4251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d285b8c90e89c4b938c9b51bedfd61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curtian: {fileID: 144073743}
   slotObject:
   - {fileID: 1445166370}
   - {fileID: 1143825693}

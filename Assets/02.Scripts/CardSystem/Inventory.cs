@@ -209,6 +209,8 @@ public class Inventory : CardAdaptManager
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
         Cursor.visible = false;
+
+        GameManager.Instance.curStageIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
 

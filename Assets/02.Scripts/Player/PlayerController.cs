@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+
+        if (GameObject.FindWithTag("FailUI") == null) return;
         FailUI = GameObject.FindWithTag("FailUI").transform.GetChild(0).gameObject;
     }
 
@@ -127,6 +129,7 @@ public class PlayerController : MonoBehaviour
         if (isPushDownKey && isGround)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            rb.AddForce(-transform.up * 100f);
             isPushDownKey = false;
         }
 
@@ -208,8 +211,6 @@ public class PlayerController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
-
-        shooting.GunFlip();
     }
 
     public void getChangedPos(Vector2 pos)
@@ -270,12 +271,12 @@ public class PlayerController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            FailUI.SetActive(true);
+            //FailUI.SetActive(true);
 
             StartCoroutine(RestartScene());
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().buildIndex == 4)
         {
             FailUI.SetActive(true);
         }

@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
     public int curStageIndex;
     [SerializeField] bool isClear1;
     [SerializeField] bool isClear2;
+    [SerializeField] bool isClear3;
+    [SerializeField] bool isClear4;
 
     // [ 플레이어 관련 ]
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount;
-    float freeFeather = 10;
+    float freeFeather = 50;
 
     int maxBullet = 7;
     float attackSpeed = 1;
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         curBulletCount = maxBullet;
+
+        curStageIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     public float PlayerHp
@@ -99,10 +103,19 @@ public class GameManager : MonoBehaviour
         get { return isClear1; }
         set { isClear1 = value; }
     }
-
     public bool Clear2
     {
         get { return isClear2; }
         set { isClear2 = value; }
+    }
+    public bool Clear3
+    {
+        get { return isClear3; }
+        set { isClear3 = value; }
+    }
+    public bool Clear4
+    {
+        get { return isClear4; }
+        set { isClear4 = value; }
     }
 }

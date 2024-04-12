@@ -32,9 +32,12 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (openCurtain == null) { return; }
         openCurtain.SetActive(true);
-        SuccUI = GameObject.FindWithTag("SuccUI").transform.GetChild(0).gameObject;
         StartCoroutine(OpeningCurtain());
+
+        if (GameObject.FindWithTag("SuccUI") == null) return;
+        SuccUI = GameObject.FindWithTag("SuccUI").transform.GetChild(0).gameObject;
     }
 
     IEnumerator OpeningCurtain()
@@ -55,13 +58,21 @@ public class StageController : MonoBehaviour
         {
             CreateLever();
         }
+        if (GameManager.Instance.Clear3 && SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            CreateLever();
+        }
+        if (GameManager.Instance.Clear4 && SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            CreateLever();
+        }
 
         if (isLever)
         {
             Interaction();
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 2 && GameManager.Instance.Clear2)
+        if (SceneManager.GetActiveScene().buildIndex == 4 && GameManager.Instance.Clear4)
         {
             SuccUI.gameObject.SetActive(true);
         }

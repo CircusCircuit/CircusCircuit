@@ -12,6 +12,6 @@ public class LoadScenceController : MonoBehaviour
 
     public void RestartButton()
     {
-        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }

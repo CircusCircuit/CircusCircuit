@@ -40,6 +40,7 @@ public class CardController : MonoBehaviour
                 pickCard = showCard[i];
 
                 GameManager.Instance.FreeFeather -= FeatherDeburf(pickCard);
+                StageController.Instance.CheckFetherCondition();
             }
         }
     }
@@ -65,15 +66,15 @@ public class CardController : MonoBehaviour
         switch (growth.number)
         {
             case 1:
-                randNum = Random.Range(0, 5);
+                randNum = Random.Range(0, 5 + 1);
                 return randNum;
 
             case 2:
-                randNum = Random.Range(0, 10);
+                randNum = Random.Range(0, 10 + 1);
                 return randNum;
 
             case 3:
-                randNum = Random.Range(0, 20);
+                randNum = Random.Range(0, 20 + 1);
                 return randNum;
         }
 

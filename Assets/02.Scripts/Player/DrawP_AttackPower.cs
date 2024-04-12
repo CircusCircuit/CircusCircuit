@@ -12,6 +12,8 @@ public class DrawP_AttackPower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage;
+        featherTxt.text = "Free Feather " + GameManager.Instance.FreeFeather + "%";
         SceneManager.sceneLoaded += UpdateAttackPower;
     }
 
@@ -23,7 +25,7 @@ public class DrawP_AttackPower : MonoBehaviour
 
     void UpdateAttackPower(Scene scene, LoadSceneMode mode)
     {
-        powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage + "%";
+        powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage;
         featherTxt.text = "Free Feather " + GameManager.Instance.FreeFeather + "%";
     }
 }

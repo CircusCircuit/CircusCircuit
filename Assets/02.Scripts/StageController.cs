@@ -12,6 +12,13 @@ using Random = UnityEngine.Random;
 
 public class StageController : MonoBehaviour
 {
+    public AudioClip reverSound; 
+    public AudioClip curtainCloseSound; 
+    public AudioClip curtainOpenSound; 
+
+
+
+    private AudioSource audioSource; // AudioSource ì»´í¬ë„ŒíŠ¸
     public static StageController Instance { get; private set; }
 
     [SerializeField] GameObject Lever;
@@ -32,10 +39,13 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(curtainOpenSound);
+        
         if (openCurtain == null) { return; }
         openCurtain.SetActive(true);
         StartCoroutine(OpeningCurtain());
-
+        
         if (GameObject.FindWithTag("SuccUI") == null) return;
         SuccUI = GameObject.FindWithTag("SuccUI").transform.GetChild(0).gameObject;
     }
@@ -82,8 +92,11 @@ public class StageController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            //Ä¿Æ°Äİ ´İÈ÷´Â ¾Ö´Ï¸ŞÀÌ¼Ç
-            //ÆË¾÷À¸·Î °ø°İÇü Ä«µå 3Àå
+            audioSource.PlayOneShot(reverSound);
+
+            //ì»¤íŠ¼ì½œ ë‹«íˆëŠ” ì• ë‹ˆë©”ì´ì…˜
+            //íŒì—…ìœ¼ë¡œ ê³µê²©í˜• ì¹´ë“œ 3ì¥
+            audioSource.PlayOneShot(curtainCloseSound);
             StartCoroutine(CurtainCall());
         }
     }
@@ -124,7 +137,7 @@ public class StageController : MonoBehaviour
 
     public void SelectBurfFeather()
     {
-        //±êÅĞ ¹öÇÁ, °ø°İ·Â µğ¹öÇÁ
+        //ê¹ƒí„¸ ë²„í”„, ê³µê²©ë ¥ ë””ë²„í”„
         DeBurfAttackCard("Deburf");
         SceneManager.LoadScene("EventStage");
     }
@@ -172,7 +185,7 @@ public class StageController : MonoBehaviour
 
     public void SelectDeburfFeather()
     {
-        //±êÅĞ µğ¹öÇÁ, °ø°İ·Â ¹öÇÁ
+        //ê¹ƒí„¸ ë””ë²„í”„, ê³µê²©ë ¥ ë²„í”„
         GameManager.Instance.FreeFeather /= 2;
         DeBurfAttackCard("Burf");
 

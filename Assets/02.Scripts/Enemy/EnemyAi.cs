@@ -52,20 +52,9 @@ namespace Enemy
             if (!isDying)
             {   
                 if(cooldownTimer <= 0){
-                    GroundMove(1.5f);
-                    DetectPlayerInRange(5f);
-                }
 
-                if (isDetectPlayer)
-                {
-                    if(cooldownTimer <= 0){
-                        enemyAttack.FireBullet_Circle12();
-                        cooldownTimer = 3f;
-                    }
                 }
-
             }
-
         }
 
         public void Think()

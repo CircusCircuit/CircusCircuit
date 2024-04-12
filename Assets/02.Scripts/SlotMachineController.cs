@@ -61,7 +61,7 @@ public class SlotMachineController : MonoBehaviour
             }
         }
 
-        string numb = string.Join(", ", number);
+        string numb = string.Join("", number);
 
         IncreaseFeather(numb);
     }
@@ -106,7 +106,6 @@ public class SlotMachineController : MonoBehaviour
     void IncreaseFeather(string number)
     {
         int rate = int.Parse(number);
-        print(rate);
 
         if (rate < 300)
         {

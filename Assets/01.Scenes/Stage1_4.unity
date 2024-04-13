@@ -5786,6 +5786,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f7d93030857514abf12a8a994628ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reverSound: {fileID: 0}
+  curtainCloseSound: {fileID: 0}
+  curtainOpenSound: {fileID: 0}
   Lever: {fileID: 906607340}
   isLever: 0
   anim: {fileID: 681094281}
@@ -6799,11 +6802,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1718156013166152686, guid: b6853450db735ff42b8663f880122584, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.576
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1718156013166152686, guid: b6853450db735ff42b8663f880122584, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.064
+      value: 4.15
       objectReference: {fileID: 0}
     - target: {fileID: 1718156013166152686, guid: b6853450db735ff42b8663f880122584, type: 3}
       propertyPath: m_LocalPosition.z

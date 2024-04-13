@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
 
+        Destroy(GameManager.Instance.gameObject);
         SceneManager.LoadScene(1);
     }
 }

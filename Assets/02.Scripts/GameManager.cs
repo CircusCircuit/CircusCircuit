@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance = null;
 
 
     // [ 스테이지 관련 ]
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount;
-    float freeFeather = 10;
+    float freeFeather = 25;
 
     int maxBullet = 7;
     float attackSpeed = 1;
@@ -37,9 +37,20 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (Instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
 
-        DontDestroyOnLoad(gameObject);
+
 
         curBulletCount = maxBullet;
 

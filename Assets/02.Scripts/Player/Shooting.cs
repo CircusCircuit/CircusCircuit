@@ -41,6 +41,7 @@ public class Shooting : MonoBehaviour
         mainCam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindWithTag("Player");
         bulletTxt = GameObject.Find("Bullet").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
 
         Lever = GameObject.FindWithTag("GameController").transform.GetChild(0).gameObject;
 

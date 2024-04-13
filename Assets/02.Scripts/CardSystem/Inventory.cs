@@ -227,18 +227,18 @@ public class Inventory : CardAdaptManager
 
     void RemoveUsedCard()
     {
-        int idx = 0;
-        foreach (var _slot in slotInfo)
-        {
-            if (slotInfo[idx].isPicked && !slotInfo[idx].isMerged)
-            {
-                slotInfo[idx].isPicked = false;
-                slotInfo[idx].slotObj.transform.GetChild(0).gameObject.SetActive(false);
-                slotInfo[idx].slotObj.GetComponent<Image>().sprite = null;
-                slotInfo[idx].slotObj.gameObject.SetActive(false);
-            }
-            ++idx;
-        }
+        //int idx = 0;
+        //foreach (var _slot in slotInfo)
+        //{
+        //    if (slotInfo[idx].isPicked && !slotInfo[idx].isMerged)
+        //    {
+        //        slotInfo[idx].isPicked = false;
+        //        slotInfo[idx].slotObj.transform.GetChild(0).gameObject.SetActive(false);
+        //        slotInfo[idx].slotObj.GetComponent<Image>().sprite = null;
+        //        slotInfo[idx].slotObj.gameObject.SetActive(false);
+        //    }
+        //    ++idx;
+        //}
 
         savePickedCards.Clear();
 

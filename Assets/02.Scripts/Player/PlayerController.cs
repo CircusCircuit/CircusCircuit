@@ -269,16 +269,13 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            //FailUI.SetActive(true);
-
-            StartCoroutine(RestartScene());
-        }
-
         if (SceneManager.GetActiveScene().buildIndex == 4)
         {
             FailUI.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(RestartScene());
         }
     }
 

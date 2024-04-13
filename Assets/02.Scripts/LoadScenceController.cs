@@ -12,6 +12,7 @@ public class LoadScenceController : MonoBehaviour
 
     public void RestartButton()
     {
+        Destroy(GameManager.Instance.gameObject);
         SceneManager.LoadScene(0);
     }
 }

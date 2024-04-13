@@ -120,7 +120,7 @@ public class Shooting : MonoBehaviour
 
     IEnumerator ReloadBullet()
     {
-        print("ReloadBullet 호출");
+        //print("ReloadBullet 호출");
 
         yield return new WaitForSeconds(3f);
 

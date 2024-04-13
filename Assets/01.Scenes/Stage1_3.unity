@@ -4684,7 +4684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &687681433
 Transform:
   m_ObjectHideFlags: 0
@@ -6984,6 +6984,7 @@ MonoBehaviour:
   anim: {fileID: 681094281}
   yellowCurtain: {fileID: 1397309574}
   cardController: {fileID: 1530662198}
+  SuccUI: {fileID: 0}
   openCurtain: {fileID: 0}
 --- !u!4 &1578243987
 Transform:
@@ -8622,7 +8623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2076014579
 Transform:
   m_ObjectHideFlags: 0

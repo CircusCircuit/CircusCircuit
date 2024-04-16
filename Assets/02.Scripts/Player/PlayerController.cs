@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour
             playerCollider.isTrigger = true;
 
             dodgeVec = moveVec;
-            GameManager.Instance.PlayerSpeed *= 2;
+            GameManager.Instance.PlayerSpeed = 15/**= 1.5f*/;
             //anim.SetTrigger("doDodge");
 
             isDodge = true;
@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.5f);
 
-        GameManager.Instance.PlayerSpeed *= 0.5f;
+        GameManager.Instance.PlayerSpeed = 5/**= 0.5f*/;
 
         //yield return new WaitForSeconds(0.16f);
         yield return new WaitForFixedUpdate();

@@ -69,10 +69,10 @@ public class StageController : MonoBehaviour
         {
             CreateLever();
         }
-        if (GameManager.Instance.Clear4 && SceneManager.GetActiveScene().buildIndex == 4)
-        {
-            CreateLever();
-        }
+        //if (GameManager.Instance.Clear4 && SceneManager.GetActiveScene().buildIndex == 4)
+        //{
+        //    CreateLever();
+        //}
 
         if (isLever)
         {

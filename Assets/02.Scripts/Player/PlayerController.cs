@@ -39,6 +39,15 @@ public class PlayerController : MonoBehaviour
 
     GameObject FailUI;
 
+    enum States
+    {
+        Idle,
+        Jumping,
+        Falling,
+        Dodging
+    }
+    States curState;
+
     private void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
@@ -53,18 +62,26 @@ public class PlayerController : MonoBehaviour
 
         if (GameObject.FindWithTag("FailUI") == null) return;
         FailUI = GameObject.FindWithTag("FailUI").transform.GetChild(0).gameObject;
+
+        curState = States.Idle;
     }
 
     // Update is called once per frame
     void Update()
     {
         // [ 올라가기 및 점프 ]
-        Jump();
+        if (curState == States.Idle)
+        {
+            Jump();
+        }
+
 
         // [ 내려오기 ]
         if (Input.GetKeyDown(KeyCode.S) && isGround)
         {
             isPushDownKey = true;
+
+            curState = States.Falling;
         }
 
         if (GameManager.Instance.PlayerHp <= 0)
@@ -74,10 +91,19 @@ public class PlayerController : MonoBehaviour
 
         // [ 구르기(회피) ]
         Dodge();
+        if (curState == States.Dodging)
+        {
+            if (!isBase || !isGround)
+            {
+                rb.gravityScale = 4;
+                playerCollider.isTrigger = false;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Enemy") return;
         playerCollider.isTrigger = false;
     }
 
@@ -93,7 +119,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        playerCollider.isTrigger = false;
+        if (collision.gameObject.tag != "Enemy")
+        {
+            playerCollider.isTrigger = false;
+        }
+
 
         if (isGround && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
         {
@@ -124,6 +154,7 @@ public class PlayerController : MonoBehaviour
         {
             //anim.SetBool("isJump", false);
             isJump = false;
+            curState = States.Idle;
         }
 
         if (isPushDownKey && isGround)
@@ -131,6 +162,8 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             rb.AddForce(-transform.up * 200f);
             isPushDownKey = false;
+
+            curState = States.Idle;
         }
 
         moveX = Input.GetAxisRaw("Horizontal");
@@ -161,10 +194,11 @@ public class PlayerController : MonoBehaviour
         {
             if ((isGround && !isDodge) || isBase)
             {
-                rb.AddForce(Vector2.up * jumpPower);
+                rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 //anim.SetBool("isJump", true);
                 //anim.SetTrigger("doJump");
                 isJump = true;
+                curState = States.Jumping;
             }
         }
 
@@ -175,10 +209,16 @@ public class PlayerController : MonoBehaviour
     // [ 구르기 ]
     void Dodge()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && isJump == false && isDodge == false)
+        if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && curState == States.Idle/*isJump == false && isDodge == false*/)
         {
+            curState = States.Dodging;
+            print("Dodging");
+
+            rb.gravityScale = 0;
+            playerCollider.isTrigger = true;
+
             dodgeVec = moveVec;
-            GameManager.Instance.PlayerSpeed *= 2;
+            GameManager.Instance.PlayerSpeed = 15/**= 1.5f*/;
             //anim.SetTrigger("doDodge");
 
             isDodge = true;
@@ -189,18 +229,26 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DodgeOut()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
 
-        GameManager.Instance.PlayerSpeed *= 0.5f;
+        GameManager.Instance.PlayerSpeed = 5/**= 0.5f*/;
+
+        //yield return new WaitForSeconds(0.16f);
+        yield return new WaitForFixedUpdate();
+
+        playerCollider.isTrigger = false;
+        rb.gravityScale = 4;
 
         StartCoroutine(DodgeDelay());
     }
     IEnumerator DodgeDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         isDodge = false;
         shooting.canFire = true;
+
+        curState = States.Idle;
     }
 
 

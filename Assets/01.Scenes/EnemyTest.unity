@@ -1847,7 +1847,7 @@ Transform:
   m_Children:
   - {fileID: 1151316259}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &337402629
 GameObject:
@@ -1971,9 +1971,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1718156013166152657, guid: b6853450db735ff42b8663f880122584, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1718156013166152686, guid: b6853450db735ff42b8663f880122584, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1718156013166152686, guid: b6853450db735ff42b8663f880122584, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2406,7 +2410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 825772356388759137, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 825772356388759138, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}
       propertyPath: m_GravityScale
@@ -2414,15 +2418,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 825772356388759140, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 825772356388759140, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.03
+      value: 7.89
       objectReference: {fileID: 0}
     - target: {fileID: 825772356388759140, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.79
+      value: 3.69
       objectReference: {fileID: 0}
     - target: {fileID: 825772356388759140, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2517,7 +2521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4899869598507531811, guid: 18596cff2f456a642bf5bbb7b701d4e0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4899869598507531819, guid: 18596cff2f456a642bf5bbb7b701d4e0, type: 3}
       propertyPath: m_RootOrder
@@ -3278,7 +3282,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688508065
 GameObject:

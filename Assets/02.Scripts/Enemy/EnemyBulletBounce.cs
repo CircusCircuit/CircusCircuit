@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyBullet : MonoBehaviour
+    public class EnemyBulletBounce : MonoBehaviour
     {
         Rigidbody2D rigid;
         EnemyAttack enemyAttack;
@@ -27,12 +27,12 @@ namespace Enemy
 
             initialPosition = transform.position;
 
-            inclination = initialPosition.y/math.pow(initialPosition.x, 2);
+            inclination = initialPosition.y / math.pow(initialPosition.x, 2);
 
             rigid = GetComponent<Rigidbody2D>();
 
             // 일정 시간 후에 총알을 파괴하는 Invoke 함수 호출
-            Invoke("DestroyBullet", destroyTime);
+            // Invoke("DestroyBullet", destroyTime);
         }
 
         // Update is called once per frame
@@ -41,18 +41,28 @@ namespace Enemy
         }
 
         // 총알이 충돌하면 호출되는 함수
+        // void OnTriggerEnter2D(Collider2D other)
+        // {
+        //     // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
+        //     if (other.CompareTag("Ground") || !other.isTrigger)
+        //     {
+
+        //         if (!other.CompareTag("Enemy") && !other.CompareTag("EnemyBullet"))
+        //         {
+        //             DestroyBullet();
+        //         }
+        //     }
+        // }
+
         void OnTriggerEnter2D(Collider2D other)
         {
-            // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
+            
             if (other.CompareTag("Ground") || !other.isTrigger)
             {
-                if (!other.CompareTag("Enemy") && !other.CompareTag("EnemyBullet"))
-                {
-                    DestroyBullet();
-                }
+                Vector2 reflection = Vector2.Reflect(rigid.velocity.normalized, other.ClosestPoint(transform.position) - (Vector2)transform.position).normalized;
+                rigid.velocity = reflection * speed;
             }
         }
-
         // 총알을 파괴하는 함수
         void DestroyBullet()
         {

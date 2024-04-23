@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
 
 
+    [Header("개발자모드")]
+    public bool areYouDev;
+
+    [Header("[Stage_Info]")]
     // [ 스테이지 관련 ]
     public int curStageIndex;
     [SerializeField] bool isClear1;
@@ -19,7 +23,7 @@ public class GameManager : MonoBehaviour
     float hp = 4;
     float attackPoewr = 100;
     int curBulletCount;
-    float freeFeather = 25;
+    float freeFeather = 50;
 
     int maxBullet = 7;
     float attackSpeed = 1;
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
     // [ 몬스터 관련 ]
     float M_attackedDamage = 5;
 
+    [Header("[Attack_Coeffient]")]
     //계수
     public float coeffFightPower = 1;
     public float coeffFightSpeed = 1;
@@ -55,6 +60,11 @@ public class GameManager : MonoBehaviour
         curBulletCount = maxBullet;
 
         curStageIndex = SceneManager.GetActiveScene().buildIndex;
+    }
+
+    private void Start()
+    {
+        if (areYouDev) hp = 1000;
     }
 
     public float PlayerHp

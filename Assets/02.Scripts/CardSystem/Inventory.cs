@@ -22,11 +22,10 @@ public class Inventory : CardAdaptManager
     public class SlotCardInfo
     {
         public GameObject slotObj;
-        //public List<CardSO.Murtiple> cardInfo = new List<CardSO.Murtiple>();
         public CardSO.Murtiple cardInfo;
-        //public CardSO.Murtiple[] mergeCardInfo = new CardSO.Murtiple[5];
-        public bool isPicked = false;
+        //public bool isPicked = false;
         public bool isMerged = false;
+        public CardSO.Murtiple[] mergeCardInfo = new CardSO.Murtiple[5];
     }
     List<SlotCardInfo> slotInfo = new List<SlotCardInfo>();
 
@@ -35,7 +34,7 @@ public class Inventory : CardAdaptManager
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        //TestForMurtiCard();
+        TestForMurtiCard();
     }
 
     [SerializeField] CardDropSO cardDropSO;
@@ -110,7 +109,7 @@ public class Inventory : CardAdaptManager
             savePickedCards.RemoveAt(0);
 
             slotInfo[firstPickedCardNumber].slotObj.transform.GetChild(0).gameObject.SetActive(false);
-            slotInfo[firstPickedCardNumber].isPicked = false;
+            //slotInfo[firstPickedCardNumber].isPicked = false;
         }
 
         //seleted Frame activation
@@ -119,41 +118,29 @@ public class Inventory : CardAdaptManager
         //선택한 슬롯 번호, 카드 정보 리스트에 저장
         int pickedSlotNumber = int.Parse(pickedSlotObj.name);
 
-        var pickedInfo = new SavePickedCard();
-
-        //왜 이따구로 짰니..? 왜 slotInfo개수를 구하고 앉았냐?
-        //이거 말고 merge카드를 선택했을 때 용도로 if문 만들어야 할 듯함.
-
-        //if (slotInfo[pickedSlotNumber].cardInfo.Count == 5)
-        //{
-        //    pickedInfo.pickedSlotNumb = pickedSlotNumber;
-
-        //    int idx = 0;
-        //    foreach (var picked in slotInfo[pickedSlotNumber].cardInfo)
-        //    {
-        //        pickedInfo.pickedSlotCard.Add(slotInfo[pickedSlotNumber].cardInfo[idx]);
-        //        print(pickedInfo.pickedSlotCard[idx].cardName);
-        //        idx++;
-        //    }
-        //}
-        //else/* (slotInfo[pickedSlotNumber].cardInfo.Count == 1)*/
-        //{
-        //    //선택 슬롯번호
-        //    pickedInfo.pickedSlotNumb = pickedSlotNumber;
-        //    //선택 슬롯카드정보
-        //    pickedInfo.pickedSlotCard.Add(slotInfo[pickedSlotNumber].cardInfo[0]);
-        //}
-
-
+        var savePickedCard = new SavePickedCard();
         //선택 슬롯번호
-        pickedInfo.pickedSlotNumb = pickedSlotNumber;
-        //선택 슬롯카드정보
-        pickedInfo.pickedSlotCard.Add(slotInfo[pickedSlotNumber].cardInfo);
+        savePickedCard.pickedSlotNumb = pickedSlotNumber;
 
-        savePickedCards.Add(pickedInfo);
+        if (slotInfo[pickedSlotNumber].isMerged)
+        {
+            savePickedCard.pickedSlotCard.Add(slotInfo[pickedSlotNumber].mergeCardInfo[0]);
+            savePickedCard.pickedSlotCard.Add(slotInfo[pickedSlotNumber].mergeCardInfo[1]);
+            savePickedCard.pickedSlotCard.Add(slotInfo[pickedSlotNumber].mergeCardInfo[2]);
+            savePickedCard.pickedSlotCard.Add(slotInfo[pickedSlotNumber].mergeCardInfo[3]);
+            savePickedCard.pickedSlotCard.Add(slotInfo[pickedSlotNumber].mergeCardInfo[4]);
+        }
+        else
+        {
+            //선택 슬롯카드정보
+            savePickedCard.pickedSlotCard.Add(slotInfo[pickedSlotNumber].cardInfo);
+        }
+
+
+        savePickedCards.Add(savePickedCard);
 
         //슬롯 선택 여부 반영
-        slotInfo[pickedSlotNumber].isPicked = true;
+        //slotInfo[pickedSlotNumber].isPicked = true;
     }
 
     public void UnUseCard()
@@ -164,7 +151,7 @@ public class Inventory : CardAdaptManager
         int frameNumb = int.Parse(pickedFrameObj.name.Replace("Frame", ""));
 
         pickedFrameObj.SetActive(false);
-        slotInfo[frameNumb].isPicked = false;
+        //slotInfo[frameNumb].isPicked = false;
 
         int getIndex = 0;
         for (int i = 0; i < savePickedCards.Count; i++)
@@ -231,19 +218,6 @@ public class Inventory : CardAdaptManager
 
     void RemoveUsedCard()
     {
-        //int idx = 0;
-        //foreach (var _slot in slotInfo)
-        //{
-        //    if (slotInfo[idx].isPicked && !slotInfo[idx].isMerged)
-        //    {
-        //        slotInfo[idx].isPicked = false;
-        //        slotInfo[idx].slotObj.transform.GetChild(0).gameObject.SetActive(false);
-        //        slotInfo[idx].slotObj.GetComponent<Image>().sprite = null;
-        //        slotInfo[idx].slotObj.gameObject.SetActive(false);
-        //    }
-        //    ++idx;
-        //}
-
         savePickedCards.Clear();
 
         SlotReArrange();
@@ -251,15 +225,6 @@ public class Inventory : CardAdaptManager
 
     void SlotReArrange()
     {
-        ////비활성화된 slotInfo의 내용물 비우기, foreach문 안에서는 list 삭제 안됨.
-        //for (int i = slotInfo.Count - 1; i >= 0; i--)
-        //{
-        //    if (slotInfo[i].slotObj.activeSelf == false)
-        //    {
-        //        slotInfo.RemoveAt(i);
-        //    }
-        //}
-
         //슬롯 전체 비활성화
         int idx = 0;
         foreach (var _slot in slot)
@@ -272,30 +237,29 @@ public class Inventory : CardAdaptManager
         }
 
         //머지카드가 만들어졌을때 인벤토리에 재정렬할 정보 저장
-        //if (mergeInfoList != null)
-        //{
-        //    for (int i = 0; i < mergeInfoList.Count; i++)
-        //    {
-        //        //slotInfo[i].cardInfo = mergeInfos[i];
-        //        SlotCardInfo info = new SlotCardInfo();
-        //        info.cardInfo.Add(mergeInfoList[i][0]);
-        //        info.cardInfo.Add(mergeInfoList[i][1]);
-        //        info.cardInfo.Add(mergeInfoList[i][2]);
-        //        info.cardInfo.Add(mergeInfoList[i][3]);
-        //        info.cardInfo.Add(mergeInfoList[i][4]);
+        if (mergeInfoList != null)
+        {
+            for (int i = 0; i < mergeInfoList.Count; i++)
+            {
+                SlotCardInfo info = new SlotCardInfo();
+                info.mergeCardInfo[0] = mergeInfoList[i][0];
+                info.mergeCardInfo[1] = mergeInfoList[i][1];
+                info.mergeCardInfo[2] = mergeInfoList[i][2];
+                info.mergeCardInfo[3] = mergeInfoList[i][3];
+                info.mergeCardInfo[4] = mergeInfoList[i][4];
 
-        //        slotInfo.Insert(i, info);
+                slotInfo.Insert(i, info);
 
-        //        slotInfo[i].isMerged = true;
-        //        slotInfo[i].slotObj = slot[i].gameObject;
-        //        slotInfo[i].slotObj.GetComponent<Image>().sprite = mergeCardImg;
-        //        slotInfo[i].slotObj.gameObject.SetActive(true);
-        //    }
-        //}
+                slotInfo[i].isMerged = true;
+                slotInfo[i].slotObj = slot[i].gameObject;
+                slotInfo[i].slotObj.GetComponent<Image>().sprite = mergeCardImg;
+                slotInfo[i].slotObj.gameObject.SetActive(true);
+            }
+        }
 
         print(slotInfo.Count);
         //슬롯 첫칸부터 다시 채우기
-        for (int i = mergeInfoList.Count; i < slotInfo.Count + mergeInfoList.Count; i++)
+        for (int i = mergeInfoList.Count; i < slotInfo.Count + mergeInfoList.Count - 1; i++)
         {
             print(slotInfo[i].cardInfo.cardName);
             slotInfo[i].slotObj = slot[i].gameObject;

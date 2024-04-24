@@ -98,6 +98,11 @@ public class CardAdaptManager : MonoBehaviour
         int idx = 0;
         foreach (var _cards in savePickedCards)
         {
+            if (savePickedCards[idx].pickedSlotCard.Count == 5)
+            {
+                ++idx; 
+                break;
+            }
             getSaveCards[idx] = savePickedCards[idx].pickedSlotCard[0];
             ++idx;
         }

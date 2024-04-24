@@ -238,6 +238,15 @@ public class Inventory : CardAdaptManager
 
     void SlotReArrange()
     {
+        ////비활성화된 slotInfo의 내용물 비우기, foreach문 안에서는 list 삭제 안됨.
+        //for (int i = slotInfo.Count - 1; i >= 0; i--)
+        //{
+        //    if (slotInfo[i].slotObj.activeSelf == false)
+        //    {
+        //        slotInfo.RemoveAt(i);
+        //    }
+        //}
+
         //슬롯 전체 비활성화
         int idx = 0;
         foreach (var _slot in slot)

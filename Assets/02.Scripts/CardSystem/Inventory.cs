@@ -283,6 +283,7 @@ public class Inventory : CardAdaptManager
         //슬롯 첫칸부터 다시 채우기
         for (int i = mergeInfoList.Count; i < slotInfo.Count + mergeInfoList.Count - 1; i++)
         {
+            //여기서도 null 에러뜸
             print(slotInfo[i].cardInfo.cardName);
             slotInfo[i].slotObj = slot[i].gameObject;
 

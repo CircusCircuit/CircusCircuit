@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     BoxCollider2D playerCollider;
     SpriteRenderer spriteRenderer;
+    Animator playerAnim;
 
     GameObject FailUI;
 
@@ -51,7 +52,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = transform.GetChild(2).GetComponent<SpriteRenderer>();
+        playerAnim = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -152,7 +154,6 @@ public class PlayerController : MonoBehaviour
 
         if (isGround || isBase)
         {
-            //anim.SetBool("isJump", false);
             isJump = false;
             curState = States.Idle;
         }
@@ -166,8 +167,9 @@ public class PlayerController : MonoBehaviour
             curState = States.Idle;
         }
 
-        moveX = Input.GetAxisRaw("Horizontal");
+        //moveX = Input.GetAxisRaw("Horizontal");
         Move();
+
 
         if (CrosshairCursor.instance.mouseCursorPos.x > 0 && !facingRight) { Flip(); }
         else if (CrosshairCursor.instance.mouseCursorPos.x < 0 && facingRight) { Flip(); }
@@ -176,6 +178,7 @@ public class PlayerController : MonoBehaviour
     // [ 이동 ]
     void Move()
     {
+        moveX = Input.GetAxisRaw("Horizontal");
         moveVec = new Vector2(moveX * GameManager.Instance.PlayerSpeed, rb.velocity.y)/*.normalized*/;
 
         rb.velocity = moveVec;
@@ -183,8 +186,7 @@ public class PlayerController : MonoBehaviour
         if (isDodge)
             moveVec = dodgeVec;
 
-        //anim.SetBool("isRun", moveVec != Vector2.zero);
-        //anim.SetBool("isWalk", wDown);
+        playerAnim.SetBool("isWalk", moveVec != Vector2.zero);
     }
 
     // [ 점프 ]
@@ -199,11 +201,11 @@ public class PlayerController : MonoBehaviour
                 //anim.SetTrigger("doJump");
                 isJump = true;
                 curState = States.Jumping;
+                playerAnim.SetTrigger("isJump");
             }
         }
 
         //점프 중 몬스터의 물리 공격, 탄막 공격, 충돌을 무적 상태로 회피한다.
-        //StartCoroutine(NoAttack(null));
     }
 
     // [ 구르기 ]
@@ -212,14 +214,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && curState == States.Idle/*isJump == false && isDodge == false*/)
         {
             curState = States.Dodging;
-            print("Dodging");
+            playerAnim.SetTrigger("isDodge");
 
             rb.gravityScale = 0;
             playerCollider.isTrigger = true;
 
             dodgeVec = moveVec;
             GameManager.Instance.PlayerSpeed = 15/**= 1.5f*/;
-            //anim.SetTrigger("doDodge");
 
             isDodge = true;
             shooting.canFire = false;
@@ -233,7 +234,6 @@ public class PlayerController : MonoBehaviour
 
         GameManager.Instance.PlayerSpeed = 5/**= 0.5f*/;
 
-        //yield return new WaitForSeconds(0.16f);
         yield return new WaitForFixedUpdate();
 
         playerCollider.isTrigger = false;

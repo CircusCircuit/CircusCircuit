@@ -7800,7 +7800,7 @@ MonoBehaviour:
   isLever: 0
   anim: {fileID: 1986469490}
   yellowCurtain: {fileID: 1380887523}
-  cardController: {fileID: 1155232232}
+  cardRewardManager: {fileID: 1155232232}
   SuccUI: {fileID: 0}
   openCurtain: {fileID: 0}
 --- !u!82 &1868994716

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Inventory;
 
 public class CardAdaptManager : MonoBehaviour
 {
@@ -98,12 +97,10 @@ public class CardAdaptManager : MonoBehaviour
         int idx = 0;
         foreach (var _cards in savePickedCards)
         {
-            if (savePickedCards[idx].pickedSlotCard.Count == 5)
+            if (savePickedCards[idx].pickedSlotCard.Count != 5)
             {
-                ++idx; 
-                break;
+                getSaveCards[idx] = savePickedCards[idx].pickedSlotCard[0];
             }
-            getSaveCards[idx] = savePickedCards[idx].pickedSlotCard[0];
             ++idx;
         }
 
@@ -112,6 +109,8 @@ public class CardAdaptManager : MonoBehaviour
             .Where(g => g.Count() > 1)
             .Select(y => y.Key)
             .ToList();
+
+        print("findSameCards" + findSameCards[0]);
 
         //°è»ê
         for (int i = 0; i < findSameCards.Count; i++)

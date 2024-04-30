@@ -26,7 +26,7 @@ public class StageController : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] GameObject yellowCurtain;
 
-    [SerializeField] CardController cardController;
+    [SerializeField] CardRewardManager cardRewardManager;
 
     [SerializeField] GameObject SuccUI;
     [SerializeField] GameObject openCurtain;
@@ -113,7 +113,7 @@ public class StageController : MonoBehaviour
         var length = anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(length);
 
-        cardController.RandomCard();
+        cardRewardManager.RandomCard();
         Cursor.visible = true;
     }
 

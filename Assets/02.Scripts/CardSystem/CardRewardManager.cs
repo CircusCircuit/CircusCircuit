@@ -4,9 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using CardSystem;
 using static CardDropSO;
 
-public class CardController : MonoBehaviour
+public class CardRewardManager : MonoBehaviour
 {
     private AudioSource audioSource; // AudioSource ÄÄÆ÷³ÍÆ®
     [SerializeField] AudioClip cardSelectSFX;

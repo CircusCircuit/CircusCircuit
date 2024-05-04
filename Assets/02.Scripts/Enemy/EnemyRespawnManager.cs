@@ -6,21 +6,44 @@ using UnityEngine.SceneManagement;
 
 public class EnemyRespawnManager : MonoBehaviour
 {
-    public GameObject waveObject;
+    public GameObject waveObject1;
+    public GameObject waveObject2;
+
+    public GameObject respawnUi1;
+    public GameObject respawnUi2;
     private bool completeFlag =false; 
+    private bool startFlag =false; 
     // 몬스터 생성 함수
-    private void SpawnMonster()
+    private void SpawnMonster1()
     {
-        waveObject.SetActive(true);
+        respawnUi1.SetActive(false);
+        waveObject1.SetActive(true);
+        startFlag = true;
+    }
+    private void SpawnMonster2()
+    {
+        respawnUi2.SetActive(false);
+        waveObject2.SetActive(true);
     }
 
+    private void SpawnUi1(){
+        respawnUi1.SetActive(true);
+        Invoke("SpawnMonster1", 1.5f);
+    }
+    private void SpawnUi2(){
+        respawnUi2.SetActive(true);
+        Invoke("SpawnMonster2", 1.5f);
+    }
+    void Start(){
+        SpawnUi1();
+    }
     // 매 프레임마다 확인
     void FixedUpdate()
     {
-        if (GameObject.FindGameObjectWithTag("Enemy") == null)
+        if (GameObject.FindGameObjectWithTag("Enemy") == null && startFlag == true)
         {
             if(!completeFlag){
-                SpawnMonster();
+                SpawnUi2();
                 completeFlag =true;
             }
             else

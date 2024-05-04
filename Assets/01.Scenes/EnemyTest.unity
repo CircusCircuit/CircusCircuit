@@ -3167,6 +3167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bullet_Bounce
       objectReference: {fileID: 0}
+    - target: {fileID: 825772356388759138, guid: 76e601ca05ddfda4e804731ed8dbd5a9, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 825772356388759140, guid: 76e601ca05ddfda4e804731ed8dbd5a9, type: 3}
       propertyPath: m_RootOrder
       value: 12

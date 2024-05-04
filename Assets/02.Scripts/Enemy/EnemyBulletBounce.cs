@@ -54,13 +54,15 @@ namespace Enemy
         //     }
         // }
 
+    
+        
+
         void OnTriggerEnter2D(Collider2D other)
         {
-            
+
             if (other.CompareTag("Ground") || !other.isTrigger)
             {
-                Vector2 reflection = Vector2.Reflect(rigid.velocity.normalized, other.ClosestPoint(transform.position) - (Vector2)transform.position).normalized;
-                rigid.velocity = reflection * speed;
+                
             }
         }
         // 총알을 파괴하는 함수

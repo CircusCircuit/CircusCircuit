@@ -44,6 +44,8 @@ public class CardController : MonoBehaviour
             {
                 pickCard = showCard[i];
 
+                invenObj.GetComponent<Inventory>().ShowCard(pickCard);
+
                 GameManager.Instance.FreeFeather -= FeatherDeburf(pickCard);
                 StageController.Instance.CheckFetherCondition();
             }

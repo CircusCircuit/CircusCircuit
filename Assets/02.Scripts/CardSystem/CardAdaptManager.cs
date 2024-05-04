@@ -98,6 +98,11 @@ public class CardAdaptManager : MonoBehaviour
         int idx = 0;
         foreach (var _cards in savePickedCards)
         {
+            if (savePickedCards[idx].pickedSlotCard.Count == 5)
+            {
+                ++idx; 
+                break;
+            }
             getSaveCards[idx] = savePickedCards[idx].pickedSlotCard[0];
             ++idx;
         }
@@ -114,6 +119,7 @@ public class CardAdaptManager : MonoBehaviour
             int rand = Random.Range(0, 2);
             if (rand == 0) return;
 
+            //여기서 null에러 뜸
             switch (findSameCards[i].Atype)
             {
                 case CardSO.Murtiple.AttackType.FightPower:

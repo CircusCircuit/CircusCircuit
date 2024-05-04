@@ -24,6 +24,8 @@ public class EnemyRespawnManager : MonoBehaviour
     {
         respawnUi2.SetActive(false);
         waveObject2.SetActive(true);
+        startFlag = true;
+
     }
 
     private void SpawnUi1(){
@@ -43,8 +45,9 @@ public class EnemyRespawnManager : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Enemy") == null && startFlag == true)
         {
             if(!completeFlag){
-                SpawnUi2();
+                startFlag = false;
                 completeFlag =true;
+                SpawnUi2();
             }
             else
             {

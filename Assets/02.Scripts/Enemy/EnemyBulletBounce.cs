@@ -12,7 +12,7 @@ namespace Enemy
         Rigidbody2D rigid;
         EnemyAttack enemyAttack;
         float cooldownTimer = 3;
-        public float destroyTime = 2f; // 총알이 생성된 후 파괴될 시간
+        public float destroyTime = 3f; // 총알이 생성된 후 파괴될 시간
 
         public float speed = 1.0f; // 이동 속도
         public float startTime = 0.0f; // 시작 시간
@@ -32,7 +32,7 @@ namespace Enemy
             rigid = GetComponent<Rigidbody2D>();
 
             // 일정 시간 후에 총알을 파괴하는 Invoke 함수 호출
-            // Invoke("DestroyBullet", destroyTime);
+            Invoke("DestroyBullet", destroyTime);
         }
 
         // Update is called once per frame
@@ -41,30 +41,20 @@ namespace Enemy
         }
 
         // 총알이 충돌하면 호출되는 함수
-        // void OnTriggerEnter2D(Collider2D other)
-        // {
-        //     // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
-        //     if (other.CompareTag("Ground") || !other.isTrigger)
-        //     {
-
-        //         if (!other.CompareTag("Enemy") && !other.CompareTag("EnemyBullet"))
-        //         {
-        //             DestroyBullet();
-        //         }
-        //     }
-        // }
-
-    
-        
-
         void OnTriggerEnter2D(Collider2D other)
         {
-
+            // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
             if (other.CompareTag("Ground") || !other.isTrigger)
             {
-                
+
+                if (!other.CompareTag("Enemy") && !other.CompareTag("EnemyBullet"))
+                {
+                    rigid.velocity = new Vector2(-rigid.velocity.x, rigid.velocity.y);
+                    // DestroyBullet();
+                }
             }
         }
+
         // 총알을 파괴하는 함수
         void DestroyBullet()
         {

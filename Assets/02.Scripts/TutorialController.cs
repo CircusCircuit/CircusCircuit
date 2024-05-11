@@ -16,10 +16,10 @@ public class TutorialController : MonoBehaviour
     Animator dodgeAnim;
     [SerializeField] GameObject shootTutoUI;
     Animator shootAnim;
-    //[SerializeField] GameObject attackTutoUI;
-    //Animator attackAnim;
-    //[SerializeField] GameObject useCardTutoUI;
-    //Animator useCardAnim;
+    [SerializeField] GameObject attackTutoUI;
+    Animator attackAnim;
+    [SerializeField] GameObject useCardTutoUI;
+    Animator useCardAnim;
 
 
     Vector3 mousePos;
@@ -42,62 +42,84 @@ public class TutorialController : MonoBehaviour
         //attackAnim = attackTutoUI.GetComponent<Animator>();
         //useCardAnim = useCardTutoUI.GetComponent<Animator>();
 
-        StartCoroutine(MoveTuto());
-        StartCoroutine(DodgeTuto());
+
+        StartCoroutine(WaitForStartTutorial());
+    }
+
+    IEnumerator WaitForStartTutorial()
+    {
+        yield return new WaitForSeconds(1);
+
+        moveTutoUI.SetActive(true);
+        moveAnim.SetBool("doHorizon", true);
+        moveTutoObj.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (moveTutoUI.activeSelf || dodgeTutoUI.activeSelf)
+        {
+            GameObject.Find("MoveTutorial").transform.position = new Vector2(player.transform.position.x + 1, player.transform.position.y + 1);
+        }
+
         if (player.transform.localPosition.x > 0.6f && player.transform.localPosition.x < 1.6f)
         {
             doTuto[0] = true;
+            Check();
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && doTuto[0])
         {
             doTuto[1] = true;
+            Check();
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && doTuto[0] && doTuto[1])
         {
             doTuto[2] = true;
+            Check();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (GameManager.Instance.PlayerSpeed == 15 && doTuto[0] && doTuto[1] && doTuto[2])
         {
             doTuto[3] = true;
+            Check();
         }
+        if (doTuto[0] && doTuto[1] && doTuto[2] && doTuto[3])
+        {
+            ShootTuto();
+        }
+
     }
 
-    IEnumerator MoveTuto()
+    void Check()
     {
-        moveTutoUI.SetActive(true);
+        if (doTuto[0])
+        {
+            moveAnim.SetBool("doHorizon", false);
+            moveTutoObj.SetActive(false);
+            moveAnim.SetBool("doUp", true);
+        }
+        if (doTuto[1])
+        {
+            moveAnim.SetBool("doUp", false);
+            moveAnim.SetBool("doDown", true);
+        }
+        if (doTuto[2])
+        {
+            moveTutoUI.SetActive(false);
 
-        moveAnim.SetBool("doHorizon", true);
-        moveTutoObj.SetActive(true);
-        //while (!doTuto[0]) { }
-        //moveAnim.SetBool("doHorizon", false);
-
-        //moveAnim.SetBool("doJump", true);
-        //while (!doTuto[1]) { }
-        //moveAnim.SetBool("doJump", false);
-
-        //moveAnim.SetBool("doDown", true);
-        //while (!doTuto[2]) { }
-        //moveAnim.SetBool("doDown", false);
-
-        //moveTutoUI.SetActive(false);
-
-        yield return StartCoroutine(MoveTuto());
-    }
-
-    IEnumerator DodgeTuto()
-    {
-        dodgeTutoUI.SetActive(true);
-
-        dodgeAnim.SetBool("doDodge", true);
-        //while (!doTuto[3]) { }
-        dodgeTutoUI.SetActive(false);
-
-        yield return StartCoroutine(DodgeTuto());
+            dodgeTutoUI.SetActive(true);
+            dodgeAnim.SetBool("doSpace", true);
+        }
+        if (doTuto[3])
+        {
+            dodgeTutoUI.SetActive(false);
+            shootTutoUI.SetActive(true);
+            shootAnim.SetBool("doPointer", true);
+        }
+        if (doTuto[4])
+        {
+            shootTutoUI.SetActive(false);
+        }
     }
 
     void ShootTuto()
@@ -105,8 +127,8 @@ public class TutorialController : MonoBehaviour
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         Vector3 rotation = mousePos - transform.position;
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rotZ);
-        transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
+        bulletTransform.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+        bulletTransform.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
 
         if (!canFire)
         {

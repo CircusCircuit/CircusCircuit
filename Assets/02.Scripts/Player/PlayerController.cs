@@ -60,7 +60,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+        }
 
         if (GameObject.FindWithTag("FailUI") == null) return;
         FailUI = GameObject.FindWithTag("FailUI").transform.GetChild(0).gameObject;

@@ -92,8 +92,6 @@ public class Shooting : MonoBehaviour
 
             canFire = false;
             print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
-            
-
         }
 
         

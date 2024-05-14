@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1cb1f0b64ae1142aa6b6f3e5bd898d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  areYouDev: 0
   curStageIndex: 0
   isClear1: 0
   isClear2: 0
@@ -912,7 +913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7876953314544618154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -978,7 +979,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0, y: 0}
-  m_SizeDelta: {x: 17, y: 1850}
+  m_SizeDelta: {x: 17, y: 950}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8758633972177121101
 MonoBehaviour:
@@ -1035,7 +1036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6057537602304587550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3413,7 +3414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 910, y: -1600}
+  m_AnchoredPosition: {x: 910, y: -700}
   m_SizeDelta: {x: 1420, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4219411451246101367
@@ -3483,7 +3484,7 @@ RectTransform:
   m_Father: {fileID: 7579109639335394758}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.4162162}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -4655,8 +4656,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4881398836396168553}
   m_HandleRect: {fileID: 2362541042664458845}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.5837838
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5897,6 +5898,11 @@ MonoBehaviour:
   - {fileID: 3893722841517475831}
   - {fileID: 6387667806689200610}
   - {fileID: 3525319404305796942}
+  contentRect: {fileID: 6041226326173533479}
+  slotSets:
+  - {fileID: 441438893722448011}
+  - {fileID: 669159498562432040}
+  - {fileID: 958980380479687285}
   mergeCardImg: {fileID: 21300000, guid: b6fd20f86abced9429b86ecbb0c35377, type: 3}
   cardDropSO: {fileID: 11400000, guid: a7aefe193d59f7b4cbf605e39bf26a85, type: 2}
 --- !u!82 &5531607099266051928

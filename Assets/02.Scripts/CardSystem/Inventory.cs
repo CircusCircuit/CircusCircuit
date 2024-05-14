@@ -19,6 +19,9 @@ public class Inventory : CardAdaptManager
     public GameObject[] slot;
     CardController cardController;
 
+    public RectTransform contentRect;
+    public GameObject[] slotSets;
+
     public class SlotCardInfo
     {
         public GameObject slotObj;
@@ -35,6 +38,34 @@ public class Inventory : CardAdaptManager
     {
         audioSource = GetComponent<AudioSource>();
         TestForMurtiCard();
+    }
+
+    private void OnEnable()
+    {
+        contentRect.anchoredPosition = new Vector3(0, 0, 0);
+        SlotRowActivation();
+    }
+
+    void SlotRowActivation()
+    {
+        int cardNumb = slotInfo.Count;
+
+        print(cardNumb);
+
+        if (cardNumb <= 10)
+        {
+            slotSets[1].SetActive(true);
+        }
+        else if (cardNumb > 10)
+        {
+            slotSets[1].SetActive(true);
+            slotSets[2].SetActive(true);
+        }
+        else
+        {
+            slotSets[1].SetActive(false);
+            slotSets[2].SetActive(false);
+        }
     }
 
     [SerializeField] CardDropSO cardDropSO;

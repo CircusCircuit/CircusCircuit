@@ -9,6 +9,7 @@ public class TutorialController : MonoBehaviour
     GameObject player;
     Camera mainCam;
 
+    [Header("")]
     [SerializeField] GameObject moveTutoUI;
     Animator moveAnim;
     [SerializeField] GameObject moveTutoObj;
@@ -17,10 +18,10 @@ public class TutorialController : MonoBehaviour
     [SerializeField] GameObject shootTutoUI;
     Animator shootAnim;
     [SerializeField] GameObject attackTutoUI;
-    Animator attackAnim;
-    [SerializeField] GameObject useCardTutoUI;
-    Animator useCardAnim;
 
+    [Header("")]
+    [SerializeField] GameObject ReadyUI;
+    [SerializeField] GameObject SkipUI;
 
     Vector3 mousePos;
     [SerializeField] GameObject bullet;
@@ -28,19 +29,22 @@ public class TutorialController : MonoBehaviour
     float timer;
     bool canFire;
 
-    bool[] doTuto = new bool[7]; // 0:move, 1:Jump, 2:Down, 3:Dodge, 4:Shooting, 5:Attack, 6:UseCard
+    bool isAttackTuto = false;
+    bool isClear = false;
+
+    bool[] doTuto = new bool[6]; // 0:move, 1:Jump, 2:Down, 3:Dodge, 4:Shooting, 5:Attack
 
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
+
         player = GameObject.FindWithTag("Player");
         mainCam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
         moveAnim = moveTutoUI.GetComponent<Animator>();
         dodgeAnim = dodgeTutoUI.GetComponent<Animator>();
         shootAnim = shootTutoUI.GetComponent<Animator>();
-        //attackAnim = attackTutoUI.GetComponent<Animator>();
-        //useCardAnim = useCardTutoUI.GetComponent<Animator>();
 
 
         StartCoroutine(WaitForStartTutorial());
@@ -58,6 +62,7 @@ public class TutorialController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isClear) { return; }
         if (moveTutoUI.activeSelf || dodgeTutoUI.activeSelf)
         {
             GameObject.Find("MoveTutorial").transform.position = new Vector2(player.transform.position.x + 1, player.transform.position.y + 1);
@@ -87,7 +92,14 @@ public class TutorialController : MonoBehaviour
         {
             ShootTuto();
         }
-
+        if (isAttackTuto && attackTutoUI == null)
+        {
+            Debug.Log("End Tutorial");
+            ReadyUI.SetActive(true);
+            SkipUI.SetActive(false);
+            Cursor.visible = true;
+            isClear = true;
+        }
     }
 
     void Check()
@@ -119,6 +131,8 @@ public class TutorialController : MonoBehaviour
         if (doTuto[4])
         {
             shootTutoUI.SetActive(false);
+            attackTutoUI.SetActive(true);
+            isAttackTuto = true;
         }
     }
 
@@ -147,6 +161,7 @@ public class TutorialController : MonoBehaviour
             canFire = false;
 
             doTuto[4] = true;
+            Check();
         }
     }
 }

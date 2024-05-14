@@ -5,9 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class LoadScenceController : MonoBehaviour
 {
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            Cursor.visible = true;
+        }
+    }
+
+    public void TutorialButton()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
     public void StartButton()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void RestartButton()

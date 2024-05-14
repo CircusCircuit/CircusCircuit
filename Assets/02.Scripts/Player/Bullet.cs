@@ -6,6 +6,7 @@ namespace Player
 {
     public class Bullet : MonoBehaviour
     {
+        [SerializeField] Sprite[] bulletSkin;
         private Vector3 mousePos;
         private Camera mainCam;
 
@@ -26,6 +27,8 @@ namespace Player
             float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
             transform.rotation = Quaternion.Euler(0, 0, rot + 90);
+
+            GetComponent<SpriteRenderer>().sprite = bulletSkin[Random.Range(0, 4)];
         }
 
         // Update is called once per frame

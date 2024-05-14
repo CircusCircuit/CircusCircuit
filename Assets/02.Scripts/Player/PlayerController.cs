@@ -124,6 +124,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            playerCollider.isTrigger = false;
+            rb.gravityScale = 4;
+        }
         if (collision.gameObject.tag != "Enemy")
         {
             playerCollider.isTrigger = false;
@@ -214,7 +219,7 @@ public class PlayerController : MonoBehaviour
     // [ ±¸¸£±â ]
     void Dodge()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && curState == States.Idle/*isJump == false && isDodge == false*/)
+        if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && (isGround || isBase))
         {
             curState = States.Dodging;
             playerAnim.SetTrigger("isDodge");

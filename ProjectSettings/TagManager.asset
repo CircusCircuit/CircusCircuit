@@ -12,6 +12,7 @@ TagManager:
   - EnemyBullet
   - FailUI
   - SuccUI
+  - Wall
   layers:
   - Default
   - TransparentFX

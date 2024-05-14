@@ -52,7 +52,8 @@ namespace Enemy
             if (!isDying)
             {   
                 if(cooldownTimer <= 0){
-
+                    enemyAttack.FireBullet();
+                    cooldownTimer = 1.5f;
                 }
             }
         }

@@ -41,10 +41,14 @@ namespace Enemy{
                 move.DownJump();
             }
 
+            if (Input.GetKey(KeyCode.LeftShift)){
+                Debug.Log("Get Key Down LeftShift");
+                move.Dash();
+            }
 
             if (Input.GetKeyDown(KeyCode.Space)){
                 Debug.Log("Get Key Down Space");
-                move.Dash();
+                move.Knockback(new Vector2(1,0));
             }
         }
     }

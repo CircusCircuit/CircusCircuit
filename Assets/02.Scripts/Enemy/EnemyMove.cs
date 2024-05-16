@@ -26,10 +26,33 @@ namespace Enemy
             startPosition = transform.position;
         }
    
-        public void Move(float moveSpeed = 2f)
+        public void Move(float moveSpeed = 2f, int nextmove = 1)
         {
-            rigid.velocity = new Vector2(nextmove * moveSpeed, 0);   
+            if (nextmove == -1){
+                rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
+            }
+            else{
+                rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
+            }
         }
+        public void Stop()
+        {
+            nextmove = 0;
+            rigid.velocity = new Vector2(0, rigid.velocity.y);
+        }
+
+        public void UpJump()
+        {
+            Debug.Log("upjump");
+            rigid.AddForce(Vector2.up * 25f,ForceMode2D.Impulse);
+        }
+
+        public void DownJump()
+        {
+            Debug.Log("downjump");
+            rigid.velocity = new Vector2(rigid.velocity.x, 10f);
+        }
+
         public void Dash(float moveSpeed = 2f)
         {
             if(isFacingLeft){
@@ -41,14 +64,13 @@ namespace Enemy
             rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y);  
 
         }
+
         public void MoveVertical(float moveSpeed = 2f)
         {
             rigid.velocity = new Vector2( rigid.velocity.x, nextmove * moveSpeed);   
         }
         public void Fly(float moveSpeed = 2f)
         {
-            
-
             // 일정 범위 내에서 위아래로 이동하기 위한 코드 추가
             float maxY = startPosition.y + maxFlyDistance;
             float minY = startPosition.y - maxFlyDistance;
@@ -56,36 +78,23 @@ namespace Enemy
             if (transform.position.y >= maxY || transform.position.y <= minY)
             {
                 nextmove *= -1;
-            }
-            
+            }   
             rigid.velocity = new Vector2( rigid.velocity.x, nextmove * moveSpeed);  
         }
-        public void Stop()
-        {
-            nextmove = 0;
-            rigid.velocity = new Vector2(0, 0);
-        }
+
         public void Flip()
         {
             spriteRenderer.flipX = isFacingLeft == true;
             isFacingLeft = !isFacingLeft;
         }
+
         public void Turn()
         {
             nextmove = nextmove * -1;
             spriteRenderer.flipX = isFacingLeft == true;
             isFacingLeft = !isFacingLeft;
         }
-        public void UpJump()
-        {
-            Debug.Log("upjump");
-            rigid.velocity = new Vector2(rigid.velocity.x * 3f, 25f);
-        }
-        public void DownJump()
-        {
-            Debug.Log("downjump");
-            rigid.velocity = new Vector2(rigid.velocity.x * 2f, 10f);
-        }   
+           
        
         public void Knockback(Vector2 direction)
         {
@@ -99,7 +108,6 @@ namespace Enemy
             rigid.AddForce(direction * -knockbackForce * 2f, ForceMode2D.Impulse);
 
         }
-
 
         public void EndKnockback()
         {

@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [Header("[Stage_Info]")]
     // [ 스테이지 관련 ]
     public int curStageIndex;
+    public bool getNextWave = false;
+    [SerializeField] bool isClear;
     [SerializeField] bool isClear1;
     [SerializeField] bool isClear2;
     [SerializeField] bool isClear3;
@@ -117,8 +119,12 @@ public class GameManager : MonoBehaviour
 
 
 
-
     //클리어 확인
+    public bool Clear
+    {
+        get { return isClear; }
+        set { isClear = value; }
+    }
     public bool Clear1
     {
         get { return isClear1; }

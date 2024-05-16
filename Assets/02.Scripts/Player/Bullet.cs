@@ -16,6 +16,8 @@ namespace Player
         // Start is called before the first frame update
         void Start()
         {
+            GetComponent<SpriteRenderer>().sortingOrder = 5;
+
             mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             rb = GetComponent<Rigidbody2D>();
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -49,12 +51,12 @@ namespace Player
         {
             //print(collision.gameObject.name);
 
-            if (collision.gameObject.layer == 8)
-            {
-                //print("layer´Â ground");
+            //if (collision.gameObject.layer == 8)
+            //{
+            //    //print("layer´Â ground");
 
-                Destroy(gameObject);
-            }
+            //    Destroy(gameObject);
+            //}
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 EnemyStatus enemyStatus = collision.gameObject.GetComponent<EnemyStatus>();
@@ -66,7 +68,6 @@ namespace Player
                 Destroy(gameObject);
             }
         }
-        
     }
 }
 

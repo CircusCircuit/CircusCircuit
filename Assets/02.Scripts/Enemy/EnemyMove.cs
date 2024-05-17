@@ -73,7 +73,6 @@ namespace Enemy
                 nextmove = 1;  
             }
             rigid.velocity = new Vector2(nextmove * moveSpeed, rigid.velocity.y);  
-
         }
 
         public void Knockback(Vector2 direction)

@@ -21,7 +21,7 @@ public class StageController : MonoBehaviour
     private AudioSource audioSource; // AudioSource 컴포넌트
     public static StageController Instance { get; private set; }
 
-    [SerializeField] GameObject Lever;
+    //GameObject Lever;
     public bool isLever;
     [SerializeField] Animator anim;
     [SerializeField] GameObject yellowCurtain;
@@ -39,6 +39,8 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Lever = GameObject.Find("Lever").transform.GetChild(0).gameObject;
+
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(curtainOpenSound);
         
@@ -57,27 +59,27 @@ public class StageController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.Clear1 && SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            CreateLever();
-        }
-        if (GameManager.Instance.Clear2 && SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            CreateLever();
-        }
-        if (GameManager.Instance.Clear3 && SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            CreateLever();
-        }
+        //if (GameManager.Instance.Clear)
+        //{
+        //    CreateLever();
+        //}
+        //if (GameManager.Instance.Clear2 && SceneManager.GetActiveScene().buildIndex == 2)
+        //{
+        //    CreateLever();
+        //}
+        //if (GameManager.Instance.Clear3 && SceneManager.GetActiveScene().buildIndex == 3)
+        //{
+        //    CreateLever();
+        //}
         //if (GameManager.Instance.Clear4 && SceneManager.GetActiveScene().buildIndex == 4)
         //{
         //    CreateLever();
         //}
 
-        if (isLever)
-        {
-            Interaction();
-        }
+        //if (isLever)
+        //{
+        //    Interaction();
+        //}
 
         if (SceneManager.GetActiveScene().buildIndex == 4 && GameManager.Instance.Clear4)
         {
@@ -85,37 +87,40 @@ public class StageController : MonoBehaviour
         }
     }
 
-    void Interaction()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            audioSource.PlayOneShot(reverSound);
+    //void Interaction()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.F))
+    //    {
+    //        audioSource.PlayOneShot(reverSound);
 
-            //커튼콜 닫히는 애니메이션
-            //팝업으로 공격형 카드 3장
-            audioSource.PlayOneShot(curtainCloseSound);
-            StartCoroutine(CurtainCall());
-        }
-    }
+    //        //커튼콜 닫히는 애니메이션
+    //        //팝업으로 공격형 카드 3장
+    //        audioSource.PlayOneShot(curtainCloseSound);
+    //        StartCoroutine(CurtainCall());
 
-    void CreateLever()
-    {
-        Lever.gameObject.SetActive(true);
-    }
+    //        GameManager.Instance.Clear = false;
+    //        Lever.SetActive(false);
+    //    }
+    //}
 
-    IEnumerator CurtainCall()
-    {
-        print("CurtainCall");
+    //void CreateLever()
+    //{
+    //    Lever.gameObject.SetActive(true);
+    //}
 
-        anim.SetBool("play", true);
-        yield return new WaitForSeconds(0.01f);
+    //IEnumerator CurtainCall()
+    //{
+    //    print("CurtainCall");
 
-        var length = anim.GetCurrentAnimatorStateInfo(0).length;
-        yield return new WaitForSeconds(length);
+    //    anim.SetBool("play", true);
+    //    yield return new WaitForSeconds(0.01f);
 
-        cardController.RandomCard();
-        Cursor.visible = true;
-    }
+    //    var length = anim.GetCurrentAnimatorStateInfo(0).length;
+    //    yield return new WaitForSeconds(length);
+
+    //    cardController.RandomCard();
+    //    Cursor.visible = true;
+    //}
 
 
 

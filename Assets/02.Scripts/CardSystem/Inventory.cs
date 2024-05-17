@@ -37,7 +37,7 @@ public class Inventory : CardAdaptManager
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        TestForMurtiCard();
+        //TestForMurtiCard();
     }
 
     private void OnEnable()
@@ -130,7 +130,7 @@ public class Inventory : CardAdaptManager
         GameObject pickedSlotObj = EventSystem.current.currentSelectedGameObject;
 
         //Choosing exceed 5
-        if (savePickedCards.Count > 4)
+        if (savePickedCards.Count > /*4*/3)
         {
             if (savePickedCards == null) return;
 
@@ -239,11 +239,13 @@ public class Inventory : CardAdaptManager
         RemoveUsedCard();
 
         this.gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
 
         Cursor.visible = false;
 
-        GameManager.Instance.curStageIndex = SceneManager.GetActiveScene().buildIndex;
+        //GameManager.Instance.curStageIndex = SceneManager.GetActiveScene().buildIndex;
+        //GameManager.Instance.getNextWave = true;
     }
 
 

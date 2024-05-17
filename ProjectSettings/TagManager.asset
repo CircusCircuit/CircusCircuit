@@ -13,6 +13,8 @@ TagManager:
   - FailUI
   - SuccUI
   - Wall
+  - SpawnPoint
+  - Stage
   layers:
   - Default
   - TransparentFX

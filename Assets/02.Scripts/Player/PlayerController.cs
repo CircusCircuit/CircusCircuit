@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             playerCollider.isTrigger = false;
             rb.gravityScale = 4;
@@ -150,10 +150,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
-        isHead = Physics2D.OverlapCircle(headCheck.position, checkRadius, groundLayer);
-        isBase = Physics2D.OverlapCircle(groundCheck.position, checkRadius, wallLayer);
-        isSky = Physics2D.OverlapCircle(headCheck.position, checkRadius, wallLayer);
+        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, wallLayer/*groundLayer*/);
+        isHead = Physics2D.OverlapCircle(headCheck.position, checkRadius, wallLayer/*groundLayer*/);
+        isBase = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer/*wallLayer*/);
+        isSky = Physics2D.OverlapCircle(headCheck.position, checkRadius, groundLayer/*wallLayer*/);
 
         if (isHead && !isSky)
         {

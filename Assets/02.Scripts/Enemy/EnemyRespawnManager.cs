@@ -51,6 +51,9 @@ public class EnemyRespawnManager : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.Clear = true;
+                print(GameManager.Instance.Clear);
+
                 switch (SceneManager.GetActiveScene().buildIndex)
                 {
                     case 1:

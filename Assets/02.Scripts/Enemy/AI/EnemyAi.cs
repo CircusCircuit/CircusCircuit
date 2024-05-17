@@ -10,26 +10,24 @@ namespace Enemy
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
+        Vector2 startPosition; 
+
         private EnemyAttack enemyAttack;
         private EnemyMove enemymove;
 
-        int think = 0;
         public bool isFire = false;
         public bool isDetectPlayer = false;
-
-
         private bool isJump = false;
         public bool isDying = false;
-
         public bool isAttack = false;
         public bool isKnockback = false;
 
-        float knockbackDuration = 1.5f;
+
+        public float knockbackDuration = 1.5f;
         public float cooldownTimer = 3f;
         // public float dashDuration = 0.5f;
         public float dashSpeed = 10f;
-        Vector2 startPosition; // 시작 위치
-
+        public int think = 1;
 
         // Start is called before the first frame update
         void Awake()
@@ -44,26 +42,29 @@ namespace Enemy
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (cooldownTimer > 0)
-            {
-                cooldownTimer -= Time.fixedDeltaTime;
-            }
+            // if (cooldownTimer > 0)
+            // {
+            //     cooldownTimer -= Time.fixedDeltaTime;
+            // }
 
-            if (!isDying)
-            {   
-                if(cooldownTimer <= 0){
-                    enemyAttack.FireBullet();
-                    cooldownTimer = 1.5f;
-                }
-            }
+            // if (!isDying)
+            // {   
+            //     if(cooldownTimer <= 0){
+            //         enemyAttack.FireBullet();
+            //         cooldownTimer = 1.5f;
+            //     }
+            // }
+            GroundMove(2);
         }
 
         public void Think()
         {
             think = Random.Range(-1, 2);
+            Debug.Log("nextmove:"+think);
             if (think != 0)
             {
                 enemymove.nextmove = think;
+
                 if (think > 0)
                 {
                     if (enemymove.isFacingLeft)
@@ -112,9 +113,8 @@ namespace Enemy
             Debug.DrawRay(frontVec, Vector2.right * enemymove.nextmove * 0.3f, new Color(0, 1, 0));
             Debug.DrawRay(downVec, Vector3.right, new Color(0, 0, 1));
 
-
             RaycastHit2D rayHitGround = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
+            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Ground"));
             RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector3.right, 1f, LayerMask.GetMask("Enemy"));
 
 
@@ -127,6 +127,7 @@ namespace Enemy
             //앞에 벽 감지시 돌아서 이동
             if (rayHitFoword.collider != null)
             {
+                Debug.Log(rayHitFoword.collider);
                 enemymove.Turn();
                 CancelInvoke("Think");
                 Invoke("Think", 2);
@@ -134,7 +135,7 @@ namespace Enemy
 
             // 낭떨어지 만났을 때 점프 혹은 뒤돌기
             if (rayHitGround.collider == null && !isJump)
-            {
+            {    
                 // 50% 확률
                 // 뒤돌기
                 if (Random.value < 0.5)
@@ -163,9 +164,9 @@ namespace Enemy
             }
 
             // 점프 중 속도 조절
-            if (rayHitGround.collider != null)
+            if (isJump)
             {
-                rigid.velocity = new Vector2(enemymove.nextmove * moveSpeed, rigid.velocity.y * 0.3f);
+                rigid.velocity = new Vector2(enemymove.nextmove * 5f, rigid.velocity.y);
             }
 
             // 착지 후 점프 종료
@@ -186,7 +187,7 @@ namespace Enemy
             Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
             Debug.DrawRay(frontVec, Vector2.right * enemymove.nextmove * 0.3f, new Color(0, 1, 0));
 
-            RaycastHit2D rayHitWall = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
+            RaycastHit2D rayHitWall = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Ground"));
             RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector3.right, 1f, LayerMask.GetMask("Enemy"));
             RaycastHit2D rayHitPlayer = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
             RaycastHit2D rayHitGround = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));

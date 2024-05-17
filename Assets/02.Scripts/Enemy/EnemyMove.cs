@@ -8,6 +8,8 @@ namespace Enemy
 {
     public class EnemyMove : MonoBehaviour
     {
+        private EnemyOneWayPlatform oneWay;
+
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
         private EnemyAttack enemyAttack;
@@ -21,22 +23,23 @@ namespace Enemy
         // Start is called before the first frame update
         void Awake()
         {
+            oneWay = GetComponent<EnemyOneWayPlatform>();
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             startPosition = transform.position;
         }
    
-        public void Move(float moveSpeed = 2f, int nextmove = 1)
+        public void Move(float moveSpeed = 2f)
         {
-            if (nextmove == -1){
-                rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
-            }
-            else{
-                rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
-            }
+            
+            rigid.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+            
+            rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
+            
         }
         public void Stop()
         {
+            rigid.constraints |= RigidbodyConstraints2D.FreezePositionX;
             nextmove = 0;
             rigid.velocity = new Vector2(0, rigid.velocity.y);
         }
@@ -45,16 +48,24 @@ namespace Enemy
         {
             Debug.Log("upjump");
             rigid.AddForce(Vector2.up * 25f,ForceMode2D.Impulse);
+            rigid.AddForce(Vector2.right * nextmove * 5f,ForceMode2D.Impulse);
+
         }
 
         public void DownJump()
         {
+            oneWay.DownJump();
             Debug.Log("downjump");
-            rigid.velocity = new Vector2(rigid.velocity.x, 10f);
+            rigid.AddForce(Vector2.up * 10f,ForceMode2D.Impulse);
+
         }
 
-        public void Dash(float moveSpeed = 2f)
+        public void Dash(float moveSpeed = 10f)
         {
+            Debug.Log("Dash!");
+            rigid.constraints &= RigidbodyConstraints2D.FreezePositionX;
+            rigid.constraints |= RigidbodyConstraints2D.FreezeRotation;
+
             if(isFacingLeft){
                 nextmove = -1;
             }
@@ -65,9 +76,24 @@ namespace Enemy
 
         }
 
+        public void Knockback(Vector2 direction)
+        {
+            rigid.constraints &= RigidbodyConstraints2D.FreezePositionX;
+
+            float knockbackForce = 30f;
+
+            Debug.Log("knockback");
+
+            rigid.velocity = Vector2.zero; 
+            rigid.AddForce(-direction * knockbackForce , ForceMode2D.Impulse);
+            rigid.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+
+        }
+
+
         public void MoveVertical(float moveSpeed = 2f)
         {
-            rigid.velocity = new Vector2( rigid.velocity.x, nextmove * moveSpeed);   
+            rigid.velocity = new Vector2(rigid.velocity.x, nextmove * moveSpeed);   
         }
         public void Fly(float moveSpeed = 2f)
         {
@@ -96,18 +122,7 @@ namespace Enemy
         }
            
        
-        public void Knockback(Vector2 direction)
-        {
-            float knockbackForce = 5f;
 
-            Debug.Log("knockback");
-            // Vector2 collisionDirection = (collision.transform.position - transform.position).normalized;
-
-            // knockbackDirection에 주어진 방향으로 힘을 가해서 몬스터를 밀어냅니다.
-            rigid.velocity = Vector2.zero; // 이전의 속도를 초기화합니다.
-            rigid.AddForce(direction * -knockbackForce * 2f, ForceMode2D.Impulse);
-
-        }
 
         public void EndKnockback()
         {

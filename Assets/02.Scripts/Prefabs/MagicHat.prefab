@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 678858041526935869}
   - component: {fileID: 1829861900998652487}
   - component: {fileID: -9185729848107306496}
+  - component: {fileID: 847965492865595912}
   m_Layer: 9
   m_Name: MagicHat
   m_TagString: Enemy
@@ -199,3 +200,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d01f402e560ce94392b782621291b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &847965492865595912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678858041526935871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39438a4ec03fa842a17fac0bb33d978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCollider: {fileID: 0}

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8969229901289606856}
   - component: {fileID: 8969229901289606862}
   - component: {fileID: 3931633571365450894}
+  - component: {fileID: 3447838692174002165}
   m_Layer: 9
   m_Name: Fanfare
   m_TagString: Enemy
@@ -199,3 +200,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d01f402e560ce94392b782621291b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3447838692174002165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969229901289606838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39438a4ec03fa842a17fac0bb33d978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCollider: {fileID: 0}

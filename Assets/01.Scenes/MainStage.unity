@@ -4256,7 +4256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1cb1f0b64ae1142aa6b6f3e5bd898d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areYouDev: 1
+  areYouDev: 0
   curStageIndex: 0
   getNextWave: 0
   isClear: 0
@@ -4344,7 +4344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &929759818
 RectTransform:
   m_ObjectHideFlags: 0

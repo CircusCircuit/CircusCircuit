@@ -49,14 +49,11 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            //print(collision.gameObject.name);
+            if (collision.gameObject.name.Contains("Ground"))
+            {
+                Destroy(gameObject);
+            }
 
-            //if (collision.gameObject.layer == 8)
-            //{
-            //    //print("layer´Â ground");
-
-            //    Destroy(gameObject);
-            //}
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 EnemyStatus enemyStatus = collision.gameObject.GetComponent<EnemyStatus>();

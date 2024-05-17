@@ -21,6 +21,7 @@ public class MapSpawnManager : MonoBehaviour
             Spawn();
 
             GameManager.Instance.getNextWave = false;
+            
         }
     }
 
@@ -30,6 +31,6 @@ public class MapSpawnManager : MonoBehaviour
         Instantiate(maps[rIndex]);
         maps.RemoveAt(rIndex);
 
-        PlayerPos.position = GameObject.FindWithTag("SpawnPoint").transform.position;
+        PlayerPos.localPosition = GameObject.FindWithTag("SpawnPoint").transform.position;
     }
 }

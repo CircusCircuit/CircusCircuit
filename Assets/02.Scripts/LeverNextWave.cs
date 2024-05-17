@@ -7,11 +7,17 @@ public class LeverNextWave : MonoBehaviour
     [SerializeField] GameObject CloseCurtain;
     [SerializeField] Animator anim;
     StageController stageController;
+    [SerializeField] GameObject FKeyUI;
 
     // Start is called before the first frame update
     void Start()
     {
         stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+
+        GameManager.Instance.Clear = false;
+        transform.GetChild(0).gameObject.SetActive(false);
+        stageController.isLever = false;
+        FKeyUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -24,6 +30,7 @@ public class LeverNextWave : MonoBehaviour
 
         if (stageController.isLever)
         {
+            FKeyUI.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
                 //audioSource.PlayOneShot(reverSound);
@@ -36,6 +43,10 @@ public class LeverNextWave : MonoBehaviour
                 GameManager.Instance.Clear = false;
                 transform.GetChild(0).gameObject.SetActive(false);
             }
+        }
+        else
+        {
+            FKeyUI.SetActive(false);
         }
     }
 

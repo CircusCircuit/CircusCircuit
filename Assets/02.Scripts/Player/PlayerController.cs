@@ -148,6 +148,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Lever")
+        {
+            stageController.isLever = false;
+        }
+    }
+
     private void FixedUpdate()
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, wallLayer/*groundLayer*/);

@@ -22,7 +22,7 @@ public class StageController : MonoBehaviour
     public static StageController Instance { get; private set; }
 
     //GameObject Lever;
-    public bool isLever;
+    public bool isLever = false;
     [SerializeField] Animator anim;
     [SerializeField] GameObject yellowCurtain;
 

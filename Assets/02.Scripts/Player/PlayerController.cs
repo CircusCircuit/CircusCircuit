@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     float moveX;
     Rigidbody2D rb;
-    bool isGround, isHead, isBase, isSky, isPushDownKey;
+    bool isGround, isHead, isLeft, isRight, isBase, isSky, isPushDownKey;
     bool isJump = false;
     bool isDodge = false;
     bool facingRight = true;
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     [Header("")]
     public Transform headCheck;
     public Transform groundCheck;
+    public Transform leftCheck;
+    public Transform rightCheck;
     public LayerMask groundLayer;
     public LayerMask wallLayer;
 
@@ -108,8 +110,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.name.Contains("Ground"))
+        {
+            playerCollider.isTrigger = false;
+        }
         if (collision.gameObject.tag == "Enemy") return;
-        playerCollider.isTrigger = false;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -158,14 +163,22 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, wallLayer/*groundLayer*/);
+        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, wallLayer/*groundLayer*/);
         isHead = Physics2D.OverlapCircle(headCheck.position, checkRadius, wallLayer/*groundLayer*/);
-        isBase = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer/*wallLayer*/);
+        isBase = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer/*wallLayer*/);
         isSky = Physics2D.OverlapCircle(headCheck.position, checkRadius, groundLayer/*wallLayer*/);
+
+        isLeft = Physics2D.OverlapCircle(leftCheck.position, 0.2f, groundLayer);
+        isRight = Physics2D.OverlapCircle(rightCheck.position, 0.2f, groundLayer);
+
+        if (isLeft || isRight)
+        {
+            playerCollider.isTrigger = false;
+        }
 
         if (isHead && !isSky)
         {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            playerCollider.isTrigger = true;
         }
 
         if (isGround || isBase)
@@ -176,8 +189,8 @@ public class PlayerController : MonoBehaviour
 
         if (isPushDownKey && isGround)
         {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            rb.AddForce(-transform.up * 200f);
+            playerCollider.isTrigger = true;
+            rb.AddForce(-transform.up * 250f);
             isPushDownKey = false;
 
             curState = States.Idle;
@@ -210,7 +223,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if ((isGround && !isDodge) || isBase)
+            if ((isGround || isBase) && !isDodge && !isJump)
             {
                 rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 //anim.SetBool("isJump", true);
@@ -227,7 +240,7 @@ public class PlayerController : MonoBehaviour
     // [ ±¸¸£±â ]
     void Dodge()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && (isGround || isBase))
+        if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && (isGround || isBase) && !isDodge)
         {
             curState = States.Dodging;
             playerAnim.SetTrigger("isDodge");
@@ -236,7 +249,7 @@ public class PlayerController : MonoBehaviour
             playerCollider.isTrigger = true;
 
             dodgeVec = moveVec;
-            GameManager.Instance.PlayerSpeed = 15/**= 1.5f*/;
+            GameManager.Instance.PlayerSpeed = 10/**= 1.5f*/;
 
             isDodge = true;
             shooting.canFire = false;
@@ -246,7 +259,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DodgeOut()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.4f);
 
         GameManager.Instance.PlayerSpeed = 5/**= 0.5f*/;
 

@@ -333,14 +333,15 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 4)
-        {
-            FailUI.SetActive(true);
-        }
-        else
-        {
-            StartCoroutine(RestartScene());
-        }
+        StartCoroutine(RestartScene());
+        //if (SceneManager.GetActiveScene().buildIndex == 4)
+        //{
+        //    FailUI.SetActive(true);
+        //}
+        //else
+        //{
+        //    StartCoroutine(RestartScene());
+        //}
     }
 
     IEnumerator RestartScene()
@@ -348,6 +349,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         Destroy(GameManager.Instance.gameObject);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }

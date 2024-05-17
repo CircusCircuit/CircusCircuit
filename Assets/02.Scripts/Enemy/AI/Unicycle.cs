@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyAi : MonoBehaviour
+    public class Unicycle : MonoBehaviour
     {
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
@@ -16,9 +16,9 @@ namespace Enemy
         int think = 0;
         public bool isFire = false;
         public bool isDetectPlayer = false;
-
-
         private bool isJump = false;
+
+        public bool isGround = false;
         public bool isDying = false;
 
         public bool isAttack = false;
@@ -28,8 +28,6 @@ namespace Enemy
         public float cooldownTimer = 3f;
         // public float dashDuration = 0.5f;
         public float dashSpeed = 10f;
-        Vector2 startPosition; // 시작 위치
-
 
         // Start is called before the first frame update
         void Awake()
@@ -38,24 +36,29 @@ namespace Enemy
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
-            Invoke("Think",1f);
+            think = enemymove.nextmove;
+            Invoke("Think", 1);
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (cooldownTimer > 0)
-            {
-                cooldownTimer -= Time.fixedDeltaTime;
-            }
-
             if (!isDying)
-            {   
-                if(cooldownTimer <= 0){
-                    enemyAttack.FireBullet();
-                    cooldownTimer = 1.5f;
+            {
+                if (!isKnockback)
+                {
+                    if (!isDetectPlayer)
+                    {
+                        GroundMove(2f);
+                        // DetectPlayerInRangeHorizental(5f);
+                    }
+                    else
+                    {
+                        Dash(10f);
+                    }
                 }
             }
+
         }
 
         public void Think()
@@ -64,17 +67,13 @@ namespace Enemy
             if (think != 0)
             {
                 enemymove.nextmove = think;
-                if (think > 0)
-                {
-                    if (enemymove.isFacingLeft)
-                    {
+                if (think > 0){
+                    if(enemymove.isFacingLeft){                    
                         enemymove.Flip();
                     }
                 }
-                else
-                {
-                    if (!enemymove.isFacingLeft)
-                    {
+                else{
+                    if(!enemymove.isFacingLeft){                    
                         enemymove.Flip();
                     }
                 }
@@ -82,26 +81,9 @@ namespace Enemy
             else
             {
                 enemymove.Stop();
-                // enemyAttack.FireBullet_8();
+                enemyAttack.FireBullet_8();
             }
             Invoke("Think", 3);
-        }
-        public void ThinkFly()
-        {
-            if (enemymove.nextmove == 0)
-            {
-                enemymove.nextmove = Random.Range(-1, 2);
-            }
-
-            if (cooldownTimer <= 0)
-            {
-                if (Random.value > 0.6f)
-                {
-                    enemyAttack.FireBullet_8();
-                    cooldownTimer = 2f;
-                }
-            }
-            Invoke("ThinkFly", 1f);
         }
 
         void GroundMove(float moveSpeed = 2f)
@@ -177,6 +159,7 @@ namespace Enemy
 
         void Dash(float dashSpeed = 10f)
         {
+            Debug.Log("Dash");
             isAttack = true;
 
             CancelInvoke("Think");
@@ -196,7 +179,7 @@ namespace Enemy
             {
                 enemymove.Dash(dashSpeed);
             }
-
+            
             //벽 혹은 플레이어와 박았을 시 행동
             if (rayHitWall.collider != null || rayHitPlayer.collider != null)
             {
@@ -221,43 +204,7 @@ namespace Enemy
 
 
         }
-        void DashVertical(float dashSpeed = 15f)
-        {
-            isAttack = true;
 
-            Vector2 upVec = new Vector2(rigid.position.x - 0.5f, rigid.position.y + 0.6f);
-            Vector3 downVec = new Vector2(rigid.position.x - 0.5f, rigid.position.y - 0.6f);
-            
-            Debug.DrawRay(downVec, Vector3.right, new Color(0, 0, 1));
-            Debug.DrawRay(upVec, Vector3.right, new Color(1, 0, 0));
-
-            RaycastHit2D rayHitWallDown = Physics2D.Raycast(downVec, Vector2.right, 1f, LayerMask.GetMask("Wall"));
-            RaycastHit2D rayHitPlayerDown = Physics2D.Raycast(downVec, Vector2.up * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
-            RaycastHit2D rayHitWallUp = Physics2D.Raycast(upVec, Vector2.right, 1f, LayerMask.GetMask("Wall"));
-            RaycastHit2D rayHitPlayerUp = Physics2D.Raycast(upVec, Vector2.up * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
-            
-            // RaycastHit2D rayHitGround = Physics2D.Raycast(upVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-
-            if (!isJump)
-            {
-                enemymove.MoveVertical(dashSpeed);
-            }
-
-            //벽 혹은 플레이어와 박았을 시 행동
-            if (rayHitWallUp.collider != null || rayHitPlayerUp.collider != null
-                ||rayHitWallDown.collider != null || rayHitPlayerDown.collider != null)
-            {
-                Debug.Log("wall");
-                isKnockback = true;
-                enemymove.Knockback(transform.position.normalized);
-                
-                // knockbackDuration 후에 knockback 상태를 해제합니다.
-                Invoke("CallEndKnockback", 0.2f);
-
-                isAttack = false;
-            }
-
-        }
         // public void VerticalDash(float dashSpeed = 10f)
         // {
         //     CancelInvoke("Think");
@@ -299,9 +246,8 @@ namespace Enemy
                     else
                     {
                         isKnockback = true;
-                        isAttack = false;
                         enemymove.Knockback(transform.position.normalized);
-                        Invoke("CallEndKnockback", 0.3f);
+                        Invoke("CallEndKnockback", knockbackDuration);
                     }
                 }
 
@@ -309,16 +255,10 @@ namespace Enemy
         }
         void CallEndKnockback()
         {
-            enemymove.Stop();
-            isKnockback = false;         
-            cooldownTimer = 3f;
+            isKnockback = false;
+            isDetectPlayer = false;
+            Think();
         }
-
-        void EndAttack()
-        {
-            isAttack = false;
-        }
-
         void DetectPlayerInRange(float detectionRange = 5f)
         {
             // 플레이어의 위치
@@ -335,13 +275,24 @@ namespace Enemy
             // 만약 플레이어가 감지 범위 내에 있다면
             if (distance <= detectionRange)
             {
-                isDetectPlayer = true;
-                Debug.Log("Player detected!");
-            }
-            else
-            {
-                Debug.Log("Player undetected!");
-                isDetectPlayer = false;
+                // Debug.Log("Player detected!");
+                if (cooldownTimer <= 0)
+                {
+                    if (Random.value > 0.3)
+                    {
+                        isDetectPlayer = true;
+                        // enemyAttack.FireBullet();
+                        cooldownTimer = 2f;
+                    }
+                    else
+                    {
+                        CancelInvoke("Think");
+                        Invoke("Think", 4f);
+                        isDetectPlayer = true;
+                        // enemyAttack.FireBullet_Rapid();
+                        cooldownTimer = 2f;
+                    }
+                }
             }
 
 
@@ -360,8 +311,7 @@ namespace Enemy
             if (distanceToPlayerY <= 1f)
             {
                 // 플레이어가 몬스터의 왼쪽에 있고 감지 범위 내에 있다면
-                if (enemymove.isFacingLeft)
-                {
+                if(enemymove.isFacingLeft){
                     if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
                     {
                         Debug.Log("Player detected on the left!");
@@ -369,8 +319,7 @@ namespace Enemy
                     }
                 }
                 // 플레이어가 몬스터의 오른쪽에 있고 감지 범위 내에 있다면
-                else
-                {
+                else{
                     if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
                     {
                         Debug.Log("Player detected on the right!");
@@ -384,62 +333,19 @@ namespace Enemy
                 isDetectPlayer = false;
             }
         }
-        void DetectPlayerInRangeVertical(float detectionRange = 5f)
+        void DebugDrawDetectionRange(Vector2 center, float Width)
         {
-            // 플레이어의 위치
-            Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            float halfWidth = Width / 2;
+            // 사각형 테두리 그리기
+            Vector2 topLeft = center + new Vector2(-halfWidth, halfWidth);
+            Vector2 topRight = center + new Vector2(halfWidth, halfWidth);
+            Vector2 bottomLeft = center + new Vector2(-halfWidth, -halfWidth);
+            Vector2 bottomRight = center + new Vector2(halfWidth, -halfWidth);
 
-            // 몬스터와 플레이어의 거리 계산
-            float distanceToPlayerX = Mathf.Abs(playerPosition.x - transform.position.x);
-            float distanceToPlayerY = Mathf.Abs(playerPosition.y - transform.position.y);
-
-            // 감지범위 시각화      
-            DebugDrawDetectionRangeVertical(transform.position, detectionRange);
-            if (distanceToPlayerX <= 1f)
-            {
-                // 플레이어가 몬스터의 아래 쪽에 있을 때
-                if (playerPosition.y < transform.position.y && distanceToPlayerY <= detectionRange)
-                {
-                    Debug.Log("Player detected below!!");
-                    isDetectPlayer = true;
-                    enemymove.nextmove = -1;
-                }
-
-                // 플레이어가 몬스터의 위쪽에 있을 때
-                else
-                {
-                    if (playerPosition.y > transform.position.y && distanceToPlayerY <= detectionRange)
-                    {
-                        Debug.Log("Player detected above!!");
-                        isDetectPlayer = true;
-                        enemymove.nextmove = 1;
-
-                    }
-                }
-            }
-            else
-            {
-                // Debug.Log("Player undetected!");
-                isDetectPlayer = false;
-            }
-        }
-        void DebugDrawDetectionRange(Vector2 center, float radius, int segments = 20)
-        {
-            float angleStep = 2 * Mathf.PI / segments;
-
-            Vector2 prevPoint = center + new Vector2(radius, 0);
-
-            for (int i = 1; i <= segments; i++)
-            {
-                float angle = i * angleStep;
-                Vector2 nextPoint = center + new Vector2(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle));
-                Debug.DrawLine(prevPoint, nextPoint, Color.red);
-                prevPoint = nextPoint;
-            }
-
-            // 마지막 점에서 첫 번째 점으로 선 그리기
-            Vector2 firstPoint = center + new Vector2(radius, 0);
-            Debug.DrawLine(prevPoint, firstPoint, Color.red);
+            Debug.DrawLine(topLeft, topRight, Color.red);
+            Debug.DrawLine(topRight, bottomRight, Color.red);
+            Debug.DrawLine(bottomRight, bottomLeft, Color.red);
+            Debug.DrawLine(bottomLeft, topLeft, Color.red);
         }
         void DebugDrawDetectionRangeHorizental(Vector2 center, float Width)
         {
@@ -448,19 +354,6 @@ namespace Enemy
             Vector2 topRight = center + new Vector2(Width, 0.5f);
             Vector2 bottomLeft = center + new Vector2(-Width, -0.5f);
             Vector2 bottomRight = center + new Vector2(Width, -0.5f);
-
-            Debug.DrawLine(topLeft, topRight, Color.red);
-            Debug.DrawLine(topRight, bottomRight, Color.red);
-            Debug.DrawLine(bottomRight, bottomLeft, Color.red);
-            Debug.DrawLine(bottomLeft, topLeft, Color.red);
-        }
-        void DebugDrawDetectionRangeVertical(Vector2 center, float Width)
-        {
-            // 사각형 테두리 그리기
-            Vector2 topLeft = center + new Vector2(-0.5f, Width);
-            Vector2 topRight = center + new Vector2(0.5f, Width);
-            Vector2 bottomLeft = center + new Vector2(-0.5f, -Width);
-            Vector2 bottomRight = center + new Vector2(0.5f, -Width);
 
             Debug.DrawLine(topLeft, topRight, Color.red);
             Debug.DrawLine(topRight, bottomRight, Color.red);

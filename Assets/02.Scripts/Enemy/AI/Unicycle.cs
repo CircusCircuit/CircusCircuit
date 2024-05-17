@@ -157,7 +157,7 @@ namespace Enemy
             }
         }
 
-                void Dash(float dashSpeed = 10f)
+        void Dash(float dashSpeed = 10f)
         {
             isAttack = true;
 

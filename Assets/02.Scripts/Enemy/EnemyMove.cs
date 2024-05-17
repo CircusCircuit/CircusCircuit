@@ -8,6 +8,8 @@ namespace Enemy
 {
     public class EnemyMove : MonoBehaviour
     {
+        private EnemyOneWayPlatform oneWay;
+
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
         private EnemyAttack enemyAttack;
@@ -21,21 +23,19 @@ namespace Enemy
         // Start is called before the first frame update
         void Awake()
         {
+            oneWay = GetComponent<EnemyOneWayPlatform>();
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             startPosition = transform.position;
         }
    
-        public void Move(float moveSpeed = 2f, int nextmove = 1)
+        public void Move(float moveSpeed = 2f)
         {
             
             rigid.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-            if (nextmove == -1){
-                rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
-            }
-            else{
-                rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
-            }
+            
+            rigid.velocity = new Vector2(moveSpeed*nextmove, rigid.velocity.y);
+            
         }
         public void Stop()
         {
@@ -48,10 +48,13 @@ namespace Enemy
         {
             Debug.Log("upjump");
             rigid.AddForce(Vector2.up * 25f,ForceMode2D.Impulse);
+            rigid.AddForce(Vector2.right * nextmove * 5f,ForceMode2D.Impulse);
+
         }
 
         public void DownJump()
         {
+            oneWay.DownJump();
             Debug.Log("downjump");
             rigid.AddForce(Vector2.up * 10f,ForceMode2D.Impulse);
 

@@ -7,12 +7,10 @@ public class EnemyOneWayPlatform : MonoBehaviour
     private GameObject currentOneWayPlatform;
     [SerializeField] private Collider2D enemyCollider;
     // Update is called once per frame
-    void Update()
+    public void DownJump()
     {
-        if(Input.GetKeyDown(KeyCode.S)){
-            if(currentOneWayPlatform != null){
-                StartCoroutine(DisableCollision());
-            }
+        if(currentOneWayPlatform != null){
+            StartCoroutine(DisableCollision());
         }
     }
 

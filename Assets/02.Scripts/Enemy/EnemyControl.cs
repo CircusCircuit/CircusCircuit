@@ -18,16 +18,16 @@ namespace Enemy{
         void Update()
         {
             if (Input.GetKey(KeyCode.A)){
-                Debug.Log("key Down A");
-                move.Move(5,-1);
+                move.nextmove = -1;
+                move.Move(5);
             }
             if (Input.GetKeyUp(KeyCode.A)) {
                 move.Stop();
             }
 
             if (Input.GetKey(KeyCode.D)){
-                move.Move(5,1);
-                Debug.Log("key Down D");
+                move.nextmove = 1;
+                move.Move(5);
             }
             if (Input.GetKeyUp(KeyCode.D)) {
                 move.Stop();

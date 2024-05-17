@@ -94,9 +94,8 @@ namespace Enemy
             Debug.DrawRay(frontVec, Vector2.right * enemymove.nextmove * 0.3f, new Color(0, 1, 0));
             Debug.DrawRay(downVec, Vector3.right, new Color(0, 0, 1));
 
-
             RaycastHit2D rayHitGround = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
+            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Ground"));
             RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector3.right, 1f, LayerMask.GetMask("Enemy"));
 
 
@@ -109,6 +108,7 @@ namespace Enemy
             //앞에 벽 감지시 돌아서 이동
             if (rayHitFoword.collider != null)
             {
+                Debug.Log(rayHitFoword.collider);
                 enemymove.Turn();
                 CancelInvoke("Think");
                 Invoke("Think", 2);
@@ -116,7 +116,7 @@ namespace Enemy
 
             // 낭떨어지 만났을 때 점프 혹은 뒤돌기
             if (rayHitGround.collider == null && !isJump)
-            {
+            {    
                 // 50% 확률
                 // 뒤돌기
                 if (Random.value < 0.5)
@@ -145,9 +145,9 @@ namespace Enemy
             }
 
             // 점프 중 속도 조절
-            if (rayHitGround.collider != null)
+            if (isJump)
             {
-                rigid.velocity = new Vector2(enemymove.nextmove * moveSpeed, rigid.velocity.y * 0.3f);
+                rigid.velocity = new Vector2(enemymove.nextmove * 5f, rigid.velocity.y);
             }
 
             // 착지 후 점프 종료
@@ -157,9 +157,8 @@ namespace Enemy
             }
         }
 
-        void Dash(float dashSpeed = 10f)
+                void Dash(float dashSpeed = 10f)
         {
-            Debug.Log("Dash");
             isAttack = true;
 
             CancelInvoke("Think");
@@ -169,7 +168,7 @@ namespace Enemy
             Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
             Debug.DrawRay(frontVec, Vector2.right * enemymove.nextmove * 0.3f, new Color(0, 1, 0));
 
-            RaycastHit2D rayHitWall = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
+            RaycastHit2D rayHitWall = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Ground"));
             RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector3.right, 1f, LayerMask.GetMask("Enemy"));
             RaycastHit2D rayHitPlayer = Physics2D.Raycast(frontVec, Vector2.right * enemymove.nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
             RaycastHit2D rayHitGround = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
@@ -179,7 +178,7 @@ namespace Enemy
             {
                 enemymove.Dash(dashSpeed);
             }
-            
+
             //벽 혹은 플레이어와 박았을 시 행동
             if (rayHitWall.collider != null || rayHitPlayer.collider != null)
             {
@@ -204,34 +203,6 @@ namespace Enemy
 
 
         }
-
-        // public void VerticalDash(float dashSpeed = 10f)
-        // {
-        //     CancelInvoke("Think");
-
-        //     Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
-        //     Vector3 downVec = new Vector2(rigid.position.x - 0.5f , rigid.position.y - 0.7f);
-
-        //     Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
-        //     Debug.DrawRay(frontVec, Vector2.right * nextmove * 0.3f, new Color(0, 1, 0));
-        //     RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Wall"));
-        //     RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
-        //     RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector3.right, 1f, LayerMask.GetMask("Enemy"));
-        //     RaycastHit2D rayHitPlayer = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Player"));
-
-        //     if (!isJump || rayHitEnemy.collider != null)
-        //     {
-        //         rigid.velocity = new Vector2( rigid.velocity.x, nextmove * dashSpeed);
-        //     }
-
-
-        //     if (rayHitFoword.collider != null || rayHitPlayer.collider != null)
-        //     {
-        //         Knockback(transform.position.normalized);
-        //         CancelInvoke("Think");
-        //     }
-
-        // }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {

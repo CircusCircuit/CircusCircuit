@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 3300717567749664071}
   - component: {fileID: 942921653193589317}
   m_Layer: 8
-  m_Name: Flatform Tilemap(static)
+  m_Name: Platform Tilemap(static)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2919,7 +2919,7 @@ GameObject:
   - component: {fileID: 3354880084622979558}
   - component: {fileID: 3354880084622979557}
   m_Layer: 8
-  m_Name: Flatform Grid
+  m_Name: Platform Grid
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

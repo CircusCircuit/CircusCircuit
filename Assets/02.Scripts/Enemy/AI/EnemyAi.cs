@@ -326,7 +326,5 @@ namespace Enemy
 
         
     }
-    public class test : EnemyAi{
-        public int test1=0;
-    }
+    
 }

@@ -11,6 +11,8 @@ namespace Enemy
         Rigidbody2D rigid;
         SpriteRenderer spriteRenderer;
         private EnemyAttack enemyAttack;
+        private DetectPlayer enemyDetect;
+
         private EnemyMove enemymove;
 
         int think = 0;
@@ -37,6 +39,8 @@ namespace Enemy
             spriteRenderer = GetComponent<SpriteRenderer>();
             enemyAttack = GetComponent<EnemyAttack>();
             think = enemymove.nextmove;
+            enemyDetect = GetComponent<DetectPlayer>();
+
             Invoke("Think", 1);
         }
 
@@ -47,10 +51,10 @@ namespace Enemy
             {
                 if (!isKnockback)
                 {
-                    if (!isDetectPlayer)
+                    if (!enemyDetect.isDetectPlayer)
                     {
                         GroundMove(2f);
-                        // DetectPlayerInRangeHorizental(5f);
+                        enemyDetect.DetectPlayerInRangeHorizental(5f);
                     }
                     else
                     {
@@ -187,7 +191,7 @@ namespace Enemy
                 enemyAttack.FireBullet_8();
                 // knockbackDuration 후에 knockback 상태를 해제합니다.
                 Invoke("CallEndKnockback", knockbackDuration);
-
+                enemyDetect.isDetectPlayer = false;
                 isAttack = false;
             }
 
@@ -217,6 +221,7 @@ namespace Enemy
                     else
                     {
                         isKnockback = true;
+                        isAttack = false;
                         enemymove.Knockback(transform.position.normalized);
                         Invoke("CallEndKnockback", knockbackDuration);
                     }
@@ -230,106 +235,6 @@ namespace Enemy
             isDetectPlayer = false;
             Think();
         }
-        void DetectPlayerInRange(float detectionRange = 5f)
-        {
-            // 플레이어의 위치
-            Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-            // 몬스터와 플레이어의 거리 계산
-            float distanceToPlayerX = Mathf.Abs(playerPosition.x - transform.position.x);
-            float distanceToPlayerY = Mathf.Abs(playerPosition.y - transform.position.y);
-            float distance = Mathf.Sqrt(distanceToPlayerX * distanceToPlayerX + distanceToPlayerY * distanceToPlayerY);
-
-            // 감지범위 시각화      
-            DebugDrawDetectionRange(transform.position, detectionRange);
-
-            // 만약 플레이어가 감지 범위 내에 있다면
-            if (distance <= detectionRange)
-            {
-                // Debug.Log("Player detected!");
-                if (cooldownTimer <= 0)
-                {
-                    if (Random.value > 0.3)
-                    {
-                        isDetectPlayer = true;
-                        // enemyAttack.FireBullet();
-                        cooldownTimer = 2f;
-                    }
-                    else
-                    {
-                        CancelInvoke("Think");
-                        Invoke("Think", 4f);
-                        isDetectPlayer = true;
-                        // enemyAttack.FireBullet_Rapid();
-                        cooldownTimer = 2f;
-                    }
-                }
-            }
-
-
-        }
-        void DetectPlayerInRangeHorizental(float detectionRange = 5f)
-        {
-            // 플레이어의 위치
-            Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-            // 몬스터와 플레이어의 거리 계산
-            float distanceToPlayerX = Mathf.Abs(playerPosition.x - transform.position.x);
-            float distanceToPlayerY = Mathf.Abs(playerPosition.y - transform.position.y);
-
-            // 감지범위 시각화      
-            DebugDrawDetectionRangeHorizental(transform.position, detectionRange);
-            if (distanceToPlayerY <= 1f)
-            {
-                // 플레이어가 몬스터의 왼쪽에 있고 감지 범위 내에 있다면
-                if(enemymove.isFacingLeft){
-                    if (playerPosition.x < transform.position.x && distanceToPlayerX <= detectionRange)
-                    {
-                        Debug.Log("Player detected on the left!");
-                        isDetectPlayer = true;
-                    }
-                }
-                // 플레이어가 몬스터의 오른쪽에 있고 감지 범위 내에 있다면
-                else{
-                    if (playerPosition.x > transform.position.x && distanceToPlayerX <= detectionRange)
-                    {
-                        Debug.Log("Player detected on the right!");
-                        isDetectPlayer = true;
-                    }
-                }
-            }
-            else
-            {
-                // Debug.Log("Player undetected!");
-                isDetectPlayer = false;
-            }
-        }
-        void DebugDrawDetectionRange(Vector2 center, float Width)
-        {
-            float halfWidth = Width / 2;
-            // 사각형 테두리 그리기
-            Vector2 topLeft = center + new Vector2(-halfWidth, halfWidth);
-            Vector2 topRight = center + new Vector2(halfWidth, halfWidth);
-            Vector2 bottomLeft = center + new Vector2(-halfWidth, -halfWidth);
-            Vector2 bottomRight = center + new Vector2(halfWidth, -halfWidth);
-
-            Debug.DrawLine(topLeft, topRight, Color.red);
-            Debug.DrawLine(topRight, bottomRight, Color.red);
-            Debug.DrawLine(bottomRight, bottomLeft, Color.red);
-            Debug.DrawLine(bottomLeft, topLeft, Color.red);
-        }
-        void DebugDrawDetectionRangeHorizental(Vector2 center, float Width)
-        {
-            // 사각형 테두리 그리기
-            Vector2 topLeft = center + new Vector2(-Width, 0.5f);
-            Vector2 topRight = center + new Vector2(Width, 0.5f);
-            Vector2 bottomLeft = center + new Vector2(-Width, -0.5f);
-            Vector2 bottomRight = center + new Vector2(Width, -0.5f);
-
-            Debug.DrawLine(topLeft, topRight, Color.red);
-            Debug.DrawLine(topRight, bottomRight, Color.red);
-            Debug.DrawLine(bottomRight, bottomLeft, Color.red);
-            Debug.DrawLine(bottomLeft, topLeft, Color.red);
-        }
+        
     }
 }

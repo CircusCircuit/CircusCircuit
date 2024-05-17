@@ -63,8 +63,9 @@ namespace Enemy
         public void Dash(float moveSpeed = 10f)
         {
             Debug.Log("Dash!");
-            rigid.constraints &= RigidbodyConstraints2D.FreezePositionX;
+            rigid.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
             rigid.constraints |= RigidbodyConstraints2D.FreezeRotation;
+
 
             if(isFacingLeft){
                 nextmove = -1;
@@ -77,15 +78,17 @@ namespace Enemy
 
         public void Knockback(Vector2 direction)
         {
-            rigid.constraints &= RigidbodyConstraints2D.FreezePositionX;
+            rigid.constraints |= RigidbodyConstraints2D.FreezePositionX;
 
-            float knockbackForce = 30f;
+            float knockbackForce = 15f;
 
             Debug.Log("knockback");
+            Debug.Log(direction);
+
 
             rigid.velocity = Vector2.zero; 
             rigid.AddForce(-direction * knockbackForce , ForceMode2D.Impulse);
-            rigid.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+            rigid.AddForce(Vector2.up *5f , ForceMode2D.Impulse);
 
         }
 

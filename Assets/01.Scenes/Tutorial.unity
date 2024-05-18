@@ -3405,6 +3405,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4944002406020234421, guid: 913cbf1eb7e35f44589d8b2c351841e8, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944002406020234421, guid: 913cbf1eb7e35f44589d8b2c351841e8, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
       value: 7.9999704
       objectReference: {fileID: 0}

@@ -83,7 +83,7 @@ public class TutorialController : MonoBehaviour
             doTuto[2] = true;
             Check();
         }
-        if (GameManager.Instance.PlayerSpeed == 15 && doTuto[0] && doTuto[1] && doTuto[2])
+        if (GameManager.Instance.PlayerSpeed == 10 && doTuto[0] && doTuto[1] && doTuto[2])
         {
             doTuto[3] = true;
             Check();

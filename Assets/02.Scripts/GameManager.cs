@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (areYouDev) hp = 1000;
+        //if (areYouDev) hp = 1000;
     }
 
     public float PlayerHp

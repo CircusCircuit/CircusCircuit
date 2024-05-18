@@ -339,6 +339,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //print("hp´Â " + GameManager.Instance.PlayerHp);
 
         yield return new WaitForSeconds(2f);
         isAttacked = false;

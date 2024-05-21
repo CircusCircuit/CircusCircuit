@@ -12,9 +12,10 @@ TagManager:
   - EnemyBullet
   - FailUI
   - SuccUI
-  - Wall
   - SpawnPoint
   - Stage
+  - Platform
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - UI
   - Ground
   - Player
-  - Wall
+  - Platform
   - Enemy
   - 
   - 

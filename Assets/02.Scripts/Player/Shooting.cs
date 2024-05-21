@@ -91,7 +91,7 @@ public class Shooting : MonoBehaviour
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
 
             canFire = false;
-            print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
+            //print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
         }
 
         

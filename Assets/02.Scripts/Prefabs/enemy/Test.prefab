@@ -12,10 +12,7 @@ GameObject:
   - component: {fileID: 6612029632852025880}
   - component: {fileID: 6612029632852025883}
   - component: {fileID: 6612029632852025882}
-  - component: {fileID: 6612029632852025885}
-  - component: {fileID: 6612029632852025887}
-  - component: {fileID: 6612029632852025886}
-  - component: {fileID: -4414304158056095775}
+  - component: {fileID: -7535098659360340738}
   m_Layer: 9
   m_Name: Test
   m_TagString: Enemy
@@ -81,7 +78,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 8596640243658272642, guid: 5d4daff38e3d9174b873918abcf2c1d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 16, y: 16}
@@ -136,8 +133,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 5
---- !u!114 &6612029632852025885
+  m_Constraints: 4
+--- !u!114 &-7535098659360340738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,58 +143,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6612029632852025873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be79112ea0fd9824491e6784138a7317, type: 3}
+  m_Script: {fileID: 11500000, guid: 78b406d244ce310419b56c7a32c3543e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
-  gBulletPrefab: {fileID: 0}
-  isDelay: 0
---- !u!114 &6612029632852025887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6612029632852025873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c721177e1aa544985d01c4a659d314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFire: 0
-  isDetectPlayer: 0
-  isDying: 0
-  isAttack: 0
-  isKnockback: 0
-  knockbackDuration: 1.5
-  cooldownTimer: 1
-  dashSpeed: 10
-  think: 1
---- !u!114 &6612029632852025886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6612029632852025873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a198b59a8f88c5543881ae43cd82c1f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxFlyDistance: 1.5
-  isFacingLeft: 1
-  nextmove: -1
-  cooldownTimer: 3
---- !u!114 &-4414304158056095775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6612029632852025873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d01f402e560ce94392b782621291b18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  speed: 5
+  nextmove: 1

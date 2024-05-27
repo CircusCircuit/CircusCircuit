@@ -28,7 +28,7 @@ namespace controller
         public LayerMask groundLayer;
         public LayerMask wallLayer;
 
-        [Header("Shot")]
+        [Header("Shoot")]
         public GameObject bulletPrefab;
         public Transform firePoint;
 
@@ -42,6 +42,7 @@ namespace controller
         BoxCollider2D playerCollider;
         SpriteRenderer spriteRenderer;
         Animator playerAnim;
+        GameObject currentOneWayPlatform;
 
         GameObject FailUI;
 
@@ -84,7 +85,7 @@ namespace controller
         void Update()
         {
             // [ 올라가기 및 점프 ]
-            if (curState == States.Idle)
+            if (curState == States.Idle && Input.GetKeyDown(KeyCode.W))
             {
                 Jump();
             }
@@ -122,6 +123,17 @@ namespace controller
                 playerCollider.isTrigger = false;
             }
             if (collision.gameObject.tag == "Enemy") return;
+            if (collision.gameObject.CompareTag("Platform"))
+            {
+                currentOneWayPlatform = collision.gameObject;
+            }
+        }
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Platform"))
+            {
+                currentOneWayPlatform = null;
+            }
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -185,7 +197,7 @@ namespace controller
 
             if (isHead && !isSky)
             {
-                playerCollider.isTrigger = true;
+                //playerCollider.isTrigger = true;
             }
 
             if (isGround || isBase)
@@ -197,7 +209,12 @@ namespace controller
             if (isPushDownKey && isGround)
             {
                 //playerCollider.isTrigger = true;
-                rb.AddForce(-transform.up * 250f);
+                if (currentOneWayPlatform != null)
+                {
+                    StartCoroutine(DisableCollision());
+                }
+
+                rb.AddForce(-transform.up * 15f);
                 isPushDownKey = false;
 
                 curState = States.Idle;
@@ -207,8 +224,17 @@ namespace controller
             Move();
 
 
-            if (CrosshairCursor.instance.mouseCursorPos.x > 0 && !facingRight) { Flip(); }
-            else if (CrosshairCursor.instance.mouseCursorPos.x < 0 && facingRight) { Flip(); }
+            if (CrosshairCursor.instance.mouseCursorPos.x > transform.position.x && !facingRight) { Flip(); }
+            else if (CrosshairCursor.instance.mouseCursorPos.x < transform.position.x && facingRight) { Flip(); }
+        }
+
+        IEnumerator DisableCollision()
+        {
+            CompositeCollider2D platformCollider = currentOneWayPlatform.GetComponent<CompositeCollider2D>();
+
+            Physics2D.IgnoreCollision(playerCollider, platformCollider);
+            yield return new WaitForSeconds(0.25f);
+            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
         }
 
         // [ 이동 ]
@@ -228,17 +254,14 @@ namespace controller
         // [ 점프 ]
         void Jump()
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if ((isGround || isBase) && !isDodge && !isJump)
             {
-                if ((isGround || isBase) && !isDodge && !isJump)
-                {
-                    rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-                    //anim.SetBool("isJump", true);
-                    //anim.SetTrigger("doJump");
-                    isJump = true;
-                    curState = States.Jumping;
-                    playerAnim.SetTrigger("isJump");
-                }
+                rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                //anim.SetBool("isJump", true);
+                //anim.SetTrigger("doJump");
+                isJump = true;
+                curState = States.Jumping;
+                playerAnim.SetTrigger("isJump");
             }
 
             //점프 중 몬스터의 물리 공격, 탄막 공격, 충돌을 무적 상태로 회피한다.

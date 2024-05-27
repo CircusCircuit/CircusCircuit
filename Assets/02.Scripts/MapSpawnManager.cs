@@ -10,21 +10,37 @@ public class MapSpawnManager : MonoBehaviour
     [System.Serializable]
     public class MapArray
     {
-        [SerializeField] int row;
-        public int Row
+        [SerializeField] Vector2 mapSpawnPos;
+        public Vector2 MapPos
         {
-            get { return row; }
-            set { row = value; }
+            get { return mapSpawnPos; }
+            set { mapSpawnPos = value; }
         }
 
-        [SerializeField] int col;
-        public int Col
+        [SerializeField] Vector2 playerSpawnPos;
+        public Vector2 PlayerPos
         {
-            get { return col; }
-            set { col = value; }
+            get { return playerSpawnPos; }
+            set { playerSpawnPos = value; }
+        }
+
+        [SerializeField] Vector2 leverSpawnPos;
+        public Vector2 LeverPos
+        {
+            get { return leverSpawnPos; }
+            set { leverSpawnPos = value; }
+        }
+
+        [SerializeField] Vector2 enemySpawnPos;
+        public Vector2 EnemyPos
+        {
+            get { return enemySpawnPos; }
+            set { enemySpawnPos = value; }
         }
     }
     [SerializeField] List<MapArray> stageArray;
+    [SerializeField] GameObject leverObj;
+    [SerializeField] GameObject player;
 
     List<MapArray> dynamicStageArray;
 
@@ -37,22 +53,22 @@ public class MapSpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.getNextWave)
-        {
-            MapSpawn();
-
-            GameManager.Instance.getNextWave = false;
-        }
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
+        //if (GameManager.Instance.getNextWave)
         //{
         //    MapSpawn();
 
-        //    if (dynamicStageArray.Count <= 0)
-        //    {
-        //        Allocation();
-        //    }
+        //    GameManager.Instance.getNextWave = false;
         //}
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MapSpawn();
+
+            if (dynamicStageArray.Count <= 0)
+            {
+                Allocation();
+            }
+        }
     }
 
     void Allocation()
@@ -73,7 +89,10 @@ public class MapSpawnManager : MonoBehaviour
         //PlayerPos.localPosition = GameObject.FindWithTag("SpawnPoint").transform.position;
 
         int rIndex = Random.Range(0, dynamicStageArray.Count);
-        cam.transform.position = new Vector2(dynamicStageArray[rIndex].Row, dynamicStageArray[rIndex].Col);
+
+        cam.transform.position = dynamicStageArray[rIndex].MapPos;
+        leverObj.transform.position = dynamicStageArray[rIndex].LeverPos;
+        player.transform.position = dynamicStageArray[rIndex].PlayerPos;
 
         dynamicStageArray.RemoveAt(rIndex);
     }

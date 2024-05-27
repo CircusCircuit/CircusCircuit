@@ -30,7 +30,7 @@ public class Shooting : MonoBehaviour
     private GameObject player;
 
     TextMeshProUGUI bulletTxt;
-    GameObject Lever;
+    //GameObject Lever;
 
     GameObject loadingObj;
     Image loadingImg;
@@ -43,7 +43,8 @@ public class Shooting : MonoBehaviour
         bulletTxt = GameObject.Find("Bullet").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
 
-        Lever = GameObject.FindWithTag("GameController").transform.GetChild(0).gameObject;
+        //이부분 수정필요
+        //Lever = GameObject.FindWithTag("GameController").transform.GetChild(0).gameObject;
 
         loadingObj = GameObject.FindWithTag("GameController").transform.GetChild(2).GetChild(0).gameObject;
         loadingImg = loadingObj.GetComponent<Image>();
@@ -80,7 +81,7 @@ public class Shooting : MonoBehaviour
 
 
 
-        if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 && !Lever.activeSelf)
+        if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 /*&& !Lever.activeSelf*/)
         {
 
             audioSource.PlayOneShot(shootSound);

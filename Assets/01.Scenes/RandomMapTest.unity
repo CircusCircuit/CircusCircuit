@@ -17116,52 +17116,52 @@ MonoBehaviour:
   cam: {fileID: 395156314}
   stageArray:
   - mapSpawnPos: {x: 0, y: 0}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 0, y: -3.65}
+    leverSpawnPos: {x: -6.07, y: -3.65}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 20, y: 0}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 11.95, y: 1.3}
+    playerSpawnPos: {x: 20, y: -3.65}
+    leverSpawnPos: {x: 11.95, y: 1}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 40, y: 0}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 45, y: -3.65}
+    leverSpawnPos: {x: 32.95, y: -4}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 0, y: -12}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: -7, y: -15.5}
+    leverSpawnPos: {x: -8.05, y: -15.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 20, y: -12}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 18, y: -15.5}
+    leverSpawnPos: {x: 21.95, y: -15.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 40, y: -12}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 40, y: -15.5}
+    leverSpawnPos: {x: 31.95, y: -10.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 0, y: -24}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 3, y: -25.5}
+    leverSpawnPos: {x: -7.04, y: -25.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 20, y: -24}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 20, y: -27.5}
+    leverSpawnPos: {x: 12.95, y: -25.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 40, y: -24}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 34, y: -27.5}
+    leverSpawnPos: {x: 31.95, y: -27.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 0, y: -36}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: -7, y: -37.5}
+    leverSpawnPos: {x: -8.05, y: -39.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 20, y: -36}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 20, y: -37.5}
+    leverSpawnPos: {x: 11.95, y: -39.5}
     enemySpawnPos: {x: 0, y: 0}
   - mapSpawnPos: {x: 40, y: -36}
-    playerSpawnPos: {x: 0, y: 0}
-    leverSpawnPos: {x: 0, y: 0}
+    playerSpawnPos: {x: 33, y: -37.5}
+    leverSpawnPos: {x: 31.95, y: -39.5}
     enemySpawnPos: {x: 0, y: 0}
   leverObj: {fileID: 2091933820}
   player: {fileID: 395146004}

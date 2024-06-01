@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TreeEditor;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 
 namespace Enemy
@@ -10,21 +6,12 @@ namespace Enemy
     public class EnemyBullet : MonoBehaviour
     {
         Rigidbody2D rigid;
-        EnemyAttack enemyAttack;
-        float cooldownTimer = 3;
         public float destroyTime = 2f; // 총알이 생성된 후 파괴될 시간
-
-        public float speed = 1.0f; // 이동 속도
-        public float startTime = 0.0f; // 시작 시간
-        public float duration = 5.0f; // 이동하는 시간
-
         private float inclination;
         private Vector3 initialPosition; // 초기 위치
-        // Start is called before the first frame update
+        
         void Start()
         {
-            enemyAttack = GetComponent<EnemyAttack>();
-
             initialPosition = transform.position;
 
             inclination = initialPosition.y/math.pow(initialPosition.x, 2);
@@ -35,10 +22,6 @@ namespace Enemy
             Invoke("DestroyBullet", destroyTime);
         }
 
-        // Update is called once per frame
-        void FixedUpdate()
-        {
-        }
 
         // 총알이 충돌하면 호출되는 함수
         void OnTriggerEnter2D(Collider2D collision)
@@ -46,12 +29,7 @@ namespace Enemy
             // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
             if (collision.CompareTag("Ground"))
             {
-                Debug.Log("bul1");
-                if (!collision.CompareTag("Enemy") && !collision.CompareTag("EnemyBullet"))
-                {
-                    Debug.Log("bul2");
                     DestroyBullet();
-                }
             }
         }
 

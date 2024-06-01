@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2517615402143020521}
   - component: {fileID: 6319765428739910755}
   m_Layer: 0
-  m_Name: bullet_prefeb
+  m_Name: bullet_prefab
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,5 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774573fb3e83ad646b32c551c43e26cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
   destroyTime: 2
+  speed: 1
+  startTime: 0
+  duration: 5

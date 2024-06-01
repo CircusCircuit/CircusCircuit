@@ -15,13 +15,13 @@ public class EnemyOneWayPlatform : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.CompareTag("Wall")){
+        if(collision.gameObject.CompareTag("Platform")){
             currentOneWayPlatform = collision.gameObject;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
-        if(collision.gameObject.CompareTag("Wall")){
+        if(collision.gameObject.CompareTag("Platform")){
             currentOneWayPlatform = null;
         }        
     }

@@ -27,7 +27,11 @@ namespace Enemy
         void OnTriggerEnter2D(Collider2D collision)
         {
             // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
-            if (collision.CompareTag("Ground"))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                    DestroyBullet();
+            }
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                     DestroyBullet();
             }

@@ -144,9 +144,65 @@ namespace Enemy
             }
         }
         
+        protected class Status{
+            private Enemy enemy;
+            private SpriteRenderer spriteRenderer;
+            private float EnemyHP;
+
+            public Status(Enemy enemy, SpriteRenderer spriteRenderer, float EnemyHP){
+                this.enemy = enemy;
+                this.spriteRenderer = spriteRenderer;
+                this.EnemyHP = EnemyHP;
+            }
+            
+            public void TakeDamage(float damage)
+            {
+                Debug.Log(":(");
+                EnemyHP -= damage;
+                enemy.StartCoroutine(AttackedEffect());
+                if (EnemyHP <= 0)
+                {
+                    Die();
+                }
+            }
+            private void Die()
+            {
+                // enemyMove.isDying = true;
+                enemy.StartCoroutine(ShrinkAndDestroy());
+            }
+
+            IEnumerator AttackedEffect()
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    spriteRenderer.color = new Color32(243, 114, 114, 255);
+                    yield return new WaitForSeconds(0.1f);
+
+                    spriteRenderer.color = new Color32(255, 255, 255, 255);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+            IEnumerator ShrinkAndDestroy()
+            {
+                // 시작 스프라이트 크기
+                Vector3 originalScale = enemy.transform.localScale;
+
+                // 스프라이트 크기를 줄여가면서 점진적으로 사라지게 함
+                for (float t = 0.5f; t >= 0; t -= 2*Time.deltaTime)
+                {
+                    enemy.transform.localScale = originalScale * t;
+                    yield return null;
+                }
+
+                // 스프라이트가 완전히 사라진 후 게임 오브젝트를 파괴
+                Destroy(enemy.gameObject);
+            }
+        }
+
         protected Movement movement;
         protected Detection detection;
         protected Attack attack;
+        protected Status status;
 
 
         public GameObject bulletPrefab;
@@ -154,6 +210,7 @@ namespace Enemy
 
         public float speed = 5f;
         public int nextmove = 1;
+        public int enemyHP = 10;
         public float cooldownTimer = 1.5f;
 
 
@@ -170,6 +227,7 @@ namespace Enemy
             movement = new Movement(rigid, spriteRenderer, oneWay, speed);
             detection = new Detection(this);
             attack = new Attack(this, bulletPrefab);
+            status = new Status(this, spriteRenderer, enemyHP);
         }
 
         protected virtual void Update()
@@ -188,6 +246,22 @@ namespace Enemy
                     detection.DetectPlayerInRangeHorizental(5f);
                     // movement.Move(speed, nextmove);
                 }
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.layer == 7)
+            {
+                status.TakeDamage(0.5f);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("playerbullet"))
+            {
+                status.TakeDamage(GameManager.Instance.M_AttackDamage);
             }
         }
     }

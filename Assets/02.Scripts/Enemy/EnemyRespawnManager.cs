@@ -52,23 +52,23 @@ public class EnemyRespawnManager : MonoBehaviour
             else
             {
                 GameManager.Instance.Clear = true;
-                print(GameManager.Instance.Clear);
+                //print(GameManager.Instance.Clear);
 
-                switch (SceneManager.GetActiveScene().buildIndex)
-                {
-                    case 1:
-                        GameManager.Instance.Clear1 = true;
-                        return;
-                    case 2:
-                        GameManager.Instance.Clear2 = true;
-                        return;
-                    case 3:
-                        GameManager.Instance.Clear3 = true;
-                        return;
-                    case 4:
-                        GameManager.Instance.Clear4 = true;
-                        return;
-                }
+                //switch (SceneManager.GetActiveScene().buildIndex)
+                //{
+                //    case 1:
+                //        GameManager.Instance.Clear1 = true;
+                //        return;
+                //    case 2:
+                //        GameManager.Instance.Clear2 = true;
+                //        return;
+                //    case 3:
+                //        GameManager.Instance.Clear3 = true;
+                //        return;
+                //    case 4:
+                //        GameManager.Instance.Clear4 = true;
+                //        return;
+                //}
             }
         }
     }

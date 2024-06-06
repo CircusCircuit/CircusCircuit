@@ -1713,11 +1713,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!1 &395146004 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1718156013166152657, guid: b6853450db735ff42b8663f880122584, type: 3}
-  m_PrefabInstance: {fileID: 589082340}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &395156312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,6 +2308,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529277516}
   m_CullTransparentMesh: 1
+--- !u!1 &562655808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1718156013285010583, guid: b6853450db735ff42b8663f880122584, type: 3}
+  m_PrefabInstance: {fileID: 589082340}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &576302955
 GameObject:
   m_ObjectHideFlags: 0
@@ -17168,7 +17168,7 @@ MonoBehaviour:
     leverSpawnPos: {x: 31.95, y: -39.5}
     enemySpawnPos: {x: 0, y: 0}
   leverObj: {fileID: 2091933820}
-  player: {fileID: 395146004}
+  player: {fileID: 562655808}
 --- !u!4 &1165137128
 Transform:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class Shooting : MonoBehaviour
     TextMeshProUGUI bulletTxt;
     //GameObject Lever;
 
-    GameObject loadingObj;
+    [SerializeField] GameObject loadingObj;
     Image loadingImg;
 
     // Start is called before the first frame update
@@ -46,7 +46,7 @@ public class Shooting : MonoBehaviour
         //이부분 수정필요
         //Lever = GameObject.FindWithTag("GameController").transform.GetChild(0).gameObject;
 
-        loadingObj = GameObject.FindWithTag("GameController").transform.GetChild(2).GetChild(0).gameObject;
+        //loadingObj = GameObject.FindWithTag("GameController").transform.GetChild(2).GetChild(0).gameObject;
         loadingImg = loadingObj.GetComponent<Image>();
 
         audioSource = GetComponent<AudioSource>();

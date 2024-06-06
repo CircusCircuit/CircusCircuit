@@ -105,14 +105,60 @@ namespace Enemy
             
 
         }
+        protected class Attack{
+
+            private Enemy enemy;
+            public GameObject bulletPrefab;
+
+            public Attack(Enemy enemy, GameObject bulletPrefab){
+                this.enemy = enemy;
+                this.bulletPrefab = bulletPrefab;                
+            }
+
+            public void FireBullet_8()
+            {
+                // Debug.Log("fire!");
+
+                for (int i = 0; i < 8; i++)
+                {
+                    // 각 방향에 따른 회전 각도
+                    float rotation = i * 45f;
+
+                    // 총알을 회전시켜 생성합니다.
+                    float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+                    // 원 주위의 랜덤한 위치 계산
+                    float spawnX = enemy.transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
+                    float spawnY = enemy.transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
+
+                    // 오브젝트 생성
+                    GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                    // 총알의 초기 속도 설정
+                    float bulletSpeed = 10f;
+                    float bulletDirectionX = Mathf.Cos(Mathf.Deg2Rad * rotation);
+                    float bulletDirectionY = Mathf.Sin(Mathf.Deg2Rad * rotation);
+                    Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
+                    bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+                }
+
+            }
+        }
+        
         protected Movement movement;
         protected Detection detection;
+        protected Attack attack;
+
+
+        public GameObject bulletPrefab;
+
 
         public float speed = 5f;
         public int nextmove = 1;
         public float cooldownTimer = 1.5f;
-        
+
+
         public bool isJump = false;
+        public bool isAttack = false;
         public bool isDetectPlayer = false;
         public bool isFacingLeft = false;
         
@@ -123,6 +169,7 @@ namespace Enemy
             EnemyOneWayPlatform oneWay = GetComponent<EnemyOneWayPlatform>();
             movement = new Movement(rigid, spriteRenderer, oneWay, speed);
             detection = new Detection(this);
+            attack = new Attack(this, bulletPrefab);
         }
 
         protected virtual void Update()
@@ -132,10 +179,12 @@ namespace Enemy
             }
             else{
                 if (!isJump){
-                movement.DownJump();
-                isJump = true;
+                    movement.DownJump();
+                    isJump = true;
                 }
                 else{
+                    attack.FireBullet_8();
+                    cooldownTimer = 1.5f;
                     detection.DetectPlayerInRangeHorizental(5f);
                     // movement.Move(speed, nextmove);
                 }

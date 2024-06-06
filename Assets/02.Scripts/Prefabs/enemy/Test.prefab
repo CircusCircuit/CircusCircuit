@@ -146,5 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b406d244ce310419b56c7a32c3543e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
   speed: 5
   nextmove: 1
+  cooldownTimer: 1.5
+  isJump: 0
+  isAttack: 0
+  isDetectPlayer: 0
+  isFacingLeft: 0

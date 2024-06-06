@@ -16,10 +16,21 @@ public class GameManager : MonoBehaviour
     public int curStageIndex;
     public bool getNextWave = false;
     [SerializeField] bool isClear;
-    [SerializeField] bool isClear1;
-    [SerializeField] bool isClear2;
-    [SerializeField] bool isClear3;
-    [SerializeField] bool isClear4;
+    [SerializeField] bool doCardSelect;
+    int stageCounter = 0;
+
+    //카드 선택관련
+    int selectedCardType = 0;
+    public int SelectedCardType
+    {
+        get { return selectedCardType; }
+        set { selectedCardType = value; }
+    }
+
+    //[SerializeField] bool isClear1;
+    //[SerializeField] bool isClear2;
+    //[SerializeField] bool isClear3;
+    //[SerializeField] bool isClear4;
 
     // [ 플레이어 관련 ]
     float hp = 4;
@@ -125,24 +136,14 @@ public class GameManager : MonoBehaviour
         get { return isClear; }
         set { isClear = value; }
     }
-    public bool Clear1
+    public bool DoCardSelect
     {
-        get { return isClear1; }
-        set { isClear1 = value; }
+        get { return doCardSelect; }
+        set { doCardSelect = value; }
     }
-    public bool Clear2
+    public int StageCounter
     {
-        get { return isClear2; }
-        set { isClear2 = value; }
-    }
-    public bool Clear3
-    {
-        get { return isClear3; }
-        set { isClear3 = value; }
-    }
-    public bool Clear4
-    {
-        get { return isClear4; }
-        set { isClear4 = value; }
+        get { return stageCounter; }
+        set { stageCounter = value; }
     }
 }

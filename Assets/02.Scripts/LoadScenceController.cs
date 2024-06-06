@@ -5,11 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class LoadScenceController : MonoBehaviour
 {
+    int buildIdx = 0;
+
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        buildIdx = SceneManager.GetActiveScene().buildIndex;
+
+        if (buildIdx == 0)
         {
             Cursor.visible = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && buildIdx == 0)
+        {
+            SceneManager.LoadScene(buildIdx + 1);
         }
     }
 

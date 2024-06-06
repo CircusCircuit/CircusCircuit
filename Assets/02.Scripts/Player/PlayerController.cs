@@ -15,6 +15,7 @@ namespace controller
         bool isDodge = false;
         bool facingRight = true;
         bool isAttacked = false;
+        bool doDownDelay = false;
 
         [Header("Base")]
         public float jumpPower;
@@ -36,7 +37,7 @@ namespace controller
         Vector2 dodgeVec;
         Vector2 curPos;
 
-        StageController stageController;
+        //StageController stageController;
         [SerializeField] Shooting shooting;
 
         BoxCollider2D playerCollider;
@@ -70,10 +71,10 @@ namespace controller
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            if (SceneManager.GetActiveScene().name != "Tutorial")
-            {
-                stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
-            }
+            //if (SceneManager.GetActiveScene().name != "Tutorial")
+            //{
+            //    stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+            //}
 
             if (GameObject.FindWithTag("FailUI") == null) return;
             FailUI = GameObject.FindWithTag("FailUI").transform.GetChild(0).gameObject;
@@ -165,19 +166,6 @@ namespace controller
                 isAttacked = true;
                 MinusHp(collision.transform.tag);
             }
-
-            if (collision.gameObject.name == "Lever")
-            {
-                stageController.isLever = true;
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.gameObject.name == "Lever")
-            {
-                stageController.isLever = false;
-            }
         }
 
         private void FixedUpdate()
@@ -206,15 +194,16 @@ namespace controller
                 curState = States.Idle;
             }
 
-            if (isPushDownKey && isGround)
+            if (isPushDownKey && isGround && !doDownDelay)
             {
                 //playerCollider.isTrigger = true;
                 if (currentOneWayPlatform != null)
                 {
                     StartCoroutine(DisableCollision());
+                    doDownDelay = true;
                 }
 
-                rb.AddForce(-transform.up * 15f);
+                //rb.AddForce(-transform.up * 15f);
                 isPushDownKey = false;
 
                 curState = States.Idle;
@@ -235,6 +224,15 @@ namespace controller
             Physics2D.IgnoreCollision(playerCollider, platformCollider);
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+
+            StartCoroutine(DownDelay());
+        }
+
+        IEnumerator DownDelay()
+        {
+            yield return new WaitForSeconds(0.25f);
+            doDownDelay = false;
+
         }
 
         // [ 이동 ]
@@ -246,9 +244,13 @@ namespace controller
             rb.velocity = moveVec;
 
             if (isDodge)
+            {
                 moveVec = dodgeVec;
-
-            playerAnim.SetBool("isWalk", moveVec != Vector2.zero);
+            }
+            else
+            {
+                playerAnim.SetBool("isWalk", moveVec != Vector2.zero);
+            }
         }
 
         // [ 점프 ]
@@ -274,6 +276,7 @@ namespace controller
             {
                 curState = States.Dodging;
                 playerAnim.SetTrigger("isDodge");
+                playerAnim.SetBool("isWalk", moveVec != Vector2.zero);
 
                 rb.gravityScale = 0;
                 playerCollider.isTrigger = true;
@@ -297,6 +300,8 @@ namespace controller
 
             playerCollider.isTrigger = false;
             rb.gravityScale = 4;
+
+            playerAnim.SetBool("isWalk", false);
 
             StartCoroutine(DodgeDelay());
         }

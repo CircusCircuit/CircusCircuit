@@ -31,7 +31,7 @@ public class EnemyOneWayPlatform : MonoBehaviour
         BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
 
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.27f);
         // Physics2D.IgnoreCollision(enemyCollider, platformCollider, false);
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
 

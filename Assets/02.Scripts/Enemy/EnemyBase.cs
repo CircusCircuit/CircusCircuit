@@ -14,8 +14,6 @@ namespace Enemy
             private EnemyOneWayPlatform oneWay;
 
             protected float speed;
-            protected int think;
-
             public Movement(EnemyBase enemy, Rigidbody2D rigid, SpriteRenderer spriteRenderer, EnemyOneWayPlatform oneway, float speed)
             {
                 this.enemy = enemy;
@@ -75,6 +73,39 @@ namespace Enemy
                 rigid.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
 
             }
+            public void Dash(float moveSpeed = 5f)
+            {
+                Debug.Log("Dash!");
+
+                if (enemy.isFacingLeft)
+                {
+                    enemy.nextmove = -1;
+                }
+                else
+                {
+                    enemy.nextmove = 1;
+                }
+                rigid.velocity = new Vector2(enemy.nextmove * moveSpeed, rigid.velocity.y);
+            }
+
+            public void MoveVertical(float Speed)
+            {
+                rigid.velocity = new Vector2(rigid.velocity.x, enemy.nextmove * Speed);
+            }
+
+
+            // public void Fly(float moveSpeed = 2f, float maxFlyDistance = 5f, Vector2 startPosition)
+            // {
+            //     // 일정 범위 내에서 위아래로 이동하기 위한 코드 추가
+            //     float maxY = startPosition.y + maxFlyDistance;
+            //     float minY = startPosition.y - maxFlyDistance;
+            //     // 현재 위치가 일정 범위를 벗어나면 방향을 바꿔줍니다.
+            //     if (enemy.transform.position.y >= maxY || enemy.transform.position.y <= minY)
+            //     {
+            //         enemy.nextmove *= -1;
+            //     }   
+            //     rigid.velocity = new Vector2( rigid.velocity.x, enemy.nextmove * moveSpeed);  
+            // }
 
         }
         protected class Detection
@@ -126,7 +157,70 @@ namespace Enemy
                     enemy.isDetectPlayer = false;
                 }
             }
+            public void DetectPlayerInRangeVertical(float detectionRange = 5f)
+            {
+                // 플레이어의 위치
+                Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 
+                // 몬스터와 플레이어의 거리 계산
+                float distanceToPlayerX = Mathf.Abs(playerPosition.x - enemy.transform.position.x);
+                float distanceToPlayerY = Mathf.Abs(playerPosition.y - enemy.transform.position.y);
+
+                // 감지범위 시각화      
+                DebugDrawDetectionRangeVertical(enemy.transform.position, detectionRange);
+
+
+                if (distanceToPlayerX <= 1f)
+                {
+                    // 플레이어가 몬스터의 아래 쪽에 있을 때
+                    if (playerPosition.y < enemy.transform.position.y && distanceToPlayerY <= detectionRange)
+                    {
+                        Debug.Log("Player detected below!!");
+                        enemy.isDetectPlayer = true;
+                        enemy.nextmove = -1;
+                    }
+
+                    // 플레이어가 몬스터의 위쪽에 있을 때
+                    else
+                    {
+                        if (playerPosition.y > enemy.transform.position.y && distanceToPlayerY <= detectionRange)
+                        {
+                            Debug.Log("Player detected above!!");
+                            enemy.isDetectPlayer = true;
+                            enemy.nextmove = 1;
+                        }
+                    }
+                }
+                else
+                {
+                    // Debug.Log("Player undetected!");
+                    enemy.isDetectPlayer = false;
+                }
+            }
+            public void DetectPlayerInRange(float detectionRange = 5f)
+            {
+                // 플레이어의 위치
+                Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+                // 몬스터와 플레이어의 거리 계산
+                float distanceToPlayerX = Mathf.Abs(playerPosition.x - enemy.transform.position.x);
+                float distanceToPlayerY = Mathf.Abs(playerPosition.y - enemy.transform.position.y);
+                float distance = Mathf.Sqrt(distanceToPlayerX * distanceToPlayerX + distanceToPlayerY * distanceToPlayerY);
+
+                // 감지범위 시각화      
+                DebugDrawDetectionRange(enemy.transform.position, detectionRange);
+
+                // 만약 플레이어가 감지 범위 내에 있다면
+                if (distance <= detectionRange)
+                {
+                    enemy.isDetectPlayer = true;
+                    Debug.Log("Player detected!");
+                }
+                else
+                {
+                    enemy.isDetectPlayer = false;
+                }
+            }
             void DebugDrawDetectionRangeHorizental(Vector2 center, float Width)
             {
                 // 사각형 테두리 그리기
@@ -140,7 +234,37 @@ namespace Enemy
                 Debug.DrawLine(bottomRight, bottomLeft, Color.red);
                 Debug.DrawLine(bottomLeft, topLeft, Color.red);
             }
+            void DebugDrawDetectionRangeVertical(Vector2 center, float Width)
+            {
+                // 사각형 테두리 그리기
+                Vector2 topLeft = center + new Vector2(-0.5f, Width);
+                Vector2 topRight = center + new Vector2(0.5f, Width);
+                Vector2 bottomLeft = center + new Vector2(-0.5f, -Width);
+                Vector2 bottomRight = center + new Vector2(0.5f, -Width);
 
+                Debug.DrawLine(topLeft, topRight, Color.red);
+                Debug.DrawLine(topRight, bottomRight, Color.red);
+                Debug.DrawLine(bottomRight, bottomLeft, Color.red);
+                Debug.DrawLine(bottomLeft, topLeft, Color.red);
+            }
+            void DebugDrawDetectionRange(Vector2 center, float radius, int segments = 20)
+            {
+                float angleStep = 2 * Mathf.PI / segments;
+
+                Vector2 prevPoint = center + new Vector2(radius, 0);
+
+                for (int i = 1; i <= segments; i++)
+                {
+                    float angle = i * angleStep;
+                    Vector2 nextPoint = center + new Vector2(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle));
+                    Debug.DrawLine(prevPoint, nextPoint, Color.red);
+                    prevPoint = nextPoint;
+                }
+
+                // 마지막 점에서 첫 번째 점으로 선 그리기
+                Vector2 firstPoint = center + new Vector2(radius, 0);
+                Debug.DrawLine(prevPoint, firstPoint, Color.red);
+            }
 
         }
         protected class Attack
@@ -247,14 +371,14 @@ namespace Enemy
 
 
         public GameObject bulletPrefab;
-        Rigidbody2D rigid;
+        protected Rigidbody2D rigid;
 
 
         public float speed = 2f;
         public int nextmove = 1;
         public int enemyHP = 10;
         public float cooldownTimer = 1.5f;
-        public int think = 0;
+        protected int think = 0;
 
 
         public bool isDying = false;
@@ -273,26 +397,12 @@ namespace Enemy
             detection = new Detection(this);
             attack = new Attack(this, bulletPrefab);
             status = new Status(this, spriteRenderer, enemyHP);
-            // Think();
+            Invoke("Think", 0.5f);
         }
 
         protected virtual void Update()
         {
-            // if (!isDying)
-            // {
-            //     if (!isKnockback)
-            //     {
-            //         if (!isDetectPlayer)
-            //         {
-            //             GroundMove(2f);
-            //             detection.DetectPlayerInRangeHorizental(5f);
-            //         }
-            //         else
-            //         {
-            //             // Dash(10f);
-            //         }
-            //     }
-            // }
+
             GroundMove(speed);
         }
 
@@ -329,15 +439,15 @@ namespace Enemy
         {
             Vector2 frontVec = new Vector2(rigid.position.x + nextmove * 0.2f, rigid.position.y);
             Vector2 downVec = new Vector2(rigid.position.x - 0.5f, rigid.position.y - 0.7f);
-    
+
             Debug.DrawRay(frontVec, Vector2.down, new Color(1, 0, 0));
-            Debug.DrawRay(frontVec, Vector2.right, new Color(0, 1, 0)); 
-            Debug.DrawRay(downVec, Vector2.right, new Color(0, 0, 1)); 
-            
+            Debug.DrawRay(frontVec, Vector2.right, new Color(0, 1, 0));
+            Debug.DrawRay(downVec, Vector2.right, new Color(0, 0, 1));
+
             // Raycast를 실행합니다.
-            RaycastHit2D rayHitGround = Physics2D.Raycast(frontVec, Vector2.down, 1f,LayerMask.GetMask("Ground")); 
-            RaycastHit2D rayHitPlatform = Physics2D.Raycast(frontVec, Vector2.down, 1f,LayerMask.GetMask("Platform")); 
-            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Ground")); 
+            RaycastHit2D rayHitGround = Physics2D.Raycast(frontVec, Vector2.down, 1f, LayerMask.GetMask("Ground"));
+            RaycastHit2D rayHitPlatform = Physics2D.Raycast(frontVec, Vector2.down, 1f, LayerMask.GetMask("Platform"));
+            RaycastHit2D rayHitFoword = Physics2D.Raycast(frontVec, Vector2.right * nextmove * 0.1f, 0.3f, LayerMask.GetMask("Ground"));
             RaycastHit2D rayHitEnemy = Physics2D.Raycast(downVec, Vector2.right, 1f, LayerMask.GetMask("Enemy"));
 
             // 점프 중이 아니거나 앞에 몬스터가 아래 있으면 이동
@@ -356,7 +466,7 @@ namespace Enemy
             }
 
             // 낭떨어지 만났을 때 점프 혹은 뒤돌기
-         
+
             if (rayHitGround.collider == null && rayHitPlatform.collider == null && !isJump)
             {
 
@@ -390,13 +500,14 @@ namespace Enemy
             // 착지 후 점프 종료
             if (rayHitGround.collider != null || rayHitPlatform.collider != null)
             {
-                if(isJump){
+                if (isJump)
+                {
                     isJump = false;
                 }
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.layer == 7)
             {

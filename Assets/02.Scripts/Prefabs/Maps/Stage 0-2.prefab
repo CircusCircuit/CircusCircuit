@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4944002406020234421}
   m_Layer: 8
   m_Name: Platform Tilemap(static)
-  m_TagString: Wall
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 7424074482663668364}
   m_Layer: 6
   m_Name: Ground Tilemap(static)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1779,9 +1779,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7424074483047729169}
   - component: {fileID: 7424074483047729168}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground Grid
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1859,7 +1859,7 @@ GameObject:
   - component: {fileID: 7424074483345903381}
   m_Layer: 0
   m_Name: Platform Grid
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

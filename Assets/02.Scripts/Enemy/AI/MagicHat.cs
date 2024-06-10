@@ -150,8 +150,6 @@ namespace Enemy
             {
                 isDetectPlayer = false;
             }
-
-
         }
                void DebugDrawDetectionRange(Vector2 center, float radius, int segments = 20)
         {

@@ -6,10 +6,14 @@ namespace Enemy
 {
     public class NewMagicHat : EnemyBase
     {
+        public float maxFlyDistance = 1.5f;
+        Vector2 startPosition;
         protected override void Start()
         {
             base.Start();
             CancelInvoke();
+            ThinkFly();
+            startPosition = transform.position;
         }
         protected override void Update()
         {
@@ -22,7 +26,7 @@ namespace Enemy
             {
                 if (!isAttack)
                 {
-                    // enemymove.Fly();
+                    movement.Fly(startPosition, speed, maxFlyDistance);
                     detection.DetectPlayerInRange(5f);
                 }
 
@@ -34,7 +38,7 @@ namespace Enemy
                         {
                             CancelInvoke("ThinkFly");
                             Invoke("ThinkFly", 1f);
-                            // attack.FireBullet();
+                            attack.FireBullet();
                             cooldownTimer = 2f;
                         }
                         else
@@ -44,7 +48,7 @@ namespace Enemy
                             movement.Stop();
                             Invoke("EndAttack", 1f);
                             Invoke("ThinkFly", 1.5f);
-                            // attack.FireBullet_Rapid();
+                            attack.FireBullet_Rapid();
                             cooldownTimer = 2f;
                         }
                     }

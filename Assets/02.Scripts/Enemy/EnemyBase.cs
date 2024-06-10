@@ -94,18 +94,19 @@ namespace Enemy
             }
 
 
-            // public void Fly(float moveSpeed = 2f, float maxFlyDistance = 5f, Vector2 startPosition)
-            // {
-            //     // 일정 범위 내에서 위아래로 이동하기 위한 코드 추가
-            //     float maxY = startPosition.y + maxFlyDistance;
-            //     float minY = startPosition.y - maxFlyDistance;
-            //     // 현재 위치가 일정 범위를 벗어나면 방향을 바꿔줍니다.
-            //     if (enemy.transform.position.y >= maxY || enemy.transform.position.y <= minY)
-            //     {
-            //         enemy.nextmove *= -1;
-            //     }   
-            //     rigid.velocity = new Vector2( rigid.velocity.x, enemy.nextmove * moveSpeed);  
-            // }
+            public void Fly(Vector2 startPosition, float moveSpeed = 2f, float maxFlyDistance = 5f)
+            {
+                
+                // 일정 범위 내에서 위아래로 이동하기 위한 코드 추가
+                float maxY = startPosition.y + maxFlyDistance;
+                float minY = startPosition.y - maxFlyDistance;
+                // 현재 위치가 일정 범위를 벗어나면 방향을 바꿔줍니다.
+                if (enemy.transform.position.y >= maxY || enemy.transform.position.y <= minY)
+                {
+                    enemy.nextmove *= -1;
+                }   
+                rigid.velocity = new Vector2( rigid.velocity.x, enemy.nextmove * moveSpeed);  
+            }
 
         }
         protected class Detection
@@ -267,16 +268,18 @@ namespace Enemy
             }
 
         }
-        protected class Attack
+        protected class Attack:MonoBehaviour
         {
 
             private EnemyBase enemy;
             public GameObject bulletPrefab;
+            public GameObject G_Bullet;
 
-            public Attack(EnemyBase enemy, GameObject bulletPrefab)
+            public Attack(EnemyBase enemy, GameObject bulletPrefab, GameObject G_Bullet)
             {
                 this.enemy = enemy;
                 this.bulletPrefab = bulletPrefab;
+                this.G_Bullet = G_Bullet;
             }
 
             public void FireBullet_8()
@@ -305,6 +308,130 @@ namespace Enemy
                     bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
                 }
 
+            }
+            public void FireBullet()
+            {
+
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+                Vector2 directionToPlayer = (player.transform.position - enemy.transform.position).normalized;
+
+
+                float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+                float spawnX = enemy.transform.position.x + directionToPlayer.x * radius;
+                float spawnY = enemy.transform.position.y + directionToPlayer.y * radius;
+
+                GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+
+                float bulletSpeed = 10f;
+                Vector2 bulletDirection = directionToPlayer;
+                bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+            }
+
+            public void FireBullet_Rapid()
+            {
+                StartCoroutine(FireBulletCoroutine());
+            }
+
+            IEnumerator FireBulletCoroutine()
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+                // 플레이어가 없으면 코루틴을 종료합니다.
+                if (player == null)
+                {
+                    Debug.LogWarning("Player object not found.");
+                    yield break;
+                }
+
+                Vector2 directionToPlayer = (player.transform.position - enemy.transform.position).normalized;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+                    float spawnX = enemy.transform.position.x + directionToPlayer.x * radius;
+                    float spawnY = enemy.transform.position.y + directionToPlayer.y * radius;
+
+                    GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+
+                    float bulletSpeed = 10f;
+                    Vector2 bulletDirection = directionToPlayer;
+                    bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+
+            public void FireBullet_Circle12()
+            {
+                Debug.Log("fire!");
+
+                for (int i = 0; i < 12; i++)
+                {
+                    // 각 방향에 따른 회전 각도
+                    float randomVector = Random.Range(0, 360);
+                    float rotation = randomVector;
+
+                    // 총알을 회전시켜 생성합니다.
+                    float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+                    // 원 주위의 랜덤한 위치 계산
+                    float spawnX = transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
+                    float spawnY = transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
+
+                    // 오브젝트 생성
+                    GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                    // 총알의 초기 속도 설정
+                    float randomVelocity = Random.Range(5, 10);
+                    float bulletSpeed = randomVelocity;
+                    float bulletDirectionX = Mathf.Cos(Mathf.Deg2Rad * rotation);
+                    float bulletDirectionY = Mathf.Sin(Mathf.Deg2Rad * rotation);
+                    Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
+                    bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+                }
+            }
+
+            public void FireBullet_area()
+            {
+                StartCoroutine(FireBulletAreaCoroutine());
+            }
+            IEnumerator FireBulletAreaCoroutine()
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                Vector2 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+                for (int i = 0; i < 20; i++)
+                {
+                    // 각 방향에 따른 회전 각도
+                    float val = Random.Range(0, 45);
+                    float rotation = val;
+                    if (playerPosition.x > transform.position.x)
+                    {
+                        rotation -= 65;
+                    }
+                    else
+                    {
+                        rotation -= 155;
+                    }
+                    // 총알을 회전시켜 생성합니다.
+                    float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+                    // 원 주위의 랜덤한 위치 계산
+                    float spawnX = transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
+                    float spawnY = transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
+
+                    // 오브젝트 생성
+                    GameObject bullet = Instantiate(G_Bullet, new Vector2(spawnX, spawnY), Quaternion.identity);
+                    // 총알의 초기 속도 설정
+                    float bulletSpeed = 5f;
+                    float bulletDirectionX = Mathf.Cos(Mathf.Deg2Rad * rotation);
+                    float bulletDirectionY = Mathf.Sin(Mathf.Deg2Rad * rotation);
+                    Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY).normalized;
+                    bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+                    yield return new WaitForSeconds(0.05f);
+                }
             }
         }
         protected class Status
@@ -371,6 +498,7 @@ namespace Enemy
 
 
         public GameObject bulletPrefab;
+        public GameObject G_Bullet;
         protected Rigidbody2D rigid;
 
 
@@ -395,7 +523,7 @@ namespace Enemy
             EnemyOneWayPlatform oneWay = GetComponent<EnemyOneWayPlatform>();
             movement = new Movement(this, rigid, spriteRenderer, oneWay, speed);
             detection = new Detection(this);
-            attack = new Attack(this, bulletPrefab);
+            attack = new Attack(this, bulletPrefab, G_Bullet);
             status = new Status(this, spriteRenderer, enemyHP);
             Invoke("Think", 0.5f);
         }

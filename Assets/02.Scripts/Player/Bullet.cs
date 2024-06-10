@@ -56,10 +56,10 @@ namespace Player
 
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                EnemyStatus enemyStatus = collision.gameObject.GetComponent<EnemyStatus>();
-                if (enemyStatus != null)
+                EnemyBase enemybase = collision.gameObject.GetComponent<EnemyBase>();
+                if (enemybase != null)
                 {
-                    enemyStatus.TakeDamage(GameManager.Instance.M_AttackDamage);
+                    // enemybase.status.TakeDamage(GameManager.Instance.M_AttackDamage);
                     print(GameManager.Instance.M_AttackDamage);
                 }
                 Destroy(gameObject);

@@ -53,12 +53,12 @@ public class MapSpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (GameManager.Instance.getNextWave)
-        //{
-        //    MapSpawn();
+        if (GameManager.Instance.getNextWave)
+        {
+            MapSpawn();
 
-        //    GameManager.Instance.getNextWave = false;
-        //}
+            GameManager.Instance.getNextWave = false;
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -82,17 +82,12 @@ public class MapSpawnManager : MonoBehaviour
 
     void MapSpawn()
     {
-        //int rIndex = Random.Range(0, maps.Count);
-        //Instantiate(maps[rIndex]);
-        //maps.RemoveAt(rIndex);
-
-        //PlayerPos.localPosition = GameObject.FindWithTag("SpawnPoint").transform.position;
-
         int rIndex = Random.Range(0, dynamicStageArray.Count);
 
         cam.transform.position = dynamicStageArray[rIndex].MapPos;
         leverObj.transform.position = dynamicStageArray[rIndex].LeverPos;
         player.transform.position = dynamicStageArray[rIndex].PlayerPos;
+        //player.transform.GetChild(0).localPosition = Vector3.zero;
 
         dynamicStageArray.RemoveAt(rIndex);
     }

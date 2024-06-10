@@ -22,7 +22,7 @@ public class StageController : MonoBehaviour
     public static StageController Instance { get; private set; }
 
     //GameObject Lever;
-    public bool isLever = false;
+    //public bool isLever = false;
     [SerializeField] Animator anim;
     [SerializeField] GameObject yellowCurtain;
 
@@ -81,10 +81,10 @@ public class StageController : MonoBehaviour
         //    Interaction();
         //}
 
-        if (SceneManager.GetActiveScene().buildIndex == 4 && GameManager.Instance.Clear4)
-        {
-            SuccUI.gameObject.SetActive(true);
-        }
+        //if (SceneManager.GetActiveScene().buildIndex == 4 && GameManager.Instance.Clear4)
+        //{
+        //    SuccUI.gameObject.SetActive(true);
+        //}
     }
 
     //void Interaction()

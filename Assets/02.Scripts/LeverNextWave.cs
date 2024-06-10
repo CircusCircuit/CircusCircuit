@@ -6,18 +6,35 @@ public class LeverNextWave : MonoBehaviour
 {
     [SerializeField] GameObject CloseCurtain;
     [SerializeField] Animator anim;
-    StageController stageController;
+    //StageController stageController;
     [SerializeField] GameObject FKeyUI;
+    bool isPlayer = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
+        //stageController = GameObject.FindWithTag("GameController").GetComponent<StageController>();
 
         GameManager.Instance.Clear = false;
         transform.GetChild(0).gameObject.SetActive(false);
-        stageController.isLever = false;
+        //stageController.isLever = false;
         FKeyUI.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            isPlayer = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            isPlayer = false;
+        }
     }
 
     // Update is called once per frame
@@ -28,7 +45,7 @@ public class LeverNextWave : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(true);
         }
 
-        if (stageController.isLever)
+        if (isPlayer)
         {
             FKeyUI.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
@@ -54,7 +71,6 @@ public class LeverNextWave : MonoBehaviour
     IEnumerator CurtainCall()
     {
         CloseCurtain.SetActive(true);
-        print("CurtainCall");
 
         anim.SetBool("play", true);
         yield return new WaitForSeconds(0.01f);
@@ -62,8 +78,11 @@ public class LeverNextWave : MonoBehaviour
         var length = anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(length);
 
-        GameManager.Instance.getNextWave = true;
+        //GameManager.Instance.getNextWave = true;
         CloseCurtain.SetActive(false);
+
+        GameManager.Instance.DoCardSelect = true;
+        GameManager.Instance.StageCounter++;
 
         //cardController.RandomCard();
         //Cursor.visible = true;

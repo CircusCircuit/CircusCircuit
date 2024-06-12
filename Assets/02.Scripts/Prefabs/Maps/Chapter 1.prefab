@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 3237120539206981796}
   m_Layer: 8
   m_Name: Platform Tilemap(static)
-  m_TagString: Wall
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -343,11 +343,11 @@ namespace Enemy
             if (distance <= detectionRange)
             {
                 isDetectPlayer = true;
-                Debug.Log("Player detected!");
+                //Debug.Log("Player detected!");
             }
             else
             {
-                Debug.Log("Player undetected!");
+                //Debug.Log("Player undetected!");
                 isDetectPlayer = false;
             }
 

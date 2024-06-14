@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 namespace controller
@@ -10,7 +11,7 @@ namespace controller
         public static PlayerController Instance = null;
         float moveX;
         Rigidbody2D rb;
-        bool isGround, isHead, isLeft, isRight, isBase, isSky, isPushDownKey;
+        bool isGround, isHead, isLeft, isRight, isBase, isSky, isPushDownKey, isDodgeDelay;
         bool isJump = false;
         bool isDodge = false;
         bool facingRight = true;
@@ -256,7 +257,7 @@ namespace controller
         // [ 점프 ]
         void Jump()
         {
-            if ((isGround || isBase) && !isDodge && !isJump)
+            if ((isGround || isBase) && !isDodgeDelay && !isJump)
             {
                 rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 //anim.SetBool("isJump", true);
@@ -272,11 +273,11 @@ namespace controller
         // [ 구르기 ]
         void Dodge()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && (isGround || isBase) && !isDodge)
+            if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && (isGround || isBase) && !isDodgeDelay)
             {
                 curState = States.Dodging;
                 playerAnim.SetTrigger("isDodge");
-                playerAnim.SetBool("isWalk", moveVec != Vector2.zero);
+                //playerAnim.SetBool("isWalk", moveVec != Vector2.zero);
 
                 rb.gravityScale = 0;
                 playerCollider.isTrigger = true;
@@ -292,7 +293,7 @@ namespace controller
         }
         IEnumerator DodgeOut()
         {
-            yield return new WaitForSecondsRealtime(0.4f);
+            yield return new WaitForSecondsRealtime(0.2f);
 
             GameManager.Instance.PlayerSpeed = 5/**= 0.5f*/;
 
@@ -301,7 +302,11 @@ namespace controller
             playerCollider.isTrigger = false;
             rb.gravityScale = 4;
 
-            playerAnim.SetBool("isWalk", false);
+            isDodge = false;
+            shooting.canFire = true;
+            curState = States.Idle;
+
+            isDodgeDelay = true;
 
             StartCoroutine(DodgeDelay());
         }
@@ -309,10 +314,7 @@ namespace controller
         {
             yield return new WaitForSecondsRealtime(1f);
 
-            isDodge = false;
-            shooting.canFire = true;
-
-            curState = States.Idle;
+            isDodgeDelay = false;
         }
 
 

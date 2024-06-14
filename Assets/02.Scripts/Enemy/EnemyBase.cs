@@ -587,7 +587,7 @@ namespace Enemy
             //앞에 벽 감지시 돌아서 이동
             if (rayHitFoword.collider != null)
             {
-                Debug.Log(rayHitFoword.collider);
+                //Debug.Log(rayHitFoword.collider);
                 movement.Turn();
                 CancelInvoke("Think");
                 Invoke("Think", 2);

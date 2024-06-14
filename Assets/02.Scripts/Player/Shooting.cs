@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
@@ -14,16 +15,16 @@ public class Shooting : MonoBehaviour
     public GameObject bullet;
     public Transform bulletTransform;
     public bool canFire;
-    public bool isPlayed=false;
+    public bool isPlayed = false;
 
     bool facingRight = true;
 
-    public AudioClip shootSound; 
-    public AudioClip reloadSound; 
+    public AudioClip shootSound;
+    public AudioClip reloadSound;
 
     private AudioSource audioSource; // AudioSource ????
 
-    
+
     private float timer;
     //public float timeBetweenFiring;
 
@@ -35,13 +36,22 @@ public class Shooting : MonoBehaviour
     [SerializeField] GameObject loadingObj;
     Image loadingImg;
 
+    string curSenceIdx;
+
     // Start is called before the first frame update
     void Start()
     {
+        curSenceIdx = SceneManager.GetActiveScene().name;
+
         mainCam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindWithTag("Player");
-        bulletTxt = GameObject.Find("Bullet").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+
+        if (curSenceIdx != "Tutorial")
+        {
+            bulletTxt = GameObject.Find("Bullet").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+        }
+
 
         //이부분 수정필요
         //Lever = GameObject.FindWithTag("GameController").transform.GetChild(0).gameObject;
@@ -51,6 +61,7 @@ public class Shooting : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
+        //curSenceIdx = SceneManager.GetActiveScene().buildIndex;
     }
 
     // Update is called once per frame
@@ -63,6 +74,7 @@ public class Shooting : MonoBehaviour
         transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
 
         loadingObj.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 1.5f, 0));
+
 
         if (!canFire)
         {
@@ -84,10 +96,13 @@ public class Shooting : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 /*&& !Lever.activeSelf*/)
         {
 
-            audioSource.PlayOneShot(shootSound);
+            //audioSource.PlayOneShot(shootSound);
 
             GameManager.Instance.CurBulletCount -= 1;
-            bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+            if (curSenceIdx != "Tutorial")
+            {
+                bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+            }
 
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
 
@@ -95,10 +110,11 @@ public class Shooting : MonoBehaviour
             //print("잔여 총알: " + GameManager.Instance.CurBulletCount);
         }
 
-        
+
         if (GameManager.Instance.CurBulletCount <= 0)
         {
-            if(!isPlayed){
+            if (!isPlayed)
+            {
                 audioSource.PlayOneShot(reloadSound);
                 Invoke("AudioLoop", 0.7f);
                 isPlayed = true;
@@ -107,11 +123,12 @@ public class Shooting : MonoBehaviour
         }
 
     }
-    void AudioLoop(){
+    void AudioLoop()
+    {
         isPlayed = false;
     }
     void BeAttacked()
-    {   
+    {
         canFire = false;
 
         StartCoroutine(ReloadBullet());

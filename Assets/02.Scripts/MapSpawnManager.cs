@@ -31,8 +31,8 @@ public class MapSpawnManager : MonoBehaviour
             set { leverSpawnPos = value; }
         }
 
-        [SerializeField] Vector2 enemySpawnPos;
-        public Vector2 EnemyPos
+        [SerializeField] GameObject enemySpawnPos;
+        public GameObject EnemyPos
         {
             get { return enemySpawnPos; }
             set { enemySpawnPos = value; }
@@ -55,6 +55,10 @@ public class MapSpawnManager : MonoBehaviour
     {
         if (GameManager.Instance.getNextWave)
         {
+            for (int i = 0; i < stageArray.Count; i++)
+            {
+                stageArray[i].EnemyPos.SetActive(false);
+            }
             MapSpawn();
 
             GameManager.Instance.getNextWave = false;
@@ -87,7 +91,7 @@ public class MapSpawnManager : MonoBehaviour
         cam.transform.position = dynamicStageArray[rIndex].MapPos;
         leverObj.transform.position = dynamicStageArray[rIndex].LeverPos;
         player.transform.position = dynamicStageArray[rIndex].PlayerPos;
-        //player.transform.GetChild(0).localPosition = Vector3.zero;
+        dynamicStageArray[rIndex].EnemyPos.SetActive(true);
 
         dynamicStageArray.RemoveAt(rIndex);
     }

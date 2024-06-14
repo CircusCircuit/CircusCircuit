@@ -9,6 +9,7 @@ public class LeverNextWave : MonoBehaviour
     //StageController stageController;
     [SerializeField] GameObject FKeyUI;
     bool isPlayer = false;
+    BoxCollider2D outerColi;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class LeverNextWave : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
         //stageController.isLever = false;
         FKeyUI.SetActive(false);
+
+        outerColi = GetComponent<BoxCollider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -43,6 +46,7 @@ public class LeverNextWave : MonoBehaviour
         if (GameManager.Instance.Clear)
         {
             transform.GetChild(0).gameObject.SetActive(true);
+            outerColi.enabled = true;
         }
 
         if (isPlayer)
@@ -59,6 +63,7 @@ public class LeverNextWave : MonoBehaviour
 
                 GameManager.Instance.Clear = false;
                 transform.GetChild(0).gameObject.SetActive(false);
+                outerColi.enabled = false;
             }
         }
         else

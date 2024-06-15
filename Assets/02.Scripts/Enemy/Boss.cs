@@ -13,7 +13,6 @@ namespace Enemy
         Vector2 startPosition; 
 
         private BossAttack bossAttack;
-        private DetectPlayer enemyDetect;
 
         public bool isFire = false;
         public bool isDying = false;

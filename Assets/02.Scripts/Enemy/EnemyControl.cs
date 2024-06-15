@@ -5,50 +5,49 @@ using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace Enemy{
-    public class EnemyControl : MonoBehaviour
+    public class EnemyControl : EnemyBase
     {
-        EnemyMove move;
         // Start is called before the first frame update
-        void Start()
+        protected override void Start()
         {
-            move = GetComponent<EnemyMove>();
+            base.Start();
         }
 
         // Update is called once per frame
-        void Update()
+        protected override void Update()
         {
             if (Input.GetKey(KeyCode.A)){
-                move.nextmove = -1;
-                move.Move(5);
+                nextmove = -1;
+                movement.Move(5);
             }
             if (Input.GetKeyUp(KeyCode.A)) {
-                move.Stop();
+                movement.Stop();
             }
 
             if (Input.GetKey(KeyCode.D)){
-                move.nextmove = 1;
-                move.Move(5);
+                nextmove = 1;
+                movement.Move(5);
             }
             if (Input.GetKeyUp(KeyCode.D)) {
-                move.Stop();
+                movement.Stop();
             }
             
             if (Input.GetKeyDown(KeyCode.W)){
-                move.UpJump();
+                movement.UpJump();
             }
 
             if (Input.GetKeyDown(KeyCode.S)){
-                move.DownJump();
+                movement.DownJump();
             }
 
             if (Input.GetKey(KeyCode.LeftShift)){
                 Debug.Log("Get Key Down LeftShift");
-                move.Dash();
+                movement.Dash();
             }
 
             if (Input.GetKeyDown(KeyCode.Space)){
                 Debug.Log("Get Key Down Space");
-                move.Knockback(new Vector2(1,0));
+                movement.Knockback(new Vector2(1,0));
             }
         }
     }

@@ -167,7 +167,7 @@ namespace Enemy
             }
         }
     }
-    public class Movement : MonoBehaviour
+    public class Movement 
     {
         private EnemyBase enemy;
         protected Rigidbody2D rigid;
@@ -270,7 +270,7 @@ namespace Enemy
         }
 
     }
-    public class Detection: MonoBehaviour
+    public class Detection
     {
 
         private EnemyBase enemy;
@@ -429,7 +429,7 @@ namespace Enemy
         }
 
     }
-    public class Attack: MonoBehaviour
+    public class Attack
     {
 
         private EnemyBase enemy;
@@ -460,7 +460,7 @@ namespace Enemy
                 float spawnY = enemy.transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
 
                 // 오브젝트 생성
-                GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                GameObject bullet = GameObject.Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
                 // 총알의 초기 속도 설정
                 float bulletSpeed = 10f;
                 float bulletDirectionX = Mathf.Cos(Mathf.Deg2Rad * rotation);
@@ -483,7 +483,7 @@ namespace Enemy
             float spawnX = enemy.transform.position.x + directionToPlayer.x * radius;
             float spawnY = enemy.transform.position.y + directionToPlayer.y * radius;
 
-            GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+            GameObject bullet = GameObject.Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
 
             float bulletSpeed = 10f;
             Vector2 bulletDirection = directionToPlayer;
@@ -492,7 +492,7 @@ namespace Enemy
 
         public void FireBullet_Rapid()
         {
-            StartCoroutine(FireBulletCoroutine());
+            enemy.StartCoroutine(FireBulletCoroutine());
         }
 
         IEnumerator FireBulletCoroutine()
@@ -515,7 +515,7 @@ namespace Enemy
                 float spawnX = enemy.transform.position.x + directionToPlayer.x * radius;
                 float spawnY = enemy.transform.position.y + directionToPlayer.y * radius;
 
-                GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                GameObject bullet = GameObject.Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
 
                 float bulletSpeed = 10f;
                 Vector2 bulletDirection = directionToPlayer;
@@ -539,11 +539,11 @@ namespace Enemy
                 float radius = 1f; // 반지름 값은 적절히 조정하십시오.
 
                 // 원 주위의 랜덤한 위치 계산
-                float spawnX = transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
-                float spawnY = transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
+                float spawnX = enemy.transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
+                float spawnY = enemy.transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
 
                 // 오브젝트 생성
-                GameObject bullet = Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                GameObject bullet = GameObject.Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
                 // 총알의 초기 속도 설정
                 float randomVelocity = Random.Range(5, 10);
                 float bulletSpeed = randomVelocity;
@@ -556,7 +556,7 @@ namespace Enemy
 
         public void FireBullet_area()
         {
-            StartCoroutine(FireBulletAreaCoroutine());
+            enemy.StartCoroutine(FireBulletAreaCoroutine());
         }
         IEnumerator FireBulletAreaCoroutine()
         {
@@ -568,7 +568,7 @@ namespace Enemy
                 // 각 방향에 따른 회전 각도
                 float val = Random.Range(0, 45);
                 float rotation = val;
-                if (playerPosition.x > transform.position.x)
+                if (playerPosition.x > enemy.transform.position.x)
                 {
                     rotation -= 65;
                 }
@@ -580,11 +580,11 @@ namespace Enemy
                 float radius = 1f; // 반지름 값은 적절히 조정하십시오.
 
                 // 원 주위의 랜덤한 위치 계산
-                float spawnX = transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
-                float spawnY = transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
+                float spawnX = enemy.transform.position.x + radius * Mathf.Cos(rotation * Mathf.Deg2Rad);
+                float spawnY = enemy.transform.position.y + radius * Mathf.Sin(rotation * Mathf.Deg2Rad);
 
                 // 오브젝트 생성
-                GameObject bullet = Instantiate(G_Bullet, new Vector2(spawnX, spawnY), Quaternion.identity);
+                GameObject bullet = GameObject.Instantiate(G_Bullet, new Vector2(spawnX, spawnY), Quaternion.identity);
                 // 총알의 초기 속도 설정
                 float bulletSpeed = 5f;
                 float bulletDirectionX = Mathf.Cos(Mathf.Deg2Rad * rotation);
@@ -595,7 +595,7 @@ namespace Enemy
             }
         }
     }
-    public class Status: MonoBehaviour
+    public class Status
     {
         private EnemyBase enemy;
         private SpriteRenderer spriteRenderer;
@@ -648,7 +648,7 @@ namespace Enemy
             }
 
             // 스프라이트가 완전히 사라진 후 게임 오브젝트를 파괴
-            Destroy(enemy.gameObject);
+            GameObject.Destroy(enemy.gameObject);
         }
     }
 }

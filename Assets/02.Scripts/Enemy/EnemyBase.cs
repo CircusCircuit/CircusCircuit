@@ -19,7 +19,7 @@ namespace Enemy
 
         protected float speed = 2f;
         public int nextmove = 1;
-        protected int enemyHP = 10;
+        protected float enemyHP = 10;
         protected float cooldownTimer = 1.5f;
         protected int think = 0;
 
@@ -45,7 +45,6 @@ namespace Enemy
 
         protected virtual void Update()
         {
-
             GroundMove(speed);
         }
 
@@ -162,7 +161,7 @@ namespace Enemy
         {
             if (other.CompareTag("playerbullet"))
             {
-                status.TakeDamage(GameManager.Instance.M_AttackDamage);
+                enemyHP=status.TakeDamage(GameManager.Instance.M_AttackDamage);
             }
         }
     }
@@ -681,24 +680,25 @@ namespace Enemy
     {
         private EnemyBase enemy;
         private SpriteRenderer spriteRenderer;
-        private float EnemyHP;
+        private float enemyHP;
 
-        public Status(EnemyBase enemy, SpriteRenderer spriteRenderer, float EnemyHP)
+        public Status(EnemyBase enemy, SpriteRenderer spriteRenderer, float enemyHP)
         {
             this.enemy = enemy;
             this.spriteRenderer = spriteRenderer;
-            this.EnemyHP = EnemyHP;
+            this.enemyHP = enemyHP;
         }
 
-        public void TakeDamage(float damage)
+        public float TakeDamage(float damage)
         {
             // Debug.Log(":(");
-            EnemyHP -= damage;
+            enemyHP -= damage;
             enemy.StartCoroutine(AttackedEffect());
-            if (EnemyHP <= 0)
+            if (enemyHP <= 0)
             {
                 Die();
             }
+            return enemyHP;
         }
         private void Die()
         {

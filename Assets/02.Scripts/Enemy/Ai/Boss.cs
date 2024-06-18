@@ -6,11 +6,9 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class BossBase : EnemyBase
+    public class Boss : EnemyBase
     {
-        protected bool phase1 =false;
-        protected bool phase2 =false;
-        protected bool phase3 =false;
+        protected int[] phase = {1,0,0};
         protected override void Start()
         {
             enemyHP = 40;
@@ -18,18 +16,13 @@ namespace Enemy
             attack = new BossAttack(this, bulletPrefab, G_Bullet);
         }
         protected override void Update(){
-            Debug.Log($"p1:{phase1},p2:{phase2},p3:{phase3}");
             if(enemyHP <=20){
-                phase1=false;
-                phase2=true;
+                phase[1]=1;
             }
-            else if(enemyHP <= 20){
-                phase2=false;
-                phase3=true;
+            if(enemyHP <= 10){
+                phase[2]=1;
             }
         }
-
-
     }
 
     public class BossAttack: Attack{

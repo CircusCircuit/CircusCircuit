@@ -5,8 +5,7 @@ using UnityEngine;
 namespace Enemy
 {
     public class EnemyBase : MonoBehaviour
-    {
-       
+    {  
         protected Movement movement;
         protected Detection detection;
         protected Attack attack;
@@ -18,10 +17,10 @@ namespace Enemy
         protected Rigidbody2D rigid;
 
 
-        public float speed = 2f;
+        protected float speed = 2f;
         public int nextmove = 1;
-        public int enemyHP = 10;
-        public float cooldownTimer = 1.5f;
+        protected int enemyHP = 10;
+        protected float cooldownTimer = 1.5f;
         protected int think = 0;
 
 
@@ -432,7 +431,7 @@ namespace Enemy
     public class Attack
     {
 
-        private EnemyBase enemy;
+        protected EnemyBase enemy;
         public GameObject bulletPrefab;
         public GameObject G_Bullet;
         protected bool isDelay = false;

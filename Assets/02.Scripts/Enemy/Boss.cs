@@ -6,57 +6,55 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class Boss : MonoBehaviour
+    public class BossBase : EnemyBase
     {
-        Rigidbody2D rigid;
-        SpriteRenderer spriteRenderer;
-        Vector2 startPosition; 
-
-        private BossAttack bossAttack;
-
-        public bool isFire = false;
-        public bool isDying = false;
-        public bool isAttack = false;
-
-
-        public float cooldownTimer = 3f;
-        // public float dashDuration = 0.5f;
-        public int think = 1;
-
-        // Start is called before the first frame update
-        void Awake()
+        protected bool phase1 =false;
+        protected bool phase2 =false;
+        protected bool phase3 =false;
+        protected override void Start()
         {
-            rigid = GetComponent<Rigidbody2D>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            bossAttack = GetComponent<BossAttack>();
-            enemyDetect = GetComponent<DetectPlayer>();
-            Invoke("Think",1f);
+            enemyHP = 40;
+            base.Start();
+            attack = new BossAttack(this, bulletPrefab, G_Bullet);
         }
-
-        // Update is called once per frame
-        void FixedUpdate()
-        {
-            if(cooldownTimer>0){
-                cooldownTimer-= Time.deltaTime;
+        protected override void Update(){
+            Debug.Log($"p1:{phase1},p2:{phase2},p3:{phase3}");
+            if(enemyHP <=20){
+                phase1=false;
+                phase2=true;
             }
-            else{
-                cooldownTimer = 100f;
-                // bossAttack.FireBullet_Rapid();
+            else if(enemyHP <= 20){
+                phase2=false;
+                phase3=true;
             }
         }
 
-        public void Think()
-        {
-            think = Random.Range(-1, 2);
-           
-            Invoke("Think", 3);
-        }
-        
-        void EndAttack()
-        {
-            isAttack = false;
-        }
 
+    }
+
+    public class BossAttack: Attack{
+        public BossAttack(EnemyBase enemy, GameObject bulletPrefab, GameObject G_Bullet)
+            : base(enemy, bulletPrefab, G_Bullet)
+        {
+        }
         
+        public void FireBulletFW()
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            Vector2 directionToPlayer = (player.transform.position - enemy.transform.position).normalized;
+
+            float radius = 1f; // 반지름 값은 적절히 조정하십시오.
+
+            float spawnX = enemy.transform.position.x + directionToPlayer.x * radius;
+            float spawnY = enemy.transform.position.y + directionToPlayer.y * radius;
+
+            GameObject bullet = GameObject.Instantiate(bulletPrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+
+            float bulletSpeed = 3f;
+            Vector2 bulletDirection = directionToPlayer;
+            bullet.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletSpeed;
+
+        }
     }
 }

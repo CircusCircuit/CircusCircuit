@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyBullet : MonoBehaviour
+    public class E_Bullet : MonoBehaviour
     {
         Rigidbody2D rigid;
         public float destroyTime = 2f; // 총알이 생성된 후 파괴될 시간
         private float inclination;
         private Vector3 initialPosition; // 초기 위치
         
-        void Start()
+        protected virtual void Start()
         {
             initialPosition = transform.position;
 
@@ -24,7 +24,7 @@ namespace Enemy
 
 
         // 총알이 충돌하면 호출되는 함수
-        void OnTriggerEnter2D(Collider2D collision)
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
             // 충돌한 객체가 플랫폼이면 총알을 파괴합니다.
             if(collision.gameObject.CompareTag("Ground"))
@@ -38,7 +38,7 @@ namespace Enemy
         }
 
         // 총알을 파괴하는 함수
-        void DestroyBullet()
+        protected void DestroyBullet()
         {
             Destroy(gameObject);
         }

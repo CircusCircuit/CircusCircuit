@@ -7,10 +7,9 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class BoseBulletF2 : MonoBehaviour
+    public class BoseBullet : MonoBehaviour
     {
         Rigidbody2D rigid;
-        EnemyAttack enemyAttack;
         float cooldownTimer = 0.5f;
         public float destroyTime = 5f; // 총알이 생성된 후 파괴될 시간
         bool isAttack = false;
@@ -19,7 +18,10 @@ namespace Enemy
         public float duration = 5.0f; // 이동하는 시간
         public float amount = 3.0f; // 이동하는 시간
 
+
         public float distance = 2.0f; // d 값
+        private LineRenderer lineRenderer;
+        public int resolution = 1000; // 해상도
         private float t = 0.0f; // 시간 변수
         private float inclination;
         
@@ -27,18 +29,41 @@ namespace Enemy
         // Start is called before the first frame update
         void Start()
         {
-            enemyAttack = GetComponent<EnemyAttack>();
             initialPosition = transform.position;
             inclination = initialPosition.y / math.pow(initialPosition.x, 2);
             rigid = GetComponent<Rigidbody2D>();
-            // transform.position = Vector2.zero;
+            transform.position = Vector2.zero;
             // 일정 시간 후에 총알을 파괴하는 Invoke 함수 호출
-
+            Invoke("DestroyBullet", destroyTime);
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
+            Drow();
+        }
+
+        public void Drow(){
+            t = t+Time.deltaTime;
+            float x = amount * Mathf.Sin(t) - distance * Mathf.Sin(amount * t);
+            float y = amount * Mathf.Cos(t) + distance * Mathf.Cos(amount * t);
+
+            // 오브젝트 이동
+            transform.position = new Vector2(x/10, (y)/10);
+        }
+
+        // 총알을 이동시키는 함수
+        public void MoveObjectToOrigin()
+        {
+            float y_position = inclination * (math.pow(transform.position.x, 2));
+            rigid.position = new Vector2(transform.position.x - 0.1f, y_position);
+        }
+
+        public void Stop(){
+            rigid.velocity = Vector2.zero;
+        }
+
+        public void Test(){
             if(cooldownTimer<0){
                 MoveObjectToOrigin();
             }
@@ -47,8 +72,7 @@ namespace Enemy
                     rigid.position = Vector2.zero;
 
                     if(!isAttack){
-                        enemyAttack.FireBulletSpiral();
-                        Invoke("DestroyBullet",3f);
+                        Invoke("DestroyBullet",1f);
                         isAttack = true;
                     }
                 }
@@ -56,12 +80,6 @@ namespace Enemy
                     MoveObjectToOrigin();
                 }
             }   
-        }
-
-        public void MoveObjectToOrigin()
-        {
-            float y_position = inclination * (math.pow(transform.position.x, 2));
-            rigid.position = new Vector2(transform.position.x - 0.1f, y_position);
         }
         // 총알이 충돌하면 호출되는 함수
         // void OnTriggerEnter2D(Collider2D other)
@@ -79,6 +97,7 @@ namespace Enemy
         // 총알을 파괴하는 함수
         void DestroyBullet()
         {
+            // enemyAttack.FireBulletSpiral();
             Destroy(gameObject);
         }
 

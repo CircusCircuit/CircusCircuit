@@ -7,12 +7,11 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class BoseBulletF1 : MonoBehaviour
+    public class BoseBulletF2 : MonoBehaviour
     {
         Rigidbody2D rigid;
-        EnemyAttack enemyAttack;
         float cooldownTimer = 0.5f;
-        public float destroyTime = 20f; // 총알이 생성된 후 파괴될 시간
+        public float destroyTime = 5f; // 총알이 생성된 후 파괴될 시간
         bool isAttack = false;
         public float speed = 1.0f; // 이동 속도
         public float startTime = 0.0f; // 시작 시간
@@ -27,31 +26,40 @@ namespace Enemy
         // Start is called before the first frame update
         void Start()
         {
-            enemyAttack = GetComponent<EnemyAttack>();
             initialPosition = transform.position;
             inclination = initialPosition.y / math.pow(initialPosition.x, 2);
             rigid = GetComponent<Rigidbody2D>();
             // transform.position = Vector2.zero;
             // 일정 시간 후에 총알을 파괴하는 Invoke 함수 호출
-            Invoke("DestroyBullet", destroyTime);
+
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            Drow();
+            if(cooldownTimer<0){
+                MoveObjectToOrigin();
+            }
+            else{
+                if(transform.position.x <= 0.1f && transform.position.y <= 0.1f){
+                    rigid.position = Vector2.zero;
+
+                    if(!isAttack){
+                        Invoke("DestroyBullet",3f);
+                        isAttack = true;
+                    }
+                }
+                else{
+                    MoveObjectToOrigin();
+                }
+            }   
         }
 
-        public void Drow(){
-            t = t+Time.deltaTime;
-            float x = amount * Mathf.Sin(t) - distance * Mathf.Sin(amount * t);
-            float y = amount * Mathf.Cos(t) + distance * Mathf.Cos(amount * t);
-
-            // 오브젝트 이동
-            transform.position = new Vector2(x/1f, y/1.5f);
+        public void MoveObjectToOrigin()
+        {
+            float y_position = inclination * (math.pow(transform.position.x, 2));
+            rigid.position = new Vector2(transform.position.x - 0.1f, y_position);
         }
-
-
         // 총알이 충돌하면 호출되는 함수
         // void OnTriggerEnter2D(Collider2D other)
         // {

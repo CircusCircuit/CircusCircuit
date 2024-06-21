@@ -8,12 +8,15 @@ namespace Enemy
 {
     public class Boss : EnemyBase
     {
+        public GameObject B_Bullet;
+        public GameObject M_Bullet;
+        public GameObject F_Bullet;
         protected int[] phase = {1,0,0};
         protected override void Start()
         {
             enemyHP = 40;
             base.Start();
-            attack = new BossAttack(this, bulletPrefab, G_Bullet);
+            attack = new BossAttack(this, bulletPrefab, G_Bullet, M_Bullet, F_Bullet, B_Bullet);
         }
         protected override void Update(){
             if(enemyHP <=20){
@@ -26,11 +29,23 @@ namespace Enemy
     }
 
     public class BossAttack: Attack{
-        public BossAttack(EnemyBase enemy, GameObject bulletPrefab, GameObject G_Bullet)
+        public GameObject B_Bullet;
+        public GameObject M_Bullet;
+        public GameObject F_Bullet;       
+        public BossAttack(EnemyBase enemy, GameObject bulletPrefab, GameObject G_Bullet, GameObject M_Bullet, 
+                            GameObject F_Bullet, GameObject B_Bullet)
             : base(enemy, bulletPrefab, G_Bullet)
         {
+            this.F_Bullet = F_Bullet;
+            this.B_Bullet = B_Bullet;
+            this.M_Bullet = F_Bullet;
+
         }
         
+        public void patten1(){
+            GameObject bullet = GameObject.Instantiate(F_Bullet, new Vector2(0, -1), Quaternion.identity);
+
+        }
         public void FireBulletFW()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");

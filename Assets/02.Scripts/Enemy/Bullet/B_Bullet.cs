@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class E_B_Bullet : E_Bullet
+    public class B_Bullet : E_Bullet
     {
 
         private Vector2 previousPosition;

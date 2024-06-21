@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBuff : MonoBehaviour
 {
@@ -21,18 +22,25 @@ public class PlayerBuff : MonoBehaviour
     bool coolAcrob3 = false;
     bool coolAcrob4 = false;
 
+
+
+    string curScene;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        curScene = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
     void Update()
     {
-        DetectMagicianSkills();
-        DetectJugglerSkills();
-        DetectAcrobatSkills();
+        if (curScene != "Tutorial")
+        {
+            DetectMagicianSkills();
+            DetectJugglerSkills();
+            DetectAcrobatSkills();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -49,8 +57,8 @@ public class PlayerBuff : MonoBehaviour
         {
             isPlatform = true;
         }
-        else 
-        { 
+        else
+        {
             EnemyCrashed = false;
             BulletCrashed = false;
         }

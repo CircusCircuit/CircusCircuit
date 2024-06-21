@@ -259,6 +259,8 @@ namespace controller
         {
             if ((isGround || isBase) && !isDodgeDelay && !isJump)
             {
+                SoundManager.instance.Play("SFX_Jump_01");
+
                 rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 //anim.SetBool("isJump", true);
                 //anim.SetTrigger("doJump");
@@ -275,6 +277,8 @@ namespace controller
         {
             if (Input.GetKeyDown(KeyCode.Space) && moveVec != Vector2.zero && (isGround || isBase) && !isDodgeDelay)
             {
+                SoundManager.instance.Play("SFX_Roll_01");
+
                 curState = States.Dodging;
                 playerAnim.SetTrigger("isDodge");
                 //playerAnim.SetBool("isWalk", moveVec != Vector2.zero);

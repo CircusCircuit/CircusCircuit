@@ -19,7 +19,7 @@ namespace Enemy
         {
             if (cooldownTimer > 0)
             {
-                cooldownTimer -= Time.fixedDeltaTime;
+                cooldownTimer -= Time.deltaTime;
             }
 
             if (!isDying)
@@ -33,32 +33,35 @@ namespace Enemy
                 if (isDetectPlayer)
                 {
                     if (cooldownTimer <= 0)
-                    {
+                    {   
                         if (Random.value > 0.4)
                         {
-                            CancelInvoke("ThinkFly");
-                            Invoke("ThinkFly", 1f);
                             attack.FireBullet();
                             cooldownTimer = 2f;
                         }
                         else
                         {
                             isAttack = true;
-                            CancelInvoke("ThinkFly");
                             movement.Stop();
-                            Invoke("EndAttack", 1f);
-                            Invoke("ThinkFly", 1.5f);
                             attack.FireBullet_Rapid();
-                            cooldownTimer = 2f;
+                            cooldownTimer = 2f;                            
+                            Invoke("EndAttack", 1f);
                         }
                     }
                 }
             }
         }
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            base.OnCollisionEnter2D(collision);
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Platform")){
+                nextmove *= -1;
+            }
+        }
 
         public void ThinkFly()
         {
-            if (nextmove == 0)
+            if (nextmove == 0 )
             {
                 nextmove = Random.Range(-1, 2);
             }
@@ -71,7 +74,11 @@ namespace Enemy
                     cooldownTimer = 2f;
                 }
             }
+
             Invoke("ThinkFly", 1f);
+        }
+        public void EndAttack(){
+            isAttack=false;
         }
     }   
 }

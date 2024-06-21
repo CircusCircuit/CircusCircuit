@@ -167,6 +167,7 @@ namespace Enemy
             {
                 status.TakeDamage(0.5f);
             }
+            
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -200,7 +201,7 @@ namespace Enemy
         }
         public void Stop()
         {
-            rigid.velocity = new Vector2(0, rigid.velocity.y);
+            rigid.velocity = new Vector2(0, 0);
             enemy.nextmove = 0;
         }
         public void UpJump()

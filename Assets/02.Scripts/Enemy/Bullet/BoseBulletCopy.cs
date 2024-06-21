@@ -59,9 +59,8 @@ namespace Enemy
             float y_position = inclination*(math.pow(transform.position.x, 2));
             rigid.position = new Vector2(transform.position.x - 0.1f, y_position);
             // Debug.Log(rigid.position);
-
-        
         }
+        
         // 총알이 충돌하면 호출되는 함수
         void OnTriggerEnter2D(Collider2D other)
         {

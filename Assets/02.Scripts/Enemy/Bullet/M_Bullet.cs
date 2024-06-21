@@ -7,17 +7,14 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class B_Bullet : MonoBehaviour
+    public class M_Bullet : E_Bullet
     {
-        Rigidbody2D rigid;
         float cooldownTimer = 0.5f;
-        public float destroyTime = 5f; // 총알이 생성된 후 파괴될 시간
         bool isAttack = false;
         public float speed = 1.0f; // 이동 속도
         public float startTime = 0.0f; // 시작 시간
         public float duration = 5.0f; // 이동하는 시간
         public float amount = 3.0f; // 이동하는 시간
-
 
         public float distance = 2.0f; // d 값
         private LineRenderer lineRenderer;
@@ -27,14 +24,12 @@ namespace Enemy
         
         private Vector3 initialPosition; // 초기 위치
         // Start is called before the first frame update
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             initialPosition = transform.position;
             inclination = initialPosition.y / math.pow(initialPosition.x, 2);
-            rigid = GetComponent<Rigidbody2D>();
-            transform.position = Vector2.zero;
-            // 일정 시간 후에 총알을 파괴하는 Invoke 함수 호출
-            Invoke("DestroyBullet", destroyTime);
+            CancelInvoke();
         }
 
         // Update is called once per frame

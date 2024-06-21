@@ -121,13 +121,13 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678858041526935871}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.45
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 12378c795b2059f40823f3694dfcb1ce, type: 2}
   m_Interpolate: 0
@@ -147,13 +147,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
-  speed: 2
+  G_Bullet: {fileID: 0}
   nextmove: 1
-  enemyHP: 10
-  cooldownTimer: 1.5
   isDying: 0
   isKnockback: 0
   isJump: 0
   isAttack: 0
   isDetectPlayer: 0
   isFacingLeft: 0
+  maxFlyDistance: 1.5

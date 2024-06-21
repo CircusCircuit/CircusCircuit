@@ -95,8 +95,7 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 /*&& !Lever.activeSelf*/)
         {
-
-            //audioSource.PlayOneShot(shootSound);
+            SoundManager.instance.Play("SFX_Gunshot_01");
 
             GameManager.Instance.CurBulletCount -= 1;
             if (curSenceIdx != "Tutorial")

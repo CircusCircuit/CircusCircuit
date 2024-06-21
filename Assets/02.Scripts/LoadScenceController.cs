@@ -21,6 +21,7 @@ public class LoadScenceController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && buildIdx == 0)
         {
+            SoundManager.instance.Play("UI_Click_01");
             SceneManager.LoadScene(buildIdx + 1);
         }
     }
@@ -32,12 +33,15 @@ public class LoadScenceController : MonoBehaviour
 
     public void StartButton()
     {
+        SoundManager.instance.Play("UI_Click_01");
         Destroy(GameObject.Find("GameManager").gameObject);
         SceneManager.LoadScene(2);
     }
 
     public void RestartButton()
     {
+        SoundManager.instance.Play("UI_Click_01");
+        Destroy(GameObject.Find("SoundManager").gameObject);
         Destroy(GameManager.Instance.gameObject);
         SceneManager.LoadScene(0);
     }

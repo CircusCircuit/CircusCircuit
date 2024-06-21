@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 825772356388759139}
   - component: {fileID: 825772356388759138}
   - component: {fileID: 2517615402143020521}
-  - component: {fileID: -8552278601071967647}
+  - component: {fileID: 6319765428739910755}
   m_Layer: 0
-  m_Name: bullet_Bounce
+  m_Name: Bullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-8552278601071967647
+--- !u!114 &6319765428739910755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,13 +133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 825772356388759137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14bf1383fdbbf74db938f2743f8f052, type: 3}
+  m_Script: {fileID: 11500000, guid: 774573fb3e83ad646b32c551c43e26cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 2
-  speed: 1
-  startTime: 0
-  duration: 5
-  amount: 5
-  distance: 20
-  resolution: 1000

@@ -40,12 +40,24 @@ namespace Enemy
             detection = new Detection(this);
             attack = new Attack(this, bulletPrefab, G_Bullet);
             status = new Status(this, spriteRenderer, enemyHP);
-            Invoke("Think", 0.5f);
+            // Invoke("Think", 0.5f);
         }
 
         protected virtual void Update()
         {
-            GroundMove(speed);
+           detection.DetectPlayerInRange(5);
+           
+           if(cooldownTimer>0){
+                cooldownTimer -= Time.deltaTime;
+           }
+           
+           if(isDetectPlayer){
+                if(cooldownTimer<=0){
+                    attack.FireBullet();
+                    cooldownTimer=1.5f;
+                }
+           }
+
         }
 
         public void Think()

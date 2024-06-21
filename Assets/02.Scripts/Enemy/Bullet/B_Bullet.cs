@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class BoseBullet : MonoBehaviour
+    public class B_Bullet : MonoBehaviour
     {
         Rigidbody2D rigid;
         float cooldownTimer = 0.5f;

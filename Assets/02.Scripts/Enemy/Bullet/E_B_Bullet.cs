@@ -9,22 +9,52 @@ namespace Enemy
 {
     public class E_B_Bullet : E_Bullet
     {
+
+        private Vector2 previousPosition;
+        private Vector2 lastVelocity;
+
+        public int boundCnt = 2;
         protected override void Start()
         {
-            base.Start();    
+            base.Start();
+            previousPosition = rigid.position;
         }
-        protected override void OnTriggerEnter2D(Collider2D collision)
-        {
-            // 기본 동작을 유지하기 위해 base.OnTriggerEnter2D를 호출합니다.
-            base.OnTriggerEnter2D(collision);
 
-            // 충돌한 객체가 벽이면 반사하는 동작을 추가합니다.
+        protected void Update(){
+            lastVelocity = rigid.velocity;
+        }
+        void OnCollisionEnter2D(Collision2D collision)
+        {
             if (collision.gameObject.CompareTag("Ground"))
             {
-                // Vector2 normal = collision.contacts[0].normal;
-                // rigid.velocity = Vector2.Reflect(rigid.velocity, normal);
+                if(boundCnt>1){
+                    var speed = lastVelocity.magnitude;
+                    var dir = Vector2.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+
+                    rigid.velocity = dir * Mathf.Max(speed, 0f);    
+                    boundCnt-=1;
+                }
+                else{
+                    DestroyBullet();
+                }
+                
+            }
+            else if (collision.gameObject.CompareTag("Platform"))
+            {
+                Collider2D collider = collision.collider;
+                collider.isTrigger = true;
+            }
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Player") 
+            || collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                DestroyBullet();
             }
         }
- 
+        public void InvertDirection(float dx, float dy)
+        {
+            Vector2 currentVelocity = rigid.velocity;
+            currentVelocity.y = -currentVelocity.y; // x 방향 반전
+            rigid.velocity = currentVelocity;
+        }
     }
 }

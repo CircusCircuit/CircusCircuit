@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2517615402143020521}
   - component: {fileID: 6319765428739910755}
   m_Layer: 0
-  m_Name: bullet_Gravity
+  m_Name: G_Bullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

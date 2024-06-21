@@ -75,12 +75,12 @@ namespace Card
 
         public void CardButton()
         {
-            this.transform.GetChild(0).gameObject.SetActive(false);
-            PreCardIdx = int.Parse(EventSystem.current.currentSelectedGameObject.name.Replace("Set", ""));
+            string getCardImageNumber = EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite.name.Replace("card", "");
+            PreCardIdx = int.Parse(getCardImageNumber);
 
             GameManager.Instance.SelectedCardType = PreCardIdx;
-            //print(GameManager.Instance.SelectedCardType);
-
+            
+            this.transform.GetChild(0).gameObject.SetActive(false);
             InvenUI.SetActive(true);
         }
     }

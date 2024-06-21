@@ -20,6 +20,10 @@ public class DeckUIManager : MonoBehaviour
 
     const int MAXSLOT = 12;
 
+    const int MAGICIAN = 1;
+    const int JUGGLER = 2;
+    const int ACROBAT = 3;
+
     int getCardIdx;
 
     private void Awake()
@@ -47,18 +51,15 @@ public class DeckUIManager : MonoBehaviour
                 Debug.LogError("Can't get selectedCardType");
                 return;
 
-            //Magician
-            case 1:
+            case MAGICIAN:
                 MagicTxt[StageCounter - 1].text = StageCounter.ToString();
                 return;
 
-            //Juggler
-            case 2:
+            case JUGGLER:
                 JugTxt[StageCounter - 1].text = StageCounter.ToString();
                 return;
 
-            //Acrobat
-            case 3:
+            case ACROBAT:
                 AcroTxt[StageCounter - 1].text = StageCounter.ToString();
                 return;
         }

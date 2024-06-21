@@ -32,6 +32,7 @@ public class LoadScenceController : MonoBehaviour
 
     public void StartButton()
     {
+        Destroy(GameObject.Find("GameManager").gameObject);
         SceneManager.LoadScene(2);
     }
 

@@ -232,13 +232,10 @@ namespace Enemy
 
         public void Knockback(Vector2 direction)
         {
-            rigid.constraints |= RigidbodyConstraints2D.FreezePositionX;
-
-            float knockbackForce = 15f;
+            float knockbackForce = 5f;
 
             Debug.Log("knockback");
-            Debug.Log(direction);
-
+            // Debug.Log(direction);
 
             rigid.velocity = Vector2.zero;
             rigid.AddForce(-direction * knockbackForce, ForceMode2D.Impulse);

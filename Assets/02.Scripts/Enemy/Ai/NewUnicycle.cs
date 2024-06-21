@@ -51,7 +51,7 @@ namespace Enemy
 
             if (!isJump || rayHitEnemy.collider != null)
             {
-                Dash(dashSpeed);
+                movement.Dash(dashSpeed);
             }
 
             //벽 혹은 플레이어와 박았을 시 행동

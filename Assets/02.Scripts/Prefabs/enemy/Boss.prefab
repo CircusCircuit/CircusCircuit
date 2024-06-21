@@ -141,12 +141,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6612029632852025873}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 778f543b4c9477e438784d733a5b7320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 825772356388759137, guid: 76e601ca05ddfda4e804731ed8dbd5a9, type: 3}
+  bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
   G_Bullet: {fileID: 825772356388759137, guid: b8d61f9ea803d6048b0eb17ec33a931f, type: 3}
   nextmove: 1
   isDying: 0
@@ -155,3 +155,6 @@ MonoBehaviour:
   isAttack: 0
   isDetectPlayer: 0
   isFacingLeft: 0
+  B_Bullet: {fileID: 825772356388759137, guid: 76e601ca05ddfda4e804731ed8dbd5a9, type: 3}
+  M_Bullet: {fileID: 825772356388759137, guid: 3bfca0f092f5dc049a8eae6c853d1a1f, type: 3}
+  F_Bullet: {fileID: 825772356388759137, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}

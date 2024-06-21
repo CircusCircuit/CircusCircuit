@@ -12,8 +12,8 @@ namespace Enemy
 
         private Vector2 previousPosition;
         private Vector2 lastVelocity;
-
         public int boundCnt = 2;
+
         protected override void Start()
         {
             base.Start();
@@ -56,5 +56,6 @@ namespace Enemy
             currentVelocity.y = -currentVelocity.y; // x 방향 반전
             rigid.velocity = currentVelocity;
         }
+        
     }
 }

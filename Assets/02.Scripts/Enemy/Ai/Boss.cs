@@ -11,20 +11,32 @@ namespace Enemy
         public GameObject B_Bullet;
         public GameObject M_Bullet;
         public GameObject F_Bullet;
+        protected BossAttack bossAttack;
+
         protected int[] phase = {1,0,0};
         protected override void Start()
         {
             enemyHP = 40;
             base.Start();
-            attack = new BossAttack(this, bulletPrefab, G_Bullet, M_Bullet, F_Bullet, B_Bullet);
+            CancelInvoke();
+            bossAttack = new BossAttack(this, bulletPrefab, G_Bullet, M_Bullet, F_Bullet, B_Bullet);
         }
         protected override void Update(){
+            if (cooldownTimer > 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+            }
+            else{
+                bossAttack.Patten1();
+                cooldownTimer =3f;
+            }
             if(enemyHP <=20){
                 phase[1]=1;
             }
             if(enemyHP <= 10){
                 phase[2]=1;
             }
+
         }
     }
 
@@ -38,14 +50,14 @@ namespace Enemy
         {
             this.F_Bullet = F_Bullet;
             this.B_Bullet = B_Bullet;
-            this.M_Bullet = F_Bullet;
+            this.M_Bullet = M_Bullet;
 
         }
         
-        public void patten1(){
+        public void Patten1(){
             GameObject bullet = GameObject.Instantiate(F_Bullet, new Vector2(0, -1), Quaternion.identity);
-
         }
+
         public void FireBulletFW()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");

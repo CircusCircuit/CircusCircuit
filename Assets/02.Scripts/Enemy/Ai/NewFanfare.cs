@@ -9,13 +9,14 @@ namespace Enemy
         protected override void Start()
         {
             base.Start();
+            CancelInvoke();
         }
 
         protected override void Update()
         {
             if (cooldownTimer > 0)
             {
-                cooldownTimer -= Time.fixedDeltaTime;
+                cooldownTimer -= Time.deltaTime;
             }
 
             if (!isDying)

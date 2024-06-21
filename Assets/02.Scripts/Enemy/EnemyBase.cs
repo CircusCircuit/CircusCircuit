@@ -40,7 +40,7 @@ namespace Enemy
             detection = new Detection(this);
             attack = new Attack(this, bulletPrefab, G_Bullet);
             status = new Status(this, spriteRenderer, enemyHP);
-            // Invoke("Think", 0.5f);
+            Invoke("Think", 0.5f);
         }
 
         protected virtual void Update()

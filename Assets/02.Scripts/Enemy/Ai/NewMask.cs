@@ -9,19 +9,20 @@ namespace Enemy
         protected override void Start()
         {
             base.Start();
+            CancelInvoke();
         }
 
         protected override void Update()
         {
             if (cooldownTimer > 0)
             {
-                cooldownTimer -= Time.fixedDeltaTime;
+                cooldownTimer -= Time.deltaTime;
             }
 
             if (!isDying)
             {   
                 if(cooldownTimer <= 0){
-                    GroundMove(1.5f);
+                    // GroundMove(1.5f);
                     detection.DetectPlayerInRange(5f);
                 }
 
@@ -29,7 +30,7 @@ namespace Enemy
                 {
                     if(cooldownTimer <= 0){
                         attack.FireBullet_Circle12();
-                        cooldownTimer = 3f;
+                        cooldownTimer = 1.5f;
                     }
                 }
 

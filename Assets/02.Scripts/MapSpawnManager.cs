@@ -37,6 +37,35 @@ public class MapSpawnManager : MonoBehaviour
             get { return enemySpawnPos; }
             set { enemySpawnPos = value; }
         }
+        [SerializeField] GameObject wave1;
+        public GameObject Wave1
+        {
+            get { return wave1; }
+            set { wave1 = value; }
+        }
+
+        [SerializeField] GameObject wave2;
+        public GameObject Wave2
+        {
+            get { return wave2; }
+            set { wave2 = value; }
+        }
+
+        public bool AllWave1EnemiesDefeated()
+        {
+            foreach (Transform enemy in wave1.transform)
+            {
+                if (enemy.gameObject.activeInHierarchy)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public void ActivateWave2()
+        {
+            wave2.SetActive(true);
+        }
     }
     [SerializeField] List<MapArray> stageArray;
     [SerializeField] GameObject leverObj;
@@ -55,13 +84,24 @@ public class MapSpawnManager : MonoBehaviour
     {
         if (GameManager.Instance.getNextWave)
         {
-            for (int i = 0; i < stageArray.Count; i++)
+
+            foreach (var stage in stageArray)
             {
-                stageArray[i].EnemyPos.SetActive(false);
+                stage.EnemyPos.SetActive(false);
+                stage.Wave1.SetActive(false);
+                stage.Wave2.SetActive(false);
             }
             MapSpawn();
 
             GameManager.Instance.getNextWave = false;
+        }
+
+        foreach (var stage in stageArray)
+        {
+            if (stage.AllWave1EnemiesDefeated())
+            {
+                stage.ActivateWave2();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -92,6 +132,9 @@ public class MapSpawnManager : MonoBehaviour
         leverObj.transform.position = dynamicStageArray[rIndex].LeverPos;
         player.transform.position = dynamicStageArray[rIndex].PlayerPos;
         dynamicStageArray[rIndex].EnemyPos.SetActive(true);
+
+        dynamicStageArray[rIndex].Wave1.SetActive(true);
+        dynamicStageArray[rIndex].Wave2.SetActive(false);
 
         dynamicStageArray.RemoveAt(rIndex);
     }

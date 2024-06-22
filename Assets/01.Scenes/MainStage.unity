@@ -2052,7 +2052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 214113352}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 10-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2087,12 +2087,12 @@ GameObject:
   m_Component:
   - component: {fileID: 214244889}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 10-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &214244889
 Transform:
   m_ObjectHideFlags: 0
@@ -5090,7 +5090,7 @@ GameObject:
   m_Component:
   - component: {fileID: 424906017}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 2-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20724,7 +20724,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758135436}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 9-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23679,12 +23679,12 @@ GameObject:
   m_Component:
   - component: {fileID: 965028431}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 9-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &965028431
 Transform:
   m_ObjectHideFlags: 0
@@ -23754,12 +23754,12 @@ GameObject:
   m_Component:
   - component: {fileID: 984208393}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &984208393
 Transform:
   m_ObjectHideFlags: 0
@@ -24775,7 +24775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1066820696}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 1-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26005,12 +26005,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1100326110}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 7-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1100326110
 Transform:
   m_ObjectHideFlags: 0
@@ -27245,12 +27245,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1200025207}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 11-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1200025207
 Transform:
   m_ObjectHideFlags: 0
@@ -27279,12 +27279,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1220566591}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 8-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1220566591
 Transform:
   m_ObjectHideFlags: 0
@@ -28287,50 +28287,74 @@ MonoBehaviour:
     playerSpawnPos: {x: 0, y: -3.65}
     leverSpawnPos: {x: -6.07, y: -3.65}
     enemySpawnPos: {fileID: 766401046}
+    wave1: {fileID: 984208392}
+    wave2: {fileID: 1066820695}
   - mapSpawnPos: {x: 20, y: 0}
     playerSpawnPos: {x: 20, y: -3.65}
     leverSpawnPos: {x: 11.95, y: 1}
     enemySpawnPos: {fileID: 931587244}
+    wave1: {fileID: 1734216146}
+    wave2: {fileID: 424906016}
   - mapSpawnPos: {x: 40, y: 0}
     playerSpawnPos: {x: 45, y: -3.65}
     leverSpawnPos: {x: 32.95, y: -4}
     enemySpawnPos: {fileID: 1235756549}
+    wave1: {fileID: 1749490156}
+    wave2: {fileID: 1850868796}
   - mapSpawnPos: {x: 0, y: -12}
     playerSpawnPos: {x: -7, y: -15.5}
     leverSpawnPos: {x: -8.05, y: -15.5}
     enemySpawnPos: {fileID: 1243828489}
+    wave1: {fileID: 1978307741}
+    wave2: {fileID: 2018499465}
   - mapSpawnPos: {x: 20, y: -12}
     playerSpawnPos: {x: 18, y: -15.5}
     leverSpawnPos: {x: 21.95, y: -15.5}
     enemySpawnPos: {fileID: 1989822968}
+    wave1: {fileID: 1796902276}
+    wave2: {fileID: 1932513509}
   - mapSpawnPos: {x: 40, y: -12}
     playerSpawnPos: {x: 40, y: -15.5}
     leverSpawnPos: {x: 31.95, y: -10.5}
     enemySpawnPos: {fileID: 153153381}
+    wave1: {fileID: 1711213643}
+    wave2: {fileID: 1834921594}
   - mapSpawnPos: {x: 0, y: -24}
     playerSpawnPos: {x: 3, y: -25.5}
     leverSpawnPos: {x: -7.04, y: -25.5}
     enemySpawnPos: {fileID: 200156031}
+    wave1: {fileID: 1100326109}
+    wave2: {fileID: 1662875276}
   - mapSpawnPos: {x: 20, y: -24}
     playerSpawnPos: {x: 20, y: -27.5}
     leverSpawnPos: {x: 12.95, y: -25.5}
     enemySpawnPos: {fileID: 1476909618}
+    wave1: {fileID: 1220566590}
+    wave2: {fileID: 1678300246}
   - mapSpawnPos: {x: 40, y: -24}
     playerSpawnPos: {x: 34, y: -27.5}
     leverSpawnPos: {x: 31.95, y: -27.5}
     enemySpawnPos: {fileID: 496289464}
+    wave1: {fileID: 965028430}
+    wave2: {fileID: 758135435}
   - mapSpawnPos: {x: 0, y: -36}
     playerSpawnPos: {x: -7, y: -37.5}
     leverSpawnPos: {x: -8.05, y: -39.5}
     enemySpawnPos: {fileID: 2084615336}
+    wave1: {fileID: 214244888}
+    wave2: {fileID: 214113351}
   - mapSpawnPos: {x: 20, y: -36}
     playerSpawnPos: {x: 20, y: -37.5}
     leverSpawnPos: {x: 11.95, y: -39.5}
     enemySpawnPos: {fileID: 2053470347}
+    wave1: {fileID: 1200025206}
+    wave2: {fileID: 1621886290}
   - mapSpawnPos: {x: 40, y: -36}
     playerSpawnPos: {x: 33, y: -37.5}
     leverSpawnPos: {x: 31.95, y: -39.5}
     enemySpawnPos: {fileID: 961147691}
+    wave1: {fileID: 2014881997}
+    wave2: {fileID: 1587487307}
   leverObj: {fileID: 585283903}
   player: {fileID: 1745234673}
 --- !u!4 &1333580314
@@ -30865,7 +30889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1587487308}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 12-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31192,7 +31216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1621886291}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 11-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31428,7 +31452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1662875277}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 7-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31617,7 +31641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1678300247}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 8-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32372,12 +32396,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1711213644}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 6-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1711213644
 Transform:
   m_ObjectHideFlags: 0
@@ -32530,12 +32554,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1734216147}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 2-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1734216147
 Transform:
   m_ObjectHideFlags: 0
@@ -32837,12 +32861,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1749490157}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 3-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1749490157
 Transform:
   m_ObjectHideFlags: 0
@@ -33294,12 +33318,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1796902277}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 5-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1796902277
 Transform:
   m_ObjectHideFlags: 0
@@ -34237,7 +34261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1834921595}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 6-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34272,7 +34296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1850868797}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 3-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35201,7 +35225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932513510}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 5-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36218,12 +36242,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1978307742}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 4-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1978307742
 Transform:
   m_ObjectHideFlags: 0
@@ -36646,12 +36670,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2014881998}
   m_Layer: 0
-  m_Name: wave 1
+  m_Name: wave 12-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2014881998
 Transform:
   m_ObjectHideFlags: 0
@@ -36816,7 +36840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018499466}
   m_Layer: 0
-  m_Name: wave 2
+  m_Name: wave 4-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

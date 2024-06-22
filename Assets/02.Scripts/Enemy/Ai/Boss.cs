@@ -6,38 +6,58 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class BossBase : EnemyBase
+    public class Boss : EnemyBase
     {
-        protected bool phase1 =false;
-        protected bool phase2 =false;
-        protected bool phase3 =false;
+        public GameObject B_Bullet;
+        public GameObject M_Bullet;
+        public GameObject F_Bullet;
+        protected BossAttack bossAttack;
+
+        protected int[] phase = {1,0,0};
         protected override void Start()
         {
             enemyHP = 40;
             base.Start();
-            attack = new BossAttack(this, bulletPrefab, G_Bullet);
+            CancelInvoke();
+            bossAttack = new BossAttack(this, bulletPrefab, G_Bullet, M_Bullet, F_Bullet, B_Bullet);
         }
         protected override void Update(){
-            Debug.Log($"p1:{phase1},p2:{phase2},p3:{phase3}");
+            if (cooldownTimer > 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+            }
+            else{
+                bossAttack.Patten1();
+                cooldownTimer =3f;
+            }
             if(enemyHP <=20){
-                phase1=false;
-                phase2=true;
+                phase[1]=1;
             }
-            else if(enemyHP <= 20){
-                phase2=false;
-                phase3=true;
+            if(enemyHP <= 10){
+                phase[2]=1;
             }
+
         }
-
-
     }
 
     public class BossAttack: Attack{
-        public BossAttack(EnemyBase enemy, GameObject bulletPrefab, GameObject G_Bullet)
+        public GameObject B_Bullet;
+        public GameObject M_Bullet;
+        public GameObject F_Bullet;       
+        public BossAttack(EnemyBase enemy, GameObject bulletPrefab, GameObject G_Bullet, GameObject M_Bullet, 
+                            GameObject F_Bullet, GameObject B_Bullet)
             : base(enemy, bulletPrefab, G_Bullet)
         {
+            this.F_Bullet = F_Bullet;
+            this.B_Bullet = B_Bullet;
+            this.M_Bullet = M_Bullet;
+
         }
         
+        public void Patten1(){
+            GameObject bullet = GameObject.Instantiate(F_Bullet, new Vector2(0, -1), Quaternion.identity);
+        }
+
         public void FireBulletFW()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");

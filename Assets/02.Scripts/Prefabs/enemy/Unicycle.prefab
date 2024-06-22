@@ -161,10 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
-  speed: 2
+  G_Bullet: {fileID: 0}
   nextmove: 1
-  enemyHP: 10
-  cooldownTimer: 1.5
   isDying: 0
   isKnockback: 0
   isJump: 0

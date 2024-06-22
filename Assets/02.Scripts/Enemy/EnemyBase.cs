@@ -19,7 +19,7 @@ namespace Enemy
 
         protected float speed = 2f;
         public int nextmove = 1;
-        protected int enemyHP = 10;
+        protected float enemyHP = 10;
         protected float cooldownTimer = 1.5f;
         protected int think = 0;
 
@@ -45,8 +45,19 @@ namespace Enemy
 
         protected virtual void Update()
         {
+           detection.DetectPlayerInRange(5);
+           
+           if(cooldownTimer>0){
+                cooldownTimer -= Time.deltaTime;
+           }
+           
+           if(isDetectPlayer){
+                if(cooldownTimer<=0){
+                    attack.FireBullet();
+                    cooldownTimer=1.5f;
+                }
+           }
 
-            GroundMove(speed);
         }
 
         public void Think()
@@ -156,13 +167,14 @@ namespace Enemy
             {
                 status.TakeDamage(0.5f);
             }
+            
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("playerbullet"))
             {
-                status.TakeDamage(GameManager.Instance.M_AttackDamage);
+                enemyHP=status.TakeDamage(GameManager.Instance.M_AttackDamage);
             }
         }
     }
@@ -189,7 +201,7 @@ namespace Enemy
         }
         public void Stop()
         {
-            rigid.velocity = new Vector2(0, rigid.velocity.y);
+            rigid.velocity = new Vector2(0, 0);
             enemy.nextmove = 0;
         }
         public void UpJump()
@@ -220,13 +232,10 @@ namespace Enemy
 
         public void Knockback(Vector2 direction)
         {
-            rigid.constraints |= RigidbodyConstraints2D.FreezePositionX;
-
-            float knockbackForce = 15f;
+            float knockbackForce = 5f;
 
             Debug.Log("knockback");
-            Debug.Log(direction);
-
+            // Debug.Log(direction);
 
             rigid.velocity = Vector2.zero;
             rigid.AddForce(-direction * knockbackForce, ForceMode2D.Impulse);
@@ -681,24 +690,25 @@ namespace Enemy
     {
         private EnemyBase enemy;
         private SpriteRenderer spriteRenderer;
-        private float EnemyHP;
+        private float enemyHP;
 
-        public Status(EnemyBase enemy, SpriteRenderer spriteRenderer, float EnemyHP)
+        public Status(EnemyBase enemy, SpriteRenderer spriteRenderer, float enemyHP)
         {
             this.enemy = enemy;
             this.spriteRenderer = spriteRenderer;
-            this.EnemyHP = EnemyHP;
+            this.enemyHP = enemyHP;
         }
 
-        public void TakeDamage(float damage)
+        public float TakeDamage(float damage)
         {
             // Debug.Log(":(");
-            EnemyHP -= damage;
+            enemyHP -= damage;
             enemy.StartCoroutine(AttackedEffect());
-            if (EnemyHP <= 0)
+            if (enemyHP <= 0)
             {
                 Die();
             }
+            return enemyHP;
         }
         private void Die()
         {

@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 825772356388759138}
   - component: {fileID: 2517615402143020521}
   - component: {fileID: 5194025178272382270}
-  - component: {fileID: 1562016093164183024}
   m_Layer: 0
-  m_Name: bullet_Firework
+  m_Name: F_Bullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,18 +142,3 @@ MonoBehaviour:
   duration: 5
   amount: 3
   distance: 2
---- !u!114 &1562016093164183024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825772356388759137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be79112ea0fd9824491e6784138a7317, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
-  gBulletPrefab: {fileID: 825772356388759137, guid: b8d61f9ea803d6048b0eb17ec33a931f, type: 3}
-  isDelay: 0

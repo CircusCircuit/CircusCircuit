@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 6612029632852025880}
   - component: {fileID: 6612029632852025883}
   - component: {fileID: 6612029632852025882}
-  - component: {fileID: 8076207233957149525}
-  - component: {fileID: -1767385622608514179}
-  - component: {fileID: 3100509529214308619}
+  - component: {fileID: 4309350899077439326}
   m_Layer: 9
   m_Name: Boss
   m_TagString: Enemy
@@ -31,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6612029632852025873}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.95, y: 3.82, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,7 +78,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 8596640243658272642, guid: 5d4daff38e3d9174b873918abcf2c1d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 16, y: 16}
@@ -135,8 +133,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 5
---- !u!114 &8076207233957149525
+  m_Constraints: 4
+--- !u!114 &4309350899077439326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,36 +146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778f543b4c9477e438784d733a5b7320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFire: 0
-  isDying: 0
-  isAttack: 0
-  cooldownTimer: 3
-  think: 1
---- !u!114 &-1767385622608514179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6612029632852025873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aad23b0d71e575b489ba9d94d047d379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 825772356388759137, guid: b9872700b4355c945821da804e7b753e, type: 3}
-  fwBullet: {fileID: 825772356388759137, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}
-  bBullet: {fileID: 825772356388759137, guid: 76e601ca05ddfda4e804731ed8dbd5a9, type: 3}
-  isDelay: 0
---- !u!114 &3100509529214308619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6612029632852025873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea56c86c173e1e5469f5d496e98c2197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  G_Bullet: {fileID: 825772356388759137, guid: b8d61f9ea803d6048b0eb17ec33a931f, type: 3}
+  nextmove: 1
+  isDying: 0
+  isKnockback: 0
+  isJump: 0
+  isAttack: 0
+  isDetectPlayer: 0
+  isFacingLeft: 0
+  B_Bullet: {fileID: 825772356388759137, guid: 76e601ca05ddfda4e804731ed8dbd5a9, type: 3}
+  M_Bullet: {fileID: 825772356388759137, guid: 3bfca0f092f5dc049a8eae6c853d1a1f, type: 3}
+  F_Bullet: {fileID: 825772356388759137, guid: 21b03264903a6be4ba789f7a47a31c07, type: 3}

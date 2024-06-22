@@ -34,6 +34,8 @@ public class TutorialController : MonoBehaviour
 
     bool[] doTuto = new bool[6]; // 0:move, 1:Jump, 2:Down, 3:Dodge, 4:Shooting, 5:Attack
 
+    bool[] clearSound = { false, false, false, false, false, false };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,13 +48,15 @@ public class TutorialController : MonoBehaviour
         dodgeAnim = dodgeTutoUI.GetComponent<Animator>();
         shootAnim = shootTutoUI.GetComponent<Animator>();
 
-
+        SoundManager.instance.Play("Tutorial_BGM", 0.6f, SoundType.BGM);
         StartCoroutine(WaitForStartTutorial());
     }
 
     IEnumerator WaitForStartTutorial()
     {
         yield return new WaitForSeconds(1);
+
+        SoundManager.instance.Play("UI_guide_01");
 
         moveTutoUI.SetActive(true);
         moveAnim.SetBool("doHorizon", true);
@@ -94,6 +98,8 @@ public class TutorialController : MonoBehaviour
         }
         if (isAttackTuto && attackTutoUI == null)
         {
+            SoundManager.instance.Play("Tutorial_Finish_01");
+
             Debug.Log("End Tutorial");
             ReadyUI.SetActive(true);
             SkipUI.SetActive(false);
@@ -104,32 +110,47 @@ public class TutorialController : MonoBehaviour
 
     void Check()
     {
-        if (doTuto[0])
+        if (doTuto[0] && !clearSound[0])
         {
+            GuideSound();
+            clearSound[0] = true;
+
             moveAnim.SetBool("doHorizon", false);
             moveTutoObj.SetActive(false);
             moveAnim.SetBool("doUp", true);
         }
-        if (doTuto[1])
+        if (doTuto[1] && !clearSound[1])
         {
+            GuideSound();
+            clearSound[1] = true;
+
             moveAnim.SetBool("doUp", false);
             moveAnim.SetBool("doDown", true);
         }
-        if (doTuto[2])
+        if (doTuto[2] && !clearSound[2])
         {
+            GuideSound();
+            clearSound[2] = true;
+
             moveTutoUI.SetActive(false);
 
             dodgeTutoUI.SetActive(true);
             dodgeAnim.SetBool("doSpace", true);
         }
-        if (doTuto[3])
+        if (doTuto[3] && !clearSound[3])
         {
+            GuideSound();
+            clearSound[3] = true;
+
             dodgeTutoUI.SetActive(false);
             shootTutoUI.SetActive(true);
             shootAnim.SetBool("doPointer", true);
         }
-        if (doTuto[4])
+        if (doTuto[4] && !clearSound[4])
         {
+            GuideSound();
+            clearSound[4] = true;
+
             shootTutoUI.SetActive(false);
             attackTutoUI.SetActive(true);
             isAttackTuto = true;
@@ -157,11 +178,18 @@ public class TutorialController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && canFire)
         {
+            SoundManager.instance.Play("SFX_Gunshot_01");
+
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
             canFire = false;
 
             doTuto[4] = true;
             Check();
         }
+    }
+
+    void GuideSound()
+    {
+        SoundManager.instance.Play("UI_guide_01");
     }
 }

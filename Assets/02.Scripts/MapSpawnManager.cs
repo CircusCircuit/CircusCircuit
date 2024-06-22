@@ -75,6 +75,7 @@ public class MapSpawnManager : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.Play("1_BGM", 0.6f, SoundType.BGM);
         Allocation();
         MapSpawn();
     }

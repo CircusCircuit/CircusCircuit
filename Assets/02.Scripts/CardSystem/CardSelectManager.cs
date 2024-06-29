@@ -21,6 +21,7 @@ namespace Card
             {
                 GameManager.Instance.DoCardSelect = false;
                 SelectUI.SetActive(true);
+                Cursor.visible = true;
 
                 RandomCardDraw();
             }

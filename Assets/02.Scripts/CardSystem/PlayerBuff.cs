@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBuff : MonoBehaviour
 {
+    [Header("Base")]
     bool EnemyDetected = false;
     bool EnemyCrashed = false;
     bool BulletCrashed = false;
     bool isPlatform = false;
 
 
-
+    [Header("SkillTree")]
     bool coolMagic3 = false;
     bool coolMagic4 = false;
 

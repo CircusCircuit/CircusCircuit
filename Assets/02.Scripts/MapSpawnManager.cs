@@ -62,17 +62,30 @@ public class MapSpawnManager : MonoBehaviour
             }
             return true;
         }
-        public void ActivateWave2()
+        public bool AllWave2EnemiesDefeated()
+        {
+            foreach (Transform enemy in wave2.transform)
+            {
+                if (enemy.gameObject.activeInHierarchy)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool ActivateWave2()
         {
             wave2.SetActive(true);
+            return true;
         }
+
     }
     [SerializeField] List<MapArray> stageArray;
     [SerializeField] GameObject leverObj;
     [SerializeField] GameObject player;
 
+    private bool isClear=false;
     List<MapArray> dynamicStageArray;
-
     private void Start()
     {
         SoundManager.instance.Play("1_BGM", 0.6f, SoundType.BGM);
@@ -101,7 +114,12 @@ public class MapSpawnManager : MonoBehaviour
         {
             if (stage.AllWave1EnemiesDefeated())
             {
-                stage.ActivateWave2();
+                isClear = stage.ActivateWave2();
+            }
+            if (stage.AllWave2EnemiesDefeated()&&isClear)
+            {
+                GameManager.Instance.Clear = true;
+                isClear = false;
             }
         }
 
@@ -138,5 +156,6 @@ public class MapSpawnManager : MonoBehaviour
         dynamicStageArray[rIndex].Wave2.SetActive(false);
 
         dynamicStageArray.RemoveAt(rIndex);
+
     }
 }

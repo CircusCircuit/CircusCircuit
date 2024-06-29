@@ -39,7 +39,8 @@ namespace Enemy
             movement = new Movement(this, rigid, spriteRenderer, oneWay, speed);
             detection = new Detection(this);
             attack = new Attack(this, bulletPrefab, G_Bullet);
-            status = new Status(this, spriteRenderer, enemyHP);
+            status = gameObject.AddComponent<Status>();
+            status.Initialize(this, spriteRenderer, enemyHP);
             Invoke("Think", 0.5f);
         }
 
@@ -686,17 +687,17 @@ namespace Enemy
   
         }
     }
-    public class Status
+    public class Status:MonoBehaviour
     {
         private EnemyBase enemy;
         private SpriteRenderer spriteRenderer;
         private float enemyHP;
 
-        public Status(EnemyBase enemy, SpriteRenderer spriteRenderer, float enemyHP)
+        public void Initialize(EnemyBase enemyBase, SpriteRenderer spriteRenderer, float initialHP)
         {
-            this.enemy = enemy;
+            this.enemy = enemyBase;
             this.spriteRenderer = spriteRenderer;
-            this.enemyHP = enemyHP;
+            this.enemyHP = initialHP;
         }
 
         public float TakeDamage(float damage)

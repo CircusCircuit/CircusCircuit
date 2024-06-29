@@ -403,6 +403,7 @@ namespace controller
         {
             yield return new WaitForSeconds(0.3f);
 
+            Destroy(GameObject.Find("SoundManager").gameObject);
             Destroy(GameManager.Instance.gameObject);
             SceneManager.LoadScene(0);
         }

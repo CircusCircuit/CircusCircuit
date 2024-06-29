@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace controller
 {
@@ -22,13 +23,14 @@ namespace controller
         public float jumpPower;
         public float checkRadius;
 
-        [Header("")]
+        [Header("Collider")]
         public Transform headCheck;
         public Transform groundCheck;
         public Transform leftCheck;
         public Transform rightCheck;
         public LayerMask groundLayer;
         public LayerMask wallLayer;
+        [SerializeField] BoxCollider2D playerCollider;
 
         [Header("Shoot")]
         public GameObject bulletPrefab;
@@ -38,16 +40,20 @@ namespace controller
         Vector2 dodgeVec;
         Vector2 curPos;
 
-        //StageController stageController;
         [SerializeField] Shooting shooting;
 
-        BoxCollider2D playerCollider;
+        [Header("UI")]
+        [SerializeField] GameObject ReloadGrid;
+        [SerializeField] GameObject DodgeReloadObj;
+        Image DodgeReloadImg;
+
+
         SpriteRenderer spriteRenderer;
         Animator playerAnim;
         GameObject currentOneWayPlatform;
 
         GameObject FailUI;
-
+        
         enum States
         {
             Idle,
@@ -63,9 +69,10 @@ namespace controller
             {
                 Instance = this;
             }
-            playerCollider = GetComponent<BoxCollider2D>();
+            //playerCollider = GetComponent<BoxCollider2D>();
             spriteRenderer = transform.GetChild(2).GetComponent<SpriteRenderer>();
             playerAnim = GetComponent<Animator>();
+            DodgeReloadImg = DodgeReloadObj.GetComponent<Image>();
         }
 
         // Start is called before the first frame update
@@ -86,6 +93,8 @@ namespace controller
         // Update is called once per frame
         void Update()
         {
+            ReloadGrid.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1.8f, 0));
+
             // [ 올라가기 및 점프 ]
             if (curState == States.Idle && Input.GetKeyDown(KeyCode.W))
             {
@@ -108,14 +117,14 @@ namespace controller
 
             // [ 구르기(회피) ]
             Dodge();
-            if (curState == States.Dodging)
-            {
-                if (!isBase || !isGround)
-                {
-                    rb.gravityScale = 4;
-                    playerCollider.isTrigger = false;
-                }
-            }
+            //if (curState == States.Dodging)
+            //{
+            //    if (!isBase || !isGround)
+            //    {
+            //        rb.gravityScale = 4;
+            //        playerCollider.isTrigger = false;
+            //    }
+            //}
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -140,11 +149,14 @@ namespace controller
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            if (/*isGround && */!isDodge && collision.gameObject.tag == "Enemy" && !isAttacked)
+            if (collision.gameObject.tag == "Enemy")
             {
-                //몬스터 충돌 시.
-                isAttacked = true;
-                MinusHp(collision.transform.tag);
+                if (!isDodge && !isAttacked)
+                {
+                    //몬스터 충돌 시.
+                    isAttacked = true;
+                    MinusHp(collision.transform.tag);
+                }
             }
         }
 
@@ -284,6 +296,7 @@ namespace controller
                 //playerAnim.SetBool("isWalk", moveVec != Vector2.zero);
 
                 rb.gravityScale = 0;
+                //GetComponent<BoxCollider2D>().isTrigger = true;
                 playerCollider.isTrigger = true;
 
                 dodgeVec = moveVec;
@@ -297,7 +310,7 @@ namespace controller
         }
         IEnumerator DodgeOut()
         {
-            yield return new WaitForSecondsRealtime(0.2f);
+            yield return new WaitForSecondsRealtime(0.5f);
 
             GameManager.Instance.PlayerSpeed = 5/**= 0.5f*/;
 
@@ -313,12 +326,31 @@ namespace controller
             isDodgeDelay = true;
 
             StartCoroutine(DodgeDelay());
+            StartCoroutine(DodgeReload());
         }
         IEnumerator DodgeDelay()
         {
             yield return new WaitForSecondsRealtime(1f);
 
             isDodgeDelay = false;
+        }
+        IEnumerator DodgeReload()
+        {
+            DodgeReloadObj.SetActive(true);
+
+            float curTime = 0;
+            float totalTime = 1;
+
+            while (curTime <= totalTime)
+            {
+                curTime += Time.deltaTime;
+                DodgeReloadImg.fillAmount = curTime / totalTime;
+
+                yield return null;
+            }
+
+            DodgeReloadImg.fillAmount = 0;
+            DodgeReloadObj.SetActive(false);
         }
 
 

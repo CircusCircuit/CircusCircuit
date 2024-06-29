@@ -33,6 +33,7 @@ public class Shooting : MonoBehaviour
     TextMeshProUGUI bulletTxt;
     //GameObject Lever;
 
+    [SerializeField] GameObject ReloadGrid;
     [SerializeField] GameObject loadingObj;
     Image loadingImg;
 
@@ -73,7 +74,7 @@ public class Shooting : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
         transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
 
-        loadingObj.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 1.5f, 0));
+        ReloadGrid.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 1.8f, 0));
 
 
         if (!canFire)

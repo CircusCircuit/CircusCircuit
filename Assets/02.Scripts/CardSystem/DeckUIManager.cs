@@ -88,5 +88,6 @@ public class DeckUIManager : MonoBehaviour
         this.gameObject.SetActive(false);
 
         GameManager.Instance.getNextWave = true;
+        Cursor.visible = false;
     }
 }

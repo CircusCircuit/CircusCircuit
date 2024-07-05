@@ -5048,7 +5048,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -28307,50 +28307,74 @@ MonoBehaviour:
     playerSpawnPos: {x: 0, y: -3.65}
     leverSpawnPos: {x: -6.07, y: -3.65}
     enemySpawnPos: {fileID: 766401046}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 20, y: 0}
     playerSpawnPos: {x: 20, y: -3.65}
     leverSpawnPos: {x: 11.95, y: 1}
     enemySpawnPos: {fileID: 931587244}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 40, y: 0}
     playerSpawnPos: {x: 45, y: -3.65}
     leverSpawnPos: {x: 32.95, y: -4}
     enemySpawnPos: {fileID: 1235756549}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 0, y: -12}
     playerSpawnPos: {x: -7, y: -15.5}
     leverSpawnPos: {x: -8.05, y: -15.5}
     enemySpawnPos: {fileID: 1243828489}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 20, y: -12}
     playerSpawnPos: {x: 18, y: -15.5}
     leverSpawnPos: {x: 21.95, y: -15.5}
     enemySpawnPos: {fileID: 1989822968}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 40, y: -12}
     playerSpawnPos: {x: 40, y: -15.5}
     leverSpawnPos: {x: 31.95, y: -10.5}
     enemySpawnPos: {fileID: 153153381}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 0, y: -24}
     playerSpawnPos: {x: 3, y: -25.5}
     leverSpawnPos: {x: -7.04, y: -25.5}
     enemySpawnPos: {fileID: 200156031}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 20, y: -24}
     playerSpawnPos: {x: 20, y: -27.5}
     leverSpawnPos: {x: 12.95, y: -25.5}
     enemySpawnPos: {fileID: 1476909618}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 40, y: -24}
     playerSpawnPos: {x: 34, y: -27.5}
     leverSpawnPos: {x: 31.95, y: -27.5}
     enemySpawnPos: {fileID: 496289464}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 0, y: -36}
     playerSpawnPos: {x: -7, y: -37.5}
     leverSpawnPos: {x: -8.05, y: -39.5}
     enemySpawnPos: {fileID: 2084615336}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 20, y: -36}
     playerSpawnPos: {x: 20, y: -37.5}
     leverSpawnPos: {x: 11.95, y: -39.5}
     enemySpawnPos: {fileID: 2053470347}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   - mapSpawnPos: {x: 40, y: -36}
     playerSpawnPos: {x: 33, y: -37.5}
     leverSpawnPos: {x: 31.95, y: -39.5}
     enemySpawnPos: {fileID: 961147691}
+    wave1: {fileID: 0}
+    wave2: {fileID: 0}
   leverObj: {fileID: 585283903}
   player: {fileID: 1745234673}
 --- !u!4 &1333580314

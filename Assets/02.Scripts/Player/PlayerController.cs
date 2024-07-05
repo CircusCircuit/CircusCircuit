@@ -12,7 +12,9 @@ namespace controller
         public static PlayerController Instance = null;
         float moveX;
         Rigidbody2D rb;
-        bool isGround, isHead, isLeft, isRight, isBase, isSky, isPushDownKey, isDodgeDelay;
+        public bool isGround;
+        public bool isBase;
+        bool isHead, isLeft, isRight, isSky, isPushDownKey, isDodgeDelay;
         bool isJump = false;
         bool isDodge = false;
         bool facingRight = true;
@@ -108,6 +110,9 @@ namespace controller
                 isPushDownKey = true;
 
                 curState = States.Falling;
+
+                PlayerBuff.Instance.AcrobatSkill(4);
+                PlayerBuff.Instance.Magician4();
             }
 
             if (GameManager.Instance.PlayerHp <= 0)
@@ -156,6 +161,7 @@ namespace controller
                     //몬스터 충돌 시.
                     isAttacked = true;
                     MinusHp(collision.transform.tag);
+                    PlayerBuff.Instance.AcrobatSkill(1);
                 }
             }
         }
@@ -167,17 +173,33 @@ namespace controller
                 playerCollider.isTrigger = false;
                 rb.gravityScale = 4;
             }
-            if (collision.gameObject.tag != "Enemy")
+            //if (collision.gameObject.tag != "Enemy")
+            //{
+            //    playerCollider.isTrigger = false;
+            //}
+            if (collision.gameObject.tag == "Enemy")
             {
-                playerCollider.isTrigger = false;
+                if (isDodge)
+                {
+                    print("Dodge로 몬스터 회피성공");
+                    PlayerBuff.Instance.Juggler2();
+                }
             }
-
+            if (collision.gameObject.tag == "EnemyBullet")
+            {
+                if (isJump)
+                {
+                    print("Jump로 총알 회피성공");
+                    PlayerBuff.Instance.Juggler4();
+                }
+            }
 
             if (isGround && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
             {
                 //총알 피격 시.
                 isAttacked = true;
                 MinusHp(collision.transform.tag);
+                PlayerBuff.Instance.AcrobatSkill(2);
             }
         }
 
@@ -279,6 +301,8 @@ namespace controller
                 isJump = true;
                 curState = States.Jumping;
                 playerAnim.SetTrigger("isJump");
+
+                PlayerBuff.Instance.AcrobatSkill(3);
             }
 
             //점프 중 몬스터의 물리 공격, 탄막 공격, 충돌을 무적 상태로 회피한다.
@@ -386,11 +410,17 @@ namespace controller
         {
             for (int i = 0; i < 3; i++)
             {
-                spriteRenderer.color = new Color32(243, 114, 114, 255);
-                yield return new WaitForSeconds(0.1f);
+                spriteRenderer.color = new Color32(121, 20, 20, 255);
+                yield return new WaitForSeconds(0.05f);
 
                 spriteRenderer.color = new Color32(255, 255, 255, 255);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.05f);
+
+                spriteRenderer.color = new Color32(121, 20, 20, 255);
+                yield return new WaitForSeconds(0.05f);
+
+                spriteRenderer.color = new Color32(255, 255, 255, 255);
+                yield return new WaitForSeconds(0.05f);
             }
         }
 

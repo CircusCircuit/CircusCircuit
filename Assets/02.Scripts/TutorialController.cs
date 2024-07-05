@@ -39,6 +39,8 @@ public class TutorialController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.PlayerHp = 1000;
+
         Cursor.visible = false;
 
         player = GameObject.FindWithTag("Player");
@@ -72,7 +74,7 @@ public class TutorialController : MonoBehaviour
             GameObject.Find("MoveTutorial").transform.position = new Vector2(player.transform.position.x + 1, player.transform.position.y + 1);
         }
 
-        if (player.transform.localPosition.x > 0.6f && player.transform.localPosition.x < 1.6f)
+        if (player.transform.localPosition.x > 0.2f && player.transform.localPosition.x < 1f)
         {
             doTuto[0] = true;
             Check();
@@ -105,6 +107,8 @@ public class TutorialController : MonoBehaviour
             SkipUI.SetActive(false);
             Cursor.visible = true;
             isClear = true;
+
+            GameManager.Instance.PlayerHp = 4;
         }
     }
 

@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
     float attackSpeed = 1;
     float playerSpeed = 5;
 
-    // [ 몬스터 관련 ]
-    float M_attackedDamage = 5;
+    // [ 몬스터 관련, PlayerBullet Power ]
+    float M_attackedDamage = 1;
 
     [Header("[Attack_Coeffient]")]
     //계수

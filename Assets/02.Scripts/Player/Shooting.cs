@@ -72,7 +72,7 @@ public class Shooting : MonoBehaviour
         Vector3 rotation = mousePos - transform.position;
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
-        transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
+        bulletTransform.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
 
         ReloadGrid.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 1.8f, 0));
 
@@ -105,9 +105,7 @@ public class Shooting : MonoBehaviour
             }
 
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
-
             canFire = false;
-            //print("ÀÜ¿© ÃÑ¾Ë: " + GameManager.Instance.CurBulletCount);
         }
 
 

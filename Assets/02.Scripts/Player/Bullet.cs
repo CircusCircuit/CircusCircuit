@@ -36,7 +36,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            //rb.velocity = new Vector2(speed * transform.localScale.x, 0);
+
         }
 
 
@@ -49,11 +49,6 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.name.Contains("Ground"))
-            {
-                Destroy(gameObject);
-            }
-
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 EnemyBase enemybase = collision.gameObject.GetComponent<EnemyBase>();

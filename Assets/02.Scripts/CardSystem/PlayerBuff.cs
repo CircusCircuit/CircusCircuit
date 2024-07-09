@@ -23,6 +23,9 @@ public class PlayerBuff : MonoBehaviour
         }
     }
 
+    float OriginPlayerSpeed;
+    float OriginAttackSpeed;
+
     [Header("Base")]
     bool EnemyDetected = false;
     bool isPlatform = false;
@@ -51,6 +54,8 @@ public class PlayerBuff : MonoBehaviour
     void Start()
     {
         curScene = SceneManager.GetActiveScene().name;
+        OriginPlayerSpeed = GameManager.Instance.PlayerSpeed;
+        OriginAttackSpeed = GameManager.Instance.AttackSpeed;
     }
 
     // Update is called once per frame
@@ -181,10 +186,10 @@ public class PlayerBuff : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        GameManager.Instance.AttackSpeed += GameManager.Instance.AttackSpeed * 0.5f;
+        GameManager.Instance.AttackSpeed += OriginAttackSpeed * 0.5f;
         yield return new WaitForSecondsRealtime(5);
 
-        GameManager.Instance.AttackSpeed -= GameManager.Instance.AttackSpeed * 0.5f;
+        GameManager.Instance.AttackSpeed -= OriginAttackSpeed * 0.5f;
 
         yield return new WaitForSecondsRealtime(time);
         coolMagic4 = false;
@@ -194,10 +199,10 @@ public class PlayerBuff : MonoBehaviour
     {
         print("Juggler1 Buff");
         coolJugg1 = true;
-        GameManager.Instance.PlayerSpeed += GameManager.Instance.PlayerSpeed * 0.5f;
+        GameManager.Instance.PlayerSpeed += OriginPlayerSpeed * 0.5f;
         yield return new WaitForSecondsRealtime(5);
 
-        GameManager.Instance.PlayerSpeed -= GameManager.Instance.PlayerSpeed * 0.5f;
+        GameManager.Instance.PlayerSpeed -= OriginPlayerSpeed * 0.5f;
 
         yield return new WaitForSecondsRealtime(time);
         coolJugg1 = false;
@@ -223,12 +228,15 @@ public class PlayerBuff : MonoBehaviour
         }
         yield return new WaitForEndOfFrame();
 
-        GameManager.Instance.PlayerSpeed += GameManager.Instance.PlayerSpeed * 0.5f;
+        GameManager.Instance.PlayerSpeed += OriginPlayerSpeed * 0.5f;
+        //print(coolName + "Skill Changed PlayerSpped = " + GameManager.Instance.PlayerSpeed);
         yield return new WaitForSecondsRealtime(2);
 
-        GameManager.Instance.PlayerSpeed -= GameManager.Instance.PlayerSpeed * 0.5f;
+        GameManager.Instance.PlayerSpeed -= OriginPlayerSpeed * 0.5f;
+        //print(coolName + "Skill Returned PlayerSpped = " + GameManager.Instance.PlayerSpeed);
 
         yield return new WaitForSecondsRealtime(time);
+        //print("SKill End Cool Time");
         if (coolName.Equals("coolAcrob1"))
         {
             coolAcrob1 = false;
@@ -288,7 +296,7 @@ public class PlayerBuff : MonoBehaviour
     }
     IEnumerator Jug24CoolTime(string coolName)
     {
-        print("Jug24CoolTime실행");
+        //print("Jug24CoolTime실행");
         GameManager.Instance.PlayerHp += 0.5f;
 
         if (coolName.Equals("coolJugg2"))

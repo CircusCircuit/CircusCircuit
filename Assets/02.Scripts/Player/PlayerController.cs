@@ -111,6 +111,7 @@ namespace controller
 
                 curState = States.Falling;
 
+                if (GameManager.Instance.curStageIndex == 1) return;
                 PlayerBuff.Instance.AcrobatSkill(4);
                 PlayerBuff.Instance.Magician4();
             }
@@ -161,6 +162,8 @@ namespace controller
                     //몬스터 충돌 시.
                     isAttacked = true;
                     MinusHp(collision.transform.tag);
+
+                    if (GameManager.Instance.curStageIndex == 1) return;
                     PlayerBuff.Instance.AcrobatSkill(1);
                 }
             }
@@ -199,6 +202,8 @@ namespace controller
                 //총알 피격 시.
                 isAttacked = true;
                 MinusHp(collision.transform.tag);
+
+                if (GameManager.Instance.curStageIndex == 1) return;
                 PlayerBuff.Instance.AcrobatSkill(2);
             }
         }
@@ -302,6 +307,7 @@ namespace controller
                 curState = States.Jumping;
                 playerAnim.SetTrigger("isJump");
 
+                if (GameManager.Instance.curStageIndex == 1) return;
                 PlayerBuff.Instance.AcrobatSkill(3);
             }
 

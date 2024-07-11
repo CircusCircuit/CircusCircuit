@@ -55,7 +55,7 @@ namespace controller
         GameObject currentOneWayPlatform;
 
         GameObject FailUI;
-        
+
         enum States
         {
             Idle,
@@ -408,8 +408,11 @@ namespace controller
 
         void MinusHp(string tag)
         {
-            StartCoroutine(AttackedEffect());
-            StartCoroutine(NoAttack(tag));
+            if (!PlayerBuff.Instance.doBoss3Skill)
+            {
+                StartCoroutine(NoAttack(tag));
+            }
+            else return; //HP ¾È±ðÀÓ
         }
 
         IEnumerator AttackedEffect()
@@ -441,10 +444,12 @@ namespace controller
                 if (tag == "EnemyBullet")
                 {
                     GameManager.Instance.PlayerHp -= 1;
+                    StartCoroutine(AttackedEffect());
                 }
                 if (tag == "Enemy")
                 {
                     GameManager.Instance.PlayerHp -= 0.5f;
+                    StartCoroutine(AttackedEffect());
                 }
             }
 
@@ -452,6 +457,7 @@ namespace controller
 
             yield return new WaitForSeconds(2f);
             isAttacked = false;
+
         }
 
         void Die()

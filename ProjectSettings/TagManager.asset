@@ -16,6 +16,8 @@ TagManager:
   - Stage
   - Platform
   - Wall
+  - GroundCombination
+  - InteractionManager
   layers:
   - Default
   - TransparentFX

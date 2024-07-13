@@ -735,11 +735,8 @@ namespace Enemy
             {
                 PlayerBuff.Instance.Magician1Skill();
             }
-            else
-            {
-                enemyHP -= damage;
-            }
 
+            enemyHP -= damage;
             enemy.StartCoroutine(AttackedEffect());
 
             if (enemyHP <= 0)

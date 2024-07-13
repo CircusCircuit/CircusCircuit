@@ -184,7 +184,7 @@ namespace controller
             {
                 if (isDodge)
                 {
-                    print("Dodge로 몬스터 회피성공");
+                    //print("Dodge로 몬스터 회피성공");
                     PlayerBuff.Instance.Juggler2();
                 }
             }
@@ -192,14 +192,16 @@ namespace controller
             {
                 if (isJump)
                 {
-                    print("Jump로 총알 회피성공");
+                    //print("Jump로 총알 회피성공");
                     PlayerBuff.Instance.Juggler4();
                 }
             }
 
-            if (isGround && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
+            if ((isBase || isGround) && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
             {
                 //총알 피격 시.
+                print("총알 맞음");
+
                 isAttacked = true;
                 MinusHp(collision.transform.tag);
 

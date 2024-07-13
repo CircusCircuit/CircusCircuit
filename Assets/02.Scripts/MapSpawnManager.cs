@@ -85,6 +85,11 @@ public class MapSpawnManager : MonoBehaviour
             wave2.SetActive(true);
             //return true;
         }
+        public void ActivateHealPacks()
+        {
+            healPacks.SetActive(true);
+            //return true;
+        }
 
     }
     [SerializeField] List<MapArray> stageArray;
@@ -127,10 +132,11 @@ public class MapSpawnManager : MonoBehaviour
                 if (stage.AllWave1EnemiesDefeated())
                 {
                     stage.ActivateWave2();
+                    stage.ActivateHealPacks();
                 }
                 if (stage.AllWave2EnemiesDefeated()/*&&isClear*/)
                 {
-                    //GameManager.Instance.Clear = true;
+                    GameManager.Instance.Clear = true;
                     //isClear = false;
                 }
             }

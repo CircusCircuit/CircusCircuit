@@ -5,7 +5,15 @@ using UnityEngine;
 namespace Enemy
 {
     public class EnemyBase : MonoBehaviour
-    {  
+    {
+        public static EnemyBase Instance = null;
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
         protected Movement movement;
         protected Detection detection;
         protected Attack attack;
@@ -46,19 +54,21 @@ namespace Enemy
 
         protected virtual void Update()
         {
-           detection.DetectPlayerInRange(5);
-           
-           if(cooldownTimer>0){
-                cooldownTimer -= Time.deltaTime;
-           }
-           
-           if(isDetectPlayer){
-                if(cooldownTimer<=0){
-                    attack.FireBullet();
-                    cooldownTimer=1.5f;
-                }
-           }
+            detection.DetectPlayerInRange(5);
 
+            if (cooldownTimer > 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+            }
+
+            if (isDetectPlayer)
+            {
+                if (cooldownTimer <= 0)
+                {
+                    attack.FireBullet();
+                    cooldownTimer = 1.5f;
+                }
+            }
         }
 
         public void Think()
@@ -168,18 +178,27 @@ namespace Enemy
             {
                 status.TakeDamage(0.5f);
             }
-            
+
         }
+
+
+        GameObject caughtEnemy = null;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("playerbullet"))
             {
-                enemyHP=status.TakeDamage(GameManager.Instance.M_AttackDamage);
+                enemyHP = status.TakeDamage(GameManager.Instance.M_AttackDamage);
             }
+            if (other.gameObject.name == "BuffCollider")
+            {
+                caughtEnemy = this.gameObject;
+                PlayerBuff.Instance.EnemyDebuffSkill(caughtEnemy);
+            }
+            else caughtEnemy = null;
         }
     }
-    public class Movement 
+    public class Movement
     {
         private EnemyBase enemy;
         protected Rigidbody2D rigid;
@@ -266,7 +285,7 @@ namespace Enemy
 
         public void Fly(Vector2 startPosition, float moveSpeed = 2f, float maxFlyDistance = 5f)
         {
-            
+
             // 일정 범위 내에서 위아래로 이동하기 위한 코드 추가
             float maxY = startPosition.y + maxFlyDistance;
             float minY = startPosition.y - maxFlyDistance;
@@ -274,8 +293,8 @@ namespace Enemy
             if (enemy.transform.position.y >= maxY || enemy.transform.position.y <= minY)
             {
                 enemy.nextmove *= -1;
-            }   
-            rigid.velocity = new Vector2( rigid.velocity.x, enemy.nextmove * moveSpeed);  
+            }
+            rigid.velocity = new Vector2(rigid.velocity.x, enemy.nextmove * moveSpeed);
         }
 
     }
@@ -658,7 +677,7 @@ namespace Enemy
             {
                 // 각 방향에 따른 회전 각도
                 float rotation = i * 10f;
-                float rotation2 = rotation +180f;
+                float rotation2 = rotation + 180f;
 
                 // 총알을 회전시켜 생성합니다.
                 float radius = 0.5f; // 반지름 값은 적절히 조정하십시오.
@@ -684,11 +703,20 @@ namespace Enemy
                 bullet2.GetComponent<Rigidbody2D>().velocity = bulletDirection2 * bulletSpeed;
                 yield return new WaitForSeconds(0.05f);
             }
-  
+
         }
     }
-    public class Status:MonoBehaviour
+    public class Status : MonoBehaviour
     {
+        public static Status EnemyInstance = null;
+        private void Awake()
+        {
+            if (EnemyInstance == null)
+            {
+                EnemyInstance = this;
+            }
+        }
+
         private EnemyBase enemy;
         private SpriteRenderer spriteRenderer;
         private float enemyHP;
@@ -703,8 +731,14 @@ namespace Enemy
         public float TakeDamage(float damage)
         {
             // Debug.Log(":(");
+            if (enemyHP <= 3)
+            {
+                PlayerBuff.Instance.Magician1Skill();
+            }
+
             enemyHP -= damage;
             enemy.StartCoroutine(AttackedEffect());
+
             if (enemyHP <= 0)
             {
                 Die();

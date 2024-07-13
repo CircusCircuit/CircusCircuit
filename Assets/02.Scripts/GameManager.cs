@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         if (areYouDev) hp = 1000;
+        print("현재 플레이어 hp " +  hp);
     }
 
     public float PlayerHp

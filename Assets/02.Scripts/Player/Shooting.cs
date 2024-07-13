@@ -142,7 +142,10 @@ public class Shooting : MonoBehaviour
         GameManager.Instance.CurBulletCount = 0;
         GameManager.Instance.CurBulletCount = GameManager.Instance.MaxBullet;
         //print("Bullet ¿Á¿Â¿¸, " + GameManager.Instance.CurBulletCount);
-        bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+        if (curSenceIdx != "Tutorial")
+        {
+            bulletTxt.text = "BULLET X " + GameManager.Instance.CurBulletCount;
+        }
         //curTime = 0;
         loadingImg.fillAmount = 0;
         loadingObj.SetActive(false);

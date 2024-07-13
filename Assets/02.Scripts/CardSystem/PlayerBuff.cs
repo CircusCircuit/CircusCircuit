@@ -1,4 +1,5 @@
 using controller;
+using Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,6 @@ public class PlayerBuff : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -23,6 +23,9 @@ public class PlayerBuff : MonoBehaviour
         }
     }
 
+    public bool doBoss3Skill = false;
+    bool coolBoss3 = false;
+
     float OriginPlayerSpeed;
     float OriginAttackSpeed;
 
@@ -32,6 +35,7 @@ public class PlayerBuff : MonoBehaviour
 
 
     [Header("SkillTree")]
+    bool coolMagic1 = false;
     bool coolMagic2 = false;
     bool coolMagic3 = false;
     bool coolMagic4 = false;
@@ -65,7 +69,6 @@ public class PlayerBuff : MonoBehaviour
         {
             DetectMagicianSkills();
             DetectJugglerSkills();
-            //DetectAcrobatSkills();
         }
     }
 
@@ -76,6 +79,63 @@ public class PlayerBuff : MonoBehaviour
             EnemyDetected = true;
         }
         else EnemyDetected = false;
+    }
+
+    public void Magician1Skill()
+    {
+        if (SaveCardData.Instance.MagicianCard.Contains(1) && !coolMagic1)
+        {
+            StartCoroutine(Magician1Cool());
+        }
+        else return;
+    }
+
+    IEnumerator Magician1Cool()
+    {
+        coolMagic1 = true;
+        GameManager.Instance.M_AttackDamage = 1.5f;
+
+        yield return new WaitForSecondsRealtime(5);
+        GameManager.Instance.M_AttackDamage = 1;
+
+        yield return new WaitForSecondsRealtime(10);
+        coolMagic1 = false;
+    }
+
+
+    IEnumerator Magician3Cool(GameObject enemy)
+    {
+        coolMagic3 = true;
+        //Status.EnemyInstance.TakeDamage(0.5f);
+        enemy.GetComponent<Status>().TakeDamage(0.5f);
+
+        yield return new WaitForSecondsRealtime(15);
+        coolMagic3 = false;
+    }
+
+    IEnumerator Juggler3Cool(GameObject enemy)
+    {
+        coolJugg3 = true;
+        //Movement.EnemyMoveInstance.EnemySpeed = 1;
+        enemy.GetComponent<Movement>().Move(1);
+
+        yield return new WaitForSecondsRealtime(15);
+        coolJugg3 = false;
+    }
+
+    public void EnemyDebuffSkill(GameObject enemy)
+    {
+        if(enemy == null) return;
+
+        if (SaveCardData.Instance.MagicianCard.Contains(3) && !coolMagic3)
+        {
+            StartCoroutine(Magician3Cool(enemy));
+        }
+        else if (SaveCardData.Instance.JugglerCard.Contains(3) && !coolJugg3)
+        {
+            StartCoroutine(Juggler3Cool(enemy));
+        }
+        else return;
     }
 
     void DetectMagicianSkills()
@@ -168,16 +228,6 @@ public class PlayerBuff : MonoBehaviour
                 }
                 return;
         }
-    }
-
-
-    IEnumerator Magician3(int time)
-    {
-        coolMagic3 = true;
-        GameManager.Instance.PlayerHp += 0.25f;
-
-        yield return new WaitForSecondsRealtime(time);
-        coolMagic3 = false;
     }
 
     IEnumerator Magician4(int time)
@@ -322,6 +372,8 @@ public class PlayerBuff : MonoBehaviour
 
 
 
+
+    //하단 보스 스킬 가지고 있을 경우 호출
     public void Boss1()
     {
         int random = Random.Range(1, 8);
@@ -344,9 +396,23 @@ public class PlayerBuff : MonoBehaviour
 
     public void Boss3()
     {
-        if (EnemyDetected)
+        if (EnemyDetected && !coolBoss3)
         {
             //3초간 침묵 효과, 20초 쿨타임
+            StartCoroutine(Boss3Cool());
         }
+    }
+
+    IEnumerator Boss3Cool()
+    {
+        coolBoss3 = true;
+
+        doBoss3Skill = true;
+        yield return new WaitForSecondsRealtime(3);
+
+        doBoss3Skill = false;
+        yield return new WaitForSecondsRealtime(20);
+
+        coolBoss3 = false;
     }
 }

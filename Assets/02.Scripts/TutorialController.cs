@@ -56,7 +56,7 @@ public class TutorialController : MonoBehaviour
 
     IEnumerator WaitForStartTutorial()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
 
         SoundManager.instance.Play("UI_guide_01");
 
@@ -108,7 +108,7 @@ public class TutorialController : MonoBehaviour
             Cursor.visible = true;
             isClear = true;
 
-            GameManager.Instance.PlayerHp = 4;
+            //GameManager.Instance.PlayerHp = 4;
         }
     }
 

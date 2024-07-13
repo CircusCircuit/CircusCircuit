@@ -73,10 +73,10 @@ public class MapSpawnManager : MonoBehaviour
             }
             return true;
         }
-        public bool ActivateWave2()
+        public void ActivateWave2()
         {
             wave2.SetActive(true);
-            return true;
+            //return true;
         }
 
     }
@@ -84,7 +84,9 @@ public class MapSpawnManager : MonoBehaviour
     [SerializeField] GameObject leverObj;
     [SerializeField] GameObject player;
 
-    private bool isClear=false;
+    bool doSpawn = false;
+
+    //private bool isClear=false;
     List<MapArray> dynamicStageArray;
     private void Start()
     {
@@ -98,6 +100,7 @@ public class MapSpawnManager : MonoBehaviour
     {
         if (GameManager.Instance.getNextWave)
         {
+            doSpawn = false;
 
             foreach (var stage in stageArray)
             {
@@ -110,28 +113,31 @@ public class MapSpawnManager : MonoBehaviour
             GameManager.Instance.getNextWave = false;
         }
 
-        foreach (var stage in stageArray)
+        if (doSpawn)
         {
-            if (stage.AllWave1EnemiesDefeated())
+            foreach (var stage in stageArray)
             {
-                isClear = stage.ActivateWave2();
-            }
-            if (stage.AllWave2EnemiesDefeated()&&isClear)
-            {
-                GameManager.Instance.Clear = true;
-                isClear = false;
+                if (stage.AllWave1EnemiesDefeated())
+                {
+                    stage.ActivateWave2();
+                }
+                if (stage.AllWave2EnemiesDefeated()/*&&isClear*/)
+                {
+                    //GameManager.Instance.Clear = true;
+                    //isClear = false;
+                }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            MapSpawn();
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    MapSpawn();
 
-            if (dynamicStageArray.Count <= 0)
-            {
-                Allocation();
-            }
-        }
+        //    if (dynamicStageArray.Count <= 0)
+        //    {
+        //        Allocation();
+        //    }
+        //}
     }
 
     void Allocation()
@@ -156,6 +162,8 @@ public class MapSpawnManager : MonoBehaviour
         dynamicStageArray[rIndex].Wave2.SetActive(false);
 
         dynamicStageArray.RemoveAt(rIndex);
+
+        doSpawn = true;
 
     }
 }

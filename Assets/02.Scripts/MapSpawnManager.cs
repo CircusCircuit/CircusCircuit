@@ -51,6 +51,13 @@ public class MapSpawnManager : MonoBehaviour
             set { wave2 = value; }
         }
 
+        [SerializeField] GameObject healPacks;
+        public GameObject HealPacks
+        {
+            get { return healPacks; }
+            set { healPacks = value; }
+        }
+
         public bool AllWave1EnemiesDefeated()
         {
             foreach (Transform enemy in wave1.transform)

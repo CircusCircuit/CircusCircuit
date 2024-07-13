@@ -9,6 +9,7 @@ namespace Enemy
         protected override void Start()
         {
             base.Start();
+            enemyHP = 5;
             CancelInvoke();
         }
 

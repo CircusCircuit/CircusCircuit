@@ -14,6 +14,7 @@ namespace Enemy
         {
             startPosition = transform.position;
             base.Start();
+            enemyHP = 3;
             CancelInvoke();
         }
 

@@ -33,7 +33,8 @@ public class LoadScenceController : MonoBehaviour
 
     public void StartButton()
     {
-        GameManager.Instance.PlayerHp = 4;
+        //GameManager.Instance.PlayerHp = 4;
+        Destroy(GameManager.Instance.gameObject);
         SoundManager.instance.Play("UI_Click_01");
         Destroy(GameObject.Find("GameManager").gameObject);
         SceneManager.LoadScene(2);

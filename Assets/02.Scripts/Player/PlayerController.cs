@@ -55,7 +55,7 @@ namespace controller
         GameObject currentOneWayPlatform;
 
         GameObject FailUI;
-        
+
         enum States
         {
             Idle,
@@ -184,7 +184,7 @@ namespace controller
             {
                 if (isDodge)
                 {
-                    print("Dodge로 몬스터 회피성공");
+                    //print("Dodge로 몬스터 회피성공");
                     PlayerBuff.Instance.Juggler2();
                 }
             }
@@ -192,14 +192,16 @@ namespace controller
             {
                 if (isJump)
                 {
-                    print("Jump로 총알 회피성공");
+                    //print("Jump로 총알 회피성공");
                     PlayerBuff.Instance.Juggler4();
                 }
             }
 
-            if (isGround && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
+            if ((isBase || isGround) && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
             {
                 //총알 피격 시.
+                print("총알 맞음");
+
                 isAttacked = true;
                 MinusHp(collision.transform.tag);
 
@@ -408,8 +410,11 @@ namespace controller
 
         void MinusHp(string tag)
         {
-            StartCoroutine(AttackedEffect());
-            StartCoroutine(NoAttack(tag));
+            if (!PlayerBuff.Instance.doBoss3Skill)
+            {
+                StartCoroutine(NoAttack(tag));
+            }
+            else return; //HP 안깎임
         }
 
         IEnumerator AttackedEffect()
@@ -441,10 +446,12 @@ namespace controller
                 if (tag == "EnemyBullet")
                 {
                     GameManager.Instance.PlayerHp -= 1;
+                    StartCoroutine(AttackedEffect());
                 }
                 if (tag == "Enemy")
                 {
                     GameManager.Instance.PlayerHp -= 0.5f;
+                    StartCoroutine(AttackedEffect());
                 }
             }
 
@@ -452,6 +459,7 @@ namespace controller
 
             yield return new WaitForSeconds(2f);
             isAttacked = false;
+
         }
 
         void Die()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3876353204804700201}
   - component: {fileID: 3876353204804700202}
   - component: {fileID: 251633916735269869}
+  - component: {fileID: 6317737070730059643}
   m_Layer: 9
   m_Name: Mask
   m_TagString: Enemy
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bfa864c900a1fc44193b26ebf78f76de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8875c48f6c3bff14c92272d37611e2f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -155,3 +156,23 @@ MonoBehaviour:
   isAttack: 0
   isDetectPlayer: 0
   isFacingLeft: 0
+--- !u!95 &6317737070730059643
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876353204804700206}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd98710ef17e8c34a934f8f01a434626, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

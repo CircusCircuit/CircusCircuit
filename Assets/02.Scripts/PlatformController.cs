@@ -15,13 +15,18 @@ namespace controller
 
         }
 
-        // Update is called once per frame
-        void Update()
+        private void FixedUpdate()
         {
             if (Input.GetKeyDown(KeyCode.S) && isPlatform)
             {
                 enterObj.GetComponent<Collider2D>().isTrigger = true;
             }
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -31,6 +36,11 @@ namespace controller
                 enterObj = collision.gameObject;
                 isPlatform = true;
             }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            PlayerController.Instance.GetComponent<Collider2D>().isTrigger = false;
         }
 
         private void OnCollisionExit2D(Collision2D collision)

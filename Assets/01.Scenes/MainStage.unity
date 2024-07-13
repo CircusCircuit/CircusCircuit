@@ -8064,6 +8064,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1316823917491441497, guid: cdf0032e56b81b443881e0ea2a920210, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 12378c795b2059f40823f3694dfcb1ce, type: 2}
+    - target: {fileID: 1316823917491441497, guid: cdf0032e56b81b443881e0ea2a920210, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 36
       objectReference: {fileID: 0}
@@ -18727,6 +18731,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3593115997695265120, guid: cdf0032e56b81b443881e0ea2a920210, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 12378c795b2059f40823f3694dfcb1ce, type: 2}
     - target: {fileID: 3593115997695265120, guid: cdf0032e56b81b443881e0ea2a920210, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[44].Array.data[0].x
       value: 43.999973

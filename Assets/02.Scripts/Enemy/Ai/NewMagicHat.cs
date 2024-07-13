@@ -8,9 +8,17 @@ namespace Enemy
     {
         public float maxFlyDistance = 1.5f;
         Vector2 startPosition;
+        private Interact interactScript;
+        bool flag = false;
+
         protected override void Start()
         {
             base.Start();
+            GameObject interactionManager = GameObject.FindWithTag("InteractionManager");
+            if (interactionManager != null)
+            {
+                interactScript = interactionManager.GetComponent<Interact>();
+            }
             enemyHP = 5;
             CancelInvoke();
             ThinkFly();
@@ -49,6 +57,13 @@ namespace Enemy
                             Invoke("EndAttack", 1f);
                         }
                     }
+                }
+            }
+
+            if(enemyHP <= 0){
+                if(!flag){
+                    interactScript.PlayerSpeedDown(3.0f);
+                    flag = true;
                 }
             }
         }

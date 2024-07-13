@@ -747,7 +747,6 @@ namespace Enemy
         }
         private void Die()
         {
-            // enemyMove.isDying = true;
             enemy.StartCoroutine(ShrinkAndDestroy());
         }
 

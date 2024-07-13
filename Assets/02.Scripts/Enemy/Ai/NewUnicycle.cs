@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,16 @@ namespace Enemy
 {
     public class NewUnicycle : EnemyBase
     {
+        bool flag = false;
         public float knockbackDuration = 1.5f;
+        private Interact interactScript;
         protected override void Start()
         {
+            GameObject interactionManager = GameObject.FindWithTag("InteractionManager");
+            if (interactionManager != null)
+            {
+                interactScript = interactionManager.GetComponent<Interact>();
+            }
             base.Start();
             enemyHP = 5;
         }
@@ -28,6 +36,12 @@ namespace Enemy
                     {
                         Dash(10f);
                     }
+                }
+            }
+            if(enemyHP <= 0){
+                if(!flag){
+                    interactScript.PlayerSpeedUp(3.0f);
+                    flag = true;
                 }
             }
         }

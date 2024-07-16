@@ -86,6 +86,7 @@ public class LeverNextWave : MonoBehaviour
 
         //GameManager.Instance.getNextWave = true;
         CloseCurtain.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
 
         GameManager.Instance.DoCardSelect = true;
         GameManager.Instance.StageCounter++;

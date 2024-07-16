@@ -16,6 +16,7 @@ public class HealPack : MonoBehaviour
                 GameManager.Instance.PlayerHp += healAmount;
             }
             //GameObject.Destroy(this.gameObject);
+            //print(this.gameObject.name);
             this.gameObject.SetActive(false);
         }
     }

@@ -90,7 +90,8 @@ public class MapSpawnManager : MonoBehaviour
     [SerializeField] GameObject player;
 
     bool doSpawn = false;
-    bool wave2Spawn = false;
+    bool doHealPackSpawn = false;
+    //bool wave2Spawn = false;
 
     //private bool isClear=false;
     List<MapArray> dynamicStageArray;
@@ -126,12 +127,17 @@ public class MapSpawnManager : MonoBehaviour
             if (AllWave1EnemiesDefeated())
             {
                 ActivateWave2();
-                ActivateHealPacks();
+                if (!doHealPackSpawn)
+                {
+                    ActivateHealPacks();
+                }
 
-                if (wave2Spawn && AllWave2EnemiesDefeated())
+
+                if (GameManager.Instance.Wave1Clear && AllWave2EnemiesDefeated())
                 {
                     GameManager.Instance.Clear = true;
-                    wave2Spawn = false;
+                    GameManager.Instance.Wave1Clear = false;
+                    doHealPackSpawn = false;
                 }
             }
             //foreach (var stage in stageArray)
@@ -187,7 +193,7 @@ public class MapSpawnManager : MonoBehaviour
     }
 
 
-    public bool AllWave1EnemiesDefeated()
+    bool AllWave1EnemiesDefeated()
     {
         if (stageArray[rIndex].Wave1.transform.childCount == 0)
         {
@@ -203,7 +209,7 @@ public class MapSpawnManager : MonoBehaviour
         //}
         //return true;
     }
-    public bool AllWave2EnemiesDefeated()
+    bool AllWave2EnemiesDefeated()
     {
         if (stageArray[rIndex].Wave2.transform.childCount == 0)
         {
@@ -220,15 +226,16 @@ public class MapSpawnManager : MonoBehaviour
         //return true;
     }
 
-    public void ActivateWave2()
+    void ActivateWave2()
     {
         stageArray[rIndex].Wave2.SetActive(true);
-        wave2Spawn = true;
+        GameManager.Instance.Wave1Clear = true;
     }
 
-    public void ActivateHealPacks()
+    void ActivateHealPacks()
     {
         stageArray[rIndex].HealPacks.SetActive(true);
+        doHealPackSpawn = true;
     }
 }
 

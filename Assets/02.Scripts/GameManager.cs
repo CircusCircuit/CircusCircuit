@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public int curStageIndex;
     public bool getNextWave = false;
     [SerializeField] bool isClear;
+    bool wave1Clear;
+    //bool wave2Clear;
     [SerializeField] bool doCardSelect;
     int stageCounter = 0;
 
@@ -146,5 +148,10 @@ public class GameManager : MonoBehaviour
     {
         get { return stageCounter; }
         set { stageCounter = value; }
+    }
+    public bool Wave1Clear
+    {
+        get { return wave1Clear; }
+        set { wave1Clear = value; }
     }
 }

@@ -5,7 +5,13 @@ using UnityEngine.Rendering;
 
 public class Interact : MonoBehaviour
 {
-    float originalSpeed = GameManager.Instance.PlayerSpeed;
+    float originalSpeed;
+
+    private void Start()
+    {
+        originalSpeed = GameManager.Instance.PlayerSpeed;
+    }
+
 
     public void PlayerSpeedInitialization(){
         GameManager.Instance.PlayerSpeed = originalSpeed;

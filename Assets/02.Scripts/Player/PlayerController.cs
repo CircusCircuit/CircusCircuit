@@ -200,7 +200,7 @@ namespace controller
             if ((isBase || isGround) && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
             {
                 //ÃÑ¾Ë ÇÇ°Ý ½Ã.
-                print("ÃÑ¾Ë ¸ÂÀ½");
+                //print("ÃÑ¾Ë ¸ÂÀ½");
 
                 isAttacked = true;
                 MinusHp(collision.transform.tag);

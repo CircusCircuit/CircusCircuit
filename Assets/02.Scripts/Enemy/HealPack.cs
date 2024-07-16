@@ -15,7 +15,8 @@ public class HealPack : MonoBehaviour
             if(currentHP<4){
                 GameManager.Instance.PlayerHp += healAmount;
             }
-            GameObject.Destroy(this.gameObject);
+            //GameObject.Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 

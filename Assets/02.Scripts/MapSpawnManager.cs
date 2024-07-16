@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86;
 
 public class MapSpawnManager : MonoBehaviour
 {
@@ -58,45 +59,38 @@ public class MapSpawnManager : MonoBehaviour
             set { healPacks = value; }
         }
 
-        public bool AllWave1EnemiesDefeated()
-        {
-            foreach (Transform enemy in wave1.transform)
-            {
-                if (enemy.gameObject.activeInHierarchy)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        public bool AllWave2EnemiesDefeated()
-        {
-            foreach (Transform enemy in wave2.transform)
-            {
-                if (enemy.gameObject.activeInHierarchy)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        public void ActivateWave2()
-        {
-            wave2.SetActive(true);
-            //return true;
-        }
-        public void ActivateHealPacks()
-        {
-            healPacks.SetActive(true);
-            //return true;
-        }
-
+        //public bool AllWave1EnemiesDefeated()
+        //{
+        //    foreach (Transform enemy in wave1.transform)
+        //    {
+        //        if (enemy.gameObject.activeInHierarchy)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
+        //public bool AllWave2EnemiesDefeated()
+        //{
+        //    foreach (Transform enemy in wave2.transform)
+        //    {
+        //        if (enemy.gameObject.activeInHierarchy)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
     }
+
+    int rIndex;
+
     [SerializeField] List<MapArray> stageArray;
     [SerializeField] GameObject leverObj;
     [SerializeField] GameObject player;
 
     bool doSpawn = false;
+    bool wave2Spawn = false;
 
     //private bool isClear=false;
     List<MapArray> dynamicStageArray;
@@ -127,19 +121,32 @@ public class MapSpawnManager : MonoBehaviour
 
         if (doSpawn)
         {
-            foreach (var stage in stageArray)
+            //print("@@@AllWave1EnemiesDefeated@@@ " + AllWave1EnemiesDefeated() + " , rIndex´Â " + rIndex);
+
+            if (AllWave1EnemiesDefeated())
             {
-                if (stage.AllWave1EnemiesDefeated())
-                {
-                    stage.ActivateWave2();
-                    stage.ActivateHealPacks();
-                }
-                if (stage.AllWave2EnemiesDefeated()/*&&isClear*/)
+                ActivateWave2();
+                ActivateHealPacks();
+
+                if (wave2Spawn && AllWave2EnemiesDefeated())
                 {
                     GameManager.Instance.Clear = true;
-                    //isClear = false;
+                    wave2Spawn = false;
                 }
             }
+            //foreach (var stage in stageArray)
+            //{
+            //    if (stage.AllWave1EnemiesDefeated())
+            //    {
+            //        stage.ActivateWave2();
+            //        stage.ActivateHealPacks();
+            //    }
+            //    if (stage.AllWave2EnemiesDefeated()/*&&isClear*/)
+            //    {
+            //        GameManager.Instance.Clear = true;
+            //        //isClear = false;
+            //    }
+            //}
         }
 
         //if (Input.GetKeyDown(KeyCode.Escape))
@@ -164,7 +171,7 @@ public class MapSpawnManager : MonoBehaviour
 
     void MapSpawn()
     {
-        int rIndex = Random.Range(0, dynamicStageArray.Count);
+        rIndex = Random.Range(0, dynamicStageArray.Count);
 
         cam.transform.position = dynamicStageArray[rIndex].MapPos;
         leverObj.transform.position = dynamicStageArray[rIndex].LeverPos;
@@ -177,7 +184,51 @@ public class MapSpawnManager : MonoBehaviour
         dynamicStageArray.RemoveAt(rIndex);
 
         doSpawn = true;
+    }
 
+
+    public bool AllWave1EnemiesDefeated()
+    {
+        if (stageArray[rIndex].Wave1.transform.childCount == 0)
+        {
+            return true;
+        }
+        return false;
+        //foreach (Transform enemy in dynamicStageArray[rIndex].Wave1.transform)
+        //{
+        //    if (enemy.gameObject.activeInHierarchy)
+        //    {
+        //        return false;
+        //    }
+        //}
+        //return true;
+    }
+    public bool AllWave2EnemiesDefeated()
+    {
+        if (stageArray[rIndex].Wave2.transform.childCount == 0)
+        {
+            return true;
+        }
+        return false;
+        //foreach (Transform enemy in dynamicStageArray[rIndex].Wave2.transform)
+        //{
+        //    if (enemy.gameObject.activeInHierarchy)
+        //    {
+        //        return false;
+        //    }
+        //}
+        //return true;
+    }
+
+    public void ActivateWave2()
+    {
+        stageArray[rIndex].Wave2.SetActive(true);
+        wave2Spawn = true;
+    }
+
+    public void ActivateHealPacks()
+    {
+        stageArray[rIndex].HealPacks.SetActive(true);
     }
 }
 

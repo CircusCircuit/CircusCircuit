@@ -30227,7 +30227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1cb1f0b64ae1142aa6b6f3e5bd898d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areYouDev: 0
+  areYouDev: 1
   curStageIndex: 0
   getNextWave: 0
   isClear: 0

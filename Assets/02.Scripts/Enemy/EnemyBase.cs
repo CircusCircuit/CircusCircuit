@@ -226,14 +226,14 @@ namespace Enemy
         }
         public void UpJump()
         {
-            Debug.Log("upjump");
+            //Debug.Log("upjump");
             rigid.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
             rigid.AddForce(Vector2.right * enemy.nextmove * 5f, ForceMode2D.Impulse);
         }
         public void DownJump()
         {
             oneWay.DownJump();
-            Debug.Log("downjump");
+            //Debug.Log("downjump");
             rigid.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
         }
 
@@ -254,7 +254,7 @@ namespace Enemy
         {
             float knockbackForce = 5f;
 
-            Debug.Log("knockback");
+            //Debug.Log("knockback");
             // Debug.Log(direction);
 
             rigid.velocity = Vector2.zero;
@@ -264,7 +264,7 @@ namespace Enemy
         }
         public void Dash(float moveSpeed = 5f)
         {
-            Debug.Log("Dash!");
+            //Debug.Log("Dash!");
 
             if (enemy.isFacingLeft)
             {
@@ -327,7 +327,7 @@ namespace Enemy
                 {
                     if (playerPosition.x < enemy.transform.position.x && distanceToPlayerX <= detectionRange)
                     {
-                        Debug.Log("Player detected on the left!");
+                        //Debug.Log("Player detected on the left!");
                         enemy.isDetectPlayer = true;
                     }
                 }
@@ -336,7 +336,7 @@ namespace Enemy
                 {
                     if (playerPosition.x > enemy.transform.position.x && distanceToPlayerX <= detectionRange)
                     {
-                        Debug.Log("Player detected on the right!");
+                        //Debug.Log("Player detected on the right!");
                         enemy.isDetectPlayer = true;
                     }
                 }
@@ -365,7 +365,7 @@ namespace Enemy
                 // 플레이어가 몬스터의 아래 쪽에 있을 때
                 if (playerPosition.y < enemy.transform.position.y && distanceToPlayerY <= detectionRange)
                 {
-                    Debug.Log("Player detected below!!");
+                    //Debug.Log("Player detected below!!");
                     enemy.isDetectPlayer = true;
                     enemy.nextmove = -1;
                 }
@@ -375,7 +375,7 @@ namespace Enemy
                 {
                     if (playerPosition.y > enemy.transform.position.y && distanceToPlayerY <= detectionRange)
                     {
-                        Debug.Log("Player detected above!!");
+                        //Debug.Log("Player detected above!!");
                         enemy.isDetectPlayer = true;
                         enemy.nextmove = 1;
                     }
@@ -404,7 +404,7 @@ namespace Enemy
             if (distance <= detectionRange)
             {
                 enemy.isDetectPlayer = true;
-                Debug.Log("Player detected!");
+                //Debug.Log("Player detected!");
             }
             else
             {
@@ -573,7 +573,7 @@ namespace Enemy
             // 플레이어가 없으면 코루틴을 종료합니다.
             if (player == null)
             {
-                Debug.LogWarning("Player object not found.");
+                //Debug.LogWarning("Player object not found.");
                 yield break;
             }
 
@@ -598,7 +598,7 @@ namespace Enemy
 
         public void FireBullet_Circle12()
         {
-            Debug.Log("fire!");
+            //Debug.Log("fire!");
 
             for (int i = 0; i < 12; i++)
             {

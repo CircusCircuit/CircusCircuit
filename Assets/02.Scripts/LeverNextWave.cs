@@ -43,7 +43,7 @@ public class LeverNextWave : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("LeverNextWave에서 Clear상태  " + GameManager.Instance.Clear);
+        //print("LeverNextWave에서 Clear상태  " + GameManager.Instance.Clear);
         if (GameManager.Instance.Clear)
         {
             transform.GetChild(0).gameObject.SetActive(true);

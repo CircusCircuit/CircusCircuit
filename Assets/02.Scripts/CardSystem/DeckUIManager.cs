@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using Card;
 using System.IO;
+using UnityEngine.EventSystems;
 
 public class DeckUIManager : MonoBehaviour
 {

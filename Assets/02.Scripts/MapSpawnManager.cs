@@ -58,29 +58,6 @@ public class MapSpawnManager : MonoBehaviour
             get { return healPacks; }
             set { healPacks = value; }
         }
-
-        //public bool AllWave1EnemiesDefeated()
-        //{
-        //    foreach (Transform enemy in wave1.transform)
-        //    {
-        //        if (enemy.gameObject.activeInHierarchy)
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-        //public bool AllWave2EnemiesDefeated()
-        //{
-        //    foreach (Transform enemy in wave2.transform)
-        //    {
-        //        if (enemy.gameObject.activeInHierarchy)
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
     }
 
     int rIndex;

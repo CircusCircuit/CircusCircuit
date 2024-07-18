@@ -135,9 +135,10 @@ GameObject:
   - component: {fileID: 4862543}
   - component: {fileID: 4862542}
   - component: {fileID: 4862544}
+  - component: {fileID: 4862545}
   m_Layer: 5
-  m_Name: Image (7)
-  m_TagString: Untagged
+  m_Name: 7
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,8 +219,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 4862545}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -234,8 +235,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 4862545}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -246,6 +247,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4862545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &11830855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -728,9 +741,10 @@ GameObject:
   - component: {fileID: 97790955}
   - component: {fileID: 97790954}
   - component: {fileID: 97790956}
+  - component: {fileID: 97790957}
   m_Layer: 5
-  m_Name: Image (4)
-  m_TagString: Untagged
+  m_Name: 4
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -811,9 +825,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
+        - m_Target: {fileID: 97790957}
           m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
-          m_MethodName: OnHoverEnter
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -827,9 +841,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
+        - m_Target: {fileID: 97790957}
           m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
-          m_MethodName: OnHoverExit
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -839,6 +853,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &97790957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97790952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &102252987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1276,10 @@ GameObject:
   - component: {fileID: 120826999}
   - component: {fileID: 120827000}
   - component: {fileID: 120826998}
-  m_Layer: 5
+  - component: {fileID: 120827001}
+  - component: {fileID: 120827003}
+  - component: {fileID: 120827002}
+  m_Layer: 10
   m_Name: Set2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1284,7 +1313,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120826996}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1371,6 +1400,83 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &120827001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120826996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 120827003}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
+          m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 120827003}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &120827002
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120826996}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a3e832d959f83c40823871edc692a0e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &120827003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120826996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &125183628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,7 +1869,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &186559613
 GameObject:
@@ -2140,9 +2246,10 @@ GameObject:
   - component: {fileID: 203088519}
   - component: {fileID: 203088518}
   - component: {fileID: 203088520}
+  - component: {fileID: 203088521}
   m_Layer: 5
-  m_Name: Image (2)
-  m_TagString: Untagged
+  m_Name: 2
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2223,8 +2330,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 203088521}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -2239,8 +2346,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 203088521}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -2251,6 +2358,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &203088521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203088516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &214113351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2394,9 +2513,10 @@ GameObject:
   - component: {fileID: 220359146}
   - component: {fileID: 220359145}
   - component: {fileID: 220359147}
+  - component: {fileID: 220359148}
   m_Layer: 5
-  m_Name: Image (12)
-  m_TagString: Untagged
+  m_Name: 11
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2477,8 +2597,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 220359148}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -2493,8 +2613,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 220359148}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -2505,6 +2625,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &220359148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220359143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &223468412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2760,9 +2892,10 @@ GameObject:
   - component: {fileID: 241210053}
   - component: {fileID: 241210052}
   - component: {fileID: 241210054}
+  - component: {fileID: 241210055}
   m_Layer: 5
-  m_Name: Image (4)
-  m_TagString: Untagged
+  m_Name: 3
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2843,8 +2976,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 241210055}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -2859,8 +2992,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 241210055}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -2871,6 +3004,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &241210055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241210050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &248619913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,7 +3058,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &251647808
 GameObject:
@@ -3630,7 +3775,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1268859796}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3746,9 +3891,10 @@ GameObject:
   - component: {fileID: 284761437}
   - component: {fileID: 284761436}
   - component: {fileID: 284761438}
+  - component: {fileID: 284761439}
   m_Layer: 5
-  m_Name: Image (1)
-  m_TagString: Untagged
+  m_Name: 1
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3829,8 +3975,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 284761439}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -3845,8 +3991,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 284761439}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -3857,6 +4003,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &284761439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284761434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &289036896
 GameObject:
   m_ObjectHideFlags: 0
@@ -5442,9 +5600,10 @@ GameObject:
   - component: {fileID: 403967319}
   - component: {fileID: 403967318}
   - component: {fileID: 403967320}
+  - component: {fileID: 403967321}
   m_Layer: 5
-  m_Name: Image (3)
-  m_TagString: Untagged
+  m_Name: 3
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5525,8 +5684,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 403967321}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -5541,8 +5700,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 403967321}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -5553,6 +5712,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &403967321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403967316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &417499017
 GameObject:
   m_ObjectHideFlags: 0
@@ -6079,9 +6250,10 @@ GameObject:
   - component: {fileID: 462319835}
   - component: {fileID: 462319834}
   - component: {fileID: 462319836}
+  - component: {fileID: 462319837}
   m_Layer: 5
-  m_Name: Image (12)
-  m_TagString: Untagged
+  m_Name: 11
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6162,8 +6334,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 462319837}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -6178,8 +6350,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 462319837}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -6190,6 +6362,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &462319837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462319832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &483053286
 GameObject:
   m_ObjectHideFlags: 0
@@ -7389,9 +7573,10 @@ GameObject:
   - component: {fileID: 567834265}
   - component: {fileID: 567834264}
   - component: {fileID: 567834266}
+  - component: {fileID: 567834267}
   m_Layer: 5
-  m_Name: Image (3)
-  m_TagString: Untagged
+  m_Name: 2
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7472,8 +7657,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 567834267}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -7488,8 +7673,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 567834267}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -7500,6 +7685,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &567834267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567834262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &571977892
 GameObject:
   m_ObjectHideFlags: 0
@@ -7663,9 +7860,10 @@ GameObject:
   - component: {fileID: 593344258}
   - component: {fileID: 593344257}
   - component: {fileID: 593344259}
+  - component: {fileID: 593344260}
   m_Layer: 5
-  m_Name: Image (06)
-  m_TagString: Untagged
+  m_Name: 5
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7746,8 +7944,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 593344260}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -7762,8 +7960,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 593344260}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -7774,6 +7972,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &593344260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593344255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &594956208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20911,6 +21121,107 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682956561}
   m_CullTransparentMesh: 1
+--- !u!1 &700215852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 700215857}
+  - component: {fileID: 700215856}
+  - component: {fileID: 700215855}
+  - component: {fileID: 700215854}
+  m_Layer: 5
+  m_Name: HoverCardCanvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &700215854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700215852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &700215855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700215852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &700215856
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700215852}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 3
+  m_TargetDisplay: 0
+--- !u!224 &700215857
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700215852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 973989942}
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &716019752
 GameObject:
   m_ObjectHideFlags: 0
@@ -21682,9 +21993,10 @@ GameObject:
   - component: {fileID: 762664018}
   - component: {fileID: 762664017}
   - component: {fileID: 762664019}
+  - component: {fileID: 762664020}
   m_Layer: 5
-  m_Name: Image (11)
-  m_TagString: Untagged
+  m_Name: 10
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21765,8 +22077,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 762664020}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -21781,8 +22093,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 762664020}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -21793,6 +22105,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &762664020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762664015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &766401046
 GameObject:
   m_ObjectHideFlags: 0
@@ -21972,7 +22296,10 @@ GameObject:
   - component: {fileID: 806138209}
   - component: {fileID: 806138207}
   - component: {fileID: 806138208}
-  m_Layer: 5
+  - component: {fileID: 806138211}
+  - component: {fileID: 806138213}
+  - component: {fileID: 806138212}
+  m_Layer: 10
   m_Name: Set3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22016,7 +22343,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806138206}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -22093,6 +22420,83 @@ RectTransform:
   m_AnchoredPosition: {x: 435, y: 0}
   m_SizeDelta: {x: 374, y: 467}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &806138211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806138206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 806138213}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
+          m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 806138213}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &806138212
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806138206}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a3e832d959f83c40823871edc692a0e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &806138213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806138206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &808469175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22364,9 +22768,10 @@ GameObject:
   - component: {fileID: 826946140}
   - component: {fileID: 826946139}
   - component: {fileID: 826946141}
+  - component: {fileID: 826946142}
   m_Layer: 5
-  m_Name: Image (2)
-  m_TagString: Untagged
+  m_Name: 1
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22447,8 +22852,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 826946142}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -22463,8 +22868,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 826946142}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -22475,6 +22880,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &826946142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826946137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &834550010
 GameObject:
   m_ObjectHideFlags: 0
@@ -22622,7 +23039,6 @@ GameObject:
   - component: {fileID: 836551403}
   - component: {fileID: 836551402}
   - component: {fileID: 836551401}
-  - component: {fileID: 836551406}
   m_Layer: 5
   m_Name: DeckUICanvas
   m_TagString: Untagged
@@ -22647,6 +23063,21 @@ MonoBehaviour:
   JugBlock: {fileID: 266703459}
   CloseCurtain: {fileID: 2132918622}
   anim: {fileID: 2132918623}
+  MagicSprites:
+  - {fileID: 21300000, guid: f4fdbdeb12be3405089e9662c71ffe74, type: 3}
+  - {fileID: 21300000, guid: 9940947f1e30740298d5c670ff8bb698, type: 3}
+  - {fileID: 21300000, guid: 0e4a18ecd151548728c1e5822805d5ed, type: 3}
+  - {fileID: 21300000, guid: 980d36a351ccb4b929c5be44c783f527, type: 3}
+  JuggSprites:
+  - {fileID: 21300000, guid: b8cf83a4e1f1c427eb929664224655dc, type: 3}
+  - {fileID: 21300000, guid: 2d9706b59968446c68255f023c58d662, type: 3}
+  - {fileID: 21300000, guid: 98015b48a2eed4610bff2f9124599de2, type: 3}
+  - {fileID: 21300000, guid: 3e841d88ef00a4d3ca4ed1d630c2a02c, type: 3}
+  AcroSprites:
+  - {fileID: 21300000, guid: a2af461b993994e66a16c34aaa8f348f, type: 3}
+  - {fileID: 21300000, guid: 41aadeddeec1a4b98aae774b13411b0b, type: 3}
+  - {fileID: 21300000, guid: 63b613b418cfa4d3ab3b517bb86b927d, type: 3}
+  - {fileID: 21300000, guid: c328a4df3c36648d1be67a7bf1e322d3, type: 3}
 --- !u!114 &836551402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22734,18 +23165,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &836551406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836551400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3f3bb7747b3b2d469a06c73d686f888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &852630639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23155,9 +23574,10 @@ GameObject:
   - component: {fileID: 873142016}
   - component: {fileID: 873142015}
   - component: {fileID: 873142017}
+  - component: {fileID: 873142018}
   m_Layer: 5
-  m_Name: Image (9)
-  m_TagString: Untagged
+  m_Name: 9
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23238,8 +23658,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 873142018}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -23254,8 +23674,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 873142018}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -23266,6 +23686,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &873142018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873142013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &876622430
 GameObject:
   m_ObjectHideFlags: 0
@@ -23801,9 +24233,10 @@ GameObject:
   - component: {fileID: 910381845}
   - component: {fileID: 910381844}
   - component: {fileID: 910381846}
+  - component: {fileID: 910381847}
   m_Layer: 5
-  m_Name: Image (9)
-  m_TagString: Untagged
+  m_Name: 8
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23884,8 +24317,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 910381847}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -23900,8 +24333,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 910381847}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -23912,6 +24345,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &910381847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910381842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &917041401
 GameObject:
   m_ObjectHideFlags: 0
@@ -23924,7 +24369,10 @@ GameObject:
   - component: {fileID: 917041404}
   - component: {fileID: 917041405}
   - component: {fileID: 917041403}
-  m_Layer: 5
+  - component: {fileID: 917041406}
+  - component: {fileID: 917041408}
+  - component: {fileID: 917041407}
+  m_Layer: 10
   m_Name: Set1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23958,7 +24406,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917041401}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -24045,6 +24493,83 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &917041406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917041401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 917041408}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
+          m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 917041408}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &917041407
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917041401}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a3e832d959f83c40823871edc692a0e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &917041408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917041401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &924614130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24253,9 +24778,10 @@ GameObject:
   - component: {fileID: 931391790}
   - component: {fileID: 931391789}
   - component: {fileID: 931391791}
+  - component: {fileID: 931391792}
   m_Layer: 5
-  m_Name: Image (5)
-  m_TagString: Untagged
+  m_Name: 4
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24336,8 +24862,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 931391792}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -24352,8 +24878,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 931391792}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -24364,6 +24890,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &931391792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931391787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &931587244
 GameObject:
   m_ObjectHideFlags: 0
@@ -24805,6 +25343,138 @@ Transform:
   m_Father: {fileID: 496289465}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &973989941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973989942}
+  - component: {fileID: 973989944}
+  - component: {fileID: 973989943}
+  - component: {fileID: 973989945}
+  m_Layer: 5
+  m_Name: TextFrame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &973989942
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973989941}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1386183416}
+  - {fileID: 1910752787}
+  m_Father: {fileID: 700215857}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 643, y: 159}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &973989943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973989941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a4b04c4e05ad14f5287c823550100c6d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &973989944
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973989941}
+  m_CullTransparentMesh: 1
+--- !u!114 &973989945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973989941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f3bb7747b3b2d469a06c73d686f888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardInfoFrame: {fileID: 973989942}
+  CardNameTxt: {fileID: 1386183417}
+  CardSummTxt: {fileID: 1910752788}
+  MagicCardInfo:
+  - NameInfo: "\uD654\uC5FC\uC758 \uCDA4"
+    SummInfo: "\uCCB4\uB825\uC774 10 \uC774\uD558\uC778 \uBAAC\uC2A4\uD130\uC5D0\uAC8C
+      5\uCD08 \uAC04 \uACF5\uACA9\uB825 \uC99D\uAC00"
+  - NameInfo: "\uCE74\uB9AC\uC2A4\uB9C8"
+    SummInfo: "\uADFC\uC811\uD55C \uBAAC\uC2A4\uD130\uAC00 \uC788\uC744 \uC2DC \uACF5\uACA9\uB825
+      \uC99D\uAC00"
+  - NameInfo: "\uBD84\uB178\uC758 \uB9C8\uC2DC\uBA5C\uB85C"
+    SummInfo: "\uADFC\uC811\uD55C \uBAAC\uC2A4\uD130\uC5D0\uAC8C 1\uD68C \uCDA9\uB3CC
+      \uD53C\uD574"
+  - NameInfo: "\uC0AC\uC790\uC758 \uD3ED\uCC39"
+    SummInfo: "\uB0B4\uB824\uAC00\uAE30 \uCC29\uC9C0 \uC9C1\uD6C4 5\uCD08 \uAC04
+      \uACF5\uACA9\uC18D\uB3C4 \uC99D\uAC00"
+  JuggCardInfo:
+  - NameInfo: "\uC2A4\uD3EC\uD2B8\uB77C\uC774\uD2B8"
+    SummInfo: "\uCCB4\uB825\uC774 2 \uBBF8\uB9CC\uC77C \uB54C 5\uCD08 \uAC04 \uC774\uB3D9\uC18D\uB3C4
+      \uC99D\uAC00"
+  - NameInfo: "\uC678\uC904\uD0C0\uAE30"
+    SummInfo: "\uAD6C\uB974\uAE30\uB85C \uD68C\uD53C \uC131\uACF5 \uC2DC \uCCB4\uB825
+      \uC99D\uAC00"
+  - NameInfo: "\uC801\uB9C9\uADF9\uC7A5"
+    SummInfo: "\uADFC\uC811\uD55C \uBAAC\uC2A4\uD130\uC758 \uC774\uB3D9\uC18D\uB3C4
+      \uAC10\uC18C"
+  - NameInfo: "\uD56B\uB3C4\uADF8\uC758 \uC0AC\uBA85"
+    SummInfo: "\uC810\uD504\uB85C \uD68C\uD53C \uC131\uACF5 \uC2DC \uCCB4\uB825 \uC99D\uAC00"
+  AcroCardInfo:
+  - NameInfo: "\uD06C\uB7F0\uCE58 \uD478\uB529"
+    SummInfo: "\uBB3C\uB9AC \uACF5\uACA9 \uD53C\uACA9 \uC9C1\uD6C4 2\uCD08 \uAC04
+      \uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00"
+  - NameInfo: "\uC694\uAC70\uD2B8 \uC774\uD074\uB9BD\uC2A4"
+    SummInfo: "\uD0C4\uB9C9 \uACF5\uACA9 \uD53C\uACA9 \uC9C1\uD6C4 2\uCD08 \uAC04
+      \uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00"
+  - NameInfo: "\uD76C\uB9DD \uC625\uC218\uC218"
+    SummInfo: "\uC810\uD504 \uCC29\uC9C0 \uC9C1\uD6C4 2\uCD08\uAC04 \uC774\uB3D9\uC18D\uB3C4
+      \uC99D\uAC00"
+  - NameInfo: "\uC2A4\uBB34\uC2A4 \uD06C\uB798\uCEE4"
+    SummInfo: "\uB0B4\uB824\uAC00\uAE30 \uCC29\uC9C0 \uC9C1\uD6C4 2\uCD08\uAC04 \uC774\uB3D9\uC18D\uB3C4
+      \uC99D\uAC00"
 --- !u!1 &983410276
 GameObject:
   m_ObjectHideFlags: 0
@@ -24892,9 +25562,10 @@ GameObject:
   - component: {fileID: 984718330}
   - component: {fileID: 984718329}
   - component: {fileID: 984718331}
+  - component: {fileID: 984718332}
   m_Layer: 5
-  m_Name: Image (10)
-  m_TagString: Untagged
+  m_Name: 9
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24975,8 +25646,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 984718332}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -24991,8 +25662,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 984718332}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -25003,6 +25674,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &984718332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984718327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &985735920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25077,9 +25760,10 @@ GameObject:
   - component: {fileID: 1003661157}
   - component: {fileID: 1003661156}
   - component: {fileID: 1003661158}
+  - component: {fileID: 1003661159}
   m_Layer: 5
-  m_Name: Image (6)
-  m_TagString: Untagged
+  m_Name: 6
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25160,8 +25844,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1003661159}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -25176,8 +25860,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1003661159}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -25188,6 +25872,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1003661159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003661154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1005870521
 GameObject:
   m_ObjectHideFlags: 0
@@ -26388,9 +27084,10 @@ GameObject:
   - component: {fileID: 1078163023}
   - component: {fileID: 1078163022}
   - component: {fileID: 1078163024}
+  - component: {fileID: 1078163025}
   m_Layer: 5
-  m_Name: Image (4)
-  m_TagString: Untagged
+  m_Name: 3
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26471,8 +27168,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1078163025}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -26487,8 +27184,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1078163025}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -26499,6 +27196,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1078163025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078163020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1078210171
 GameObject:
   m_ObjectHideFlags: 0
@@ -27816,7 +28525,7 @@ Transform:
   - {fileID: 515586099}
   - {fileID: 116540710}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1155320642
 GameObject:
@@ -28806,9 +29515,10 @@ GameObject:
   - component: {fileID: 1257430884}
   - component: {fileID: 1257430883}
   - component: {fileID: 1257430885}
+  - component: {fileID: 1257430886}
   m_Layer: 5
-  m_Name: Image (2)
-  m_TagString: Untagged
+  m_Name: 1
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28889,8 +29599,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1257430886}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -28905,8 +29615,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1257430886}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -28917,6 +29627,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1257430886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257430881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1259241282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29029,9 +29751,10 @@ GameObject:
   - component: {fileID: 1268859798}
   - component: {fileID: 1268859797}
   - component: {fileID: 1268859799}
+  - component: {fileID: 1268859800}
   m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
+  m_Name: 0
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29048,7 +29771,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1959778971}
   - {fileID: 284462540}
   m_Father: {fileID: 944776394}
   m_RootOrder: 0
@@ -29113,8 +29835,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1268859800}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -29129,8 +29851,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1268859800}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -29141,6 +29863,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1268859800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268859795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1271811532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30430,6 +31164,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368372794}
   m_CullTransparentMesh: 1
+--- !u!1 &1386183415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1386183416}
+  - component: {fileID: 1386183418}
+  - component: {fileID: 1386183417}
+  m_Layer: 5
+  m_Name: NameTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1386183416
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386183415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 973989942}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 7.5, y: 50}
+  m_SizeDelta: {x: -15, y: -100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1386183417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386183415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 4
+    m_MaxSize: 49
+    m_Alignment: 6
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1386183418
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386183415}
+  m_CullTransparentMesh: 1
 --- !u!1 &1389439429
 GameObject:
   m_ObjectHideFlags: 0
@@ -30639,9 +31453,10 @@ GameObject:
   - component: {fileID: 1401533212}
   - component: {fileID: 1401533211}
   - component: {fileID: 1401533213}
+  - component: {fileID: 1401533214}
   m_Layer: 5
-  m_Name: Image (5)
-  m_TagString: Untagged
+  m_Name: 4
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30722,8 +31537,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1401533214}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -30738,8 +31553,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1401533214}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -30750,6 +31565,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1401533214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401533209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1411300388
 GameObject:
   m_ObjectHideFlags: 0
@@ -30762,9 +31589,10 @@ GameObject:
   - component: {fileID: 1411300391}
   - component: {fileID: 1411300390}
   - component: {fileID: 1411300392}
+  - component: {fileID: 1411300393}
   m_Layer: 5
-  m_Name: Image (1)
-  m_TagString: Untagged
+  m_Name: 0
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30845,8 +31673,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1411300393}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -30861,8 +31689,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1411300393}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -30873,6 +31701,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1411300393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411300388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1427133396
 GameObject:
   m_ObjectHideFlags: 0
@@ -30885,9 +31725,10 @@ GameObject:
   - component: {fileID: 1427133399}
   - component: {fileID: 1427133398}
   - component: {fileID: 1427133400}
+  - component: {fileID: 1427133401}
   m_Layer: 5
-  m_Name: Image (5)
-  m_TagString: Untagged
+  m_Name: 5
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30968,8 +31809,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1427133401}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -30984,8 +31825,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1427133401}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -30996,6 +31837,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1427133401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427133396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1446294813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31205,9 +32058,10 @@ GameObject:
   - component: {fileID: 1467090701}
   - component: {fileID: 1467090700}
   - component: {fileID: 1467090702}
+  - component: {fileID: 1467090703}
   m_Layer: 5
-  m_Name: Image (7)
-  m_TagString: Untagged
+  m_Name: 6
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31288,8 +32142,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1467090703}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -31304,8 +32158,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1467090703}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -31316,6 +32170,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1467090703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467090698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1468735856
 GameObject:
   m_ObjectHideFlags: 0
@@ -31578,7 +32444,7 @@ Transform:
   - {fileID: 2053470348}
   - {fileID: 961147692}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1481173276
 GameObject:
@@ -32169,9 +33035,10 @@ GameObject:
   - component: {fileID: 1541380973}
   - component: {fileID: 1541380972}
   - component: {fileID: 1541380974}
+  - component: {fileID: 1541380975}
   m_Layer: 5
-  m_Name: Image (8)
-  m_TagString: Untagged
+  m_Name: 7
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32252,8 +33119,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1541380975}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -32268,8 +33135,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1541380975}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -32280,6 +33147,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1541380975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541380970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1548521534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33322,9 +34201,10 @@ GameObject:
   - component: {fileID: 1627910332}
   - component: {fileID: 1627910331}
   - component: {fileID: 1627910333}
+  - component: {fileID: 1627910334}
   m_Layer: 5
-  m_Name: Image (10)
-  m_TagString: Untagged
+  m_Name: 10
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33405,8 +34285,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1627910334}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -33421,8 +34301,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1627910334}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -33433,6 +34313,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1627910334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627910329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1632635648
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33613,9 +34505,10 @@ GameObject:
   - component: {fileID: 1664382440}
   - component: {fileID: 1664382439}
   - component: {fileID: 1664382441}
+  - component: {fileID: 1664382442}
   m_Layer: 5
-  m_Name: Image (10)
-  m_TagString: Untagged
+  m_Name: 9
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33696,8 +34589,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1664382442}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -33712,8 +34605,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1664382442}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -33724,6 +34617,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1664382442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664382437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1668507168
 GameObject:
   m_ObjectHideFlags: 0
@@ -33736,9 +34641,10 @@ GameObject:
   - component: {fileID: 1668507171}
   - component: {fileID: 1668507170}
   - component: {fileID: 1668507172}
+  - component: {fileID: 1668507173}
   m_Layer: 5
-  m_Name: Image (9)
-  m_TagString: Untagged
+  m_Name: 8
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33819,8 +34725,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1668507173}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -33835,8 +34741,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1668507173}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -33847,6 +34753,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1668507173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668507168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1678300246
 GameObject:
   m_ObjectHideFlags: 0
@@ -34029,9 +34947,10 @@ GameObject:
   - component: {fileID: 1679771166}
   - component: {fileID: 1679771165}
   - component: {fileID: 1679771167}
+  - component: {fileID: 1679771168}
   m_Layer: 5
-  m_Name: Image (8)
-  m_TagString: Untagged
+  m_Name: 7
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34112,8 +35031,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1679771168}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -34128,8 +35047,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1679771168}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -34140,6 +35059,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1679771168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679771163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1680048583
 GameObject:
   m_ObjectHideFlags: 0
@@ -34358,9 +35289,10 @@ GameObject:
   - component: {fileID: 1685121340}
   - component: {fileID: 1685121339}
   - component: {fileID: 1685121341}
+  - component: {fileID: 1685121342}
   m_Layer: 5
-  m_Name: Image (7)
-  m_TagString: Untagged
+  m_Name: 6
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34441,8 +35373,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1685121342}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -34457,8 +35389,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1685121342}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -34469,6 +35401,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1685121342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685121337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1686267900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35988,7 +36932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6612029632852025881, guid: c2f90aa98995cdb4d8e5b5b5e8c7cddc, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6612029632852025881, guid: c2f90aa98995cdb4d8e5b5b5e8c7cddc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -36828,9 +37772,10 @@ GameObject:
   - component: {fileID: 1866981307}
   - component: {fileID: 1866981306}
   - component: {fileID: 1866981308}
+  - component: {fileID: 1866981309}
   m_Layer: 5
-  m_Name: Image (11)
-  m_TagString: Untagged
+  m_Name: 10
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36911,8 +37856,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1866981309}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -36927,8 +37872,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1866981309}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -36939,6 +37884,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1866981309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866981304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1868797038
 GameObject:
   m_ObjectHideFlags: 0
@@ -37422,6 +38379,86 @@ RectTransform:
   m_AnchoredPosition: {x: 950, y: -50}
   m_SizeDelta: {x: 250, y: 400}
   m_Pivot: {x: 0, y: 1}
+--- !u!1 &1910752786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1910752787}
+  - component: {fileID: 1910752789}
+  - component: {fileID: 1910752788}
+  m_Layer: 5
+  m_Name: SummTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1910752787
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910752786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 973989942}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 7.5, y: -34.920837}
+  m_SizeDelta: {x: -15, y: -69.8417}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1910752788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910752786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 49
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1910752789
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910752786}
+  m_CullTransparentMesh: 1
 --- !u!1 &1911609640
 GameObject:
   m_ObjectHideFlags: 0
@@ -37464,6 +38501,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 28b386c90d1c25f4fbbca8b7dbeaef9d, type: 3}
   - {fileID: 21300000, guid: dd93a0916058e1d4388811ae1cd15c7d, type: 3}
   InvenUI: {fileID: 836551400}
+  MagicianLine:
+  - {fileID: 21300000, guid: 0ac3e283d27294e62aed1b43be68d83e, type: 3}
+  - {fileID: 21300000, guid: 6d9d3c2b7857245699762706d9365aca, type: 3}
+  - {fileID: 21300000, guid: 4eb80bec1b66049168a2139d443bcb4a, type: 3}
+  - {fileID: 21300000, guid: 2624cc30e448a4d109242ffeed454755, type: 3}
+  JugglerLine:
+  - {fileID: 21300000, guid: 4d36c70e2b0a242fdada5a423cb3093b, type: 3}
+  - {fileID: 21300000, guid: 21367def610e14a98bf1e11c8116c0dd, type: 3}
+  - {fileID: 21300000, guid: 474133d1cb5f3436eba25b6fb2d3f53a, type: 3}
+  - {fileID: 21300000, guid: ee189eb3fd39d4eee99917fb2d362ad6, type: 3}
+  AcrobatLine:
+  - {fileID: 21300000, guid: 53ff7e968596043039dae5514af93eb5, type: 3}
+  - {fileID: 21300000, guid: a78358c61a8d84a64bfecf309e170eb3, type: 3}
+  - {fileID: 21300000, guid: 24688b506599141418185d71eb20717a, type: 3}
+  - {fileID: 21300000, guid: f1cd7c66ba608487589bbccb722b26b1, type: 3}
 --- !u!114 &1911609642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37558,9 +38610,10 @@ GameObject:
   - component: {fileID: 1912496641}
   - component: {fileID: 1912496640}
   - component: {fileID: 1912496642}
+  - component: {fileID: 1912496643}
   m_Layer: 5
-  m_Name: Image (1)
-  m_TagString: Untagged
+  m_Name: 0
+  m_TagString: JuggCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37641,8 +38694,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1912496643}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -37657,8 +38710,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1912496643}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -37669,6 +38722,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1912496643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912496638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1917002445
 GameObject:
   m_ObjectHideFlags: 0
@@ -37943,9 +39008,10 @@ GameObject:
   - component: {fileID: 1943685109}
   - component: {fileID: 1943685108}
   - component: {fileID: 1943685110}
+  - component: {fileID: 1943685111}
   m_Layer: 5
-  m_Name: Image (3)
-  m_TagString: Untagged
+  m_Name: 2
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38026,8 +39092,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1943685111}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -38042,8 +39108,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1943685111}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -38054,6 +39120,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1943685111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943685106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1955636073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38178,82 +39256,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4899869598507531819, guid: 18596cff2f456a642bf5bbb7b701d4e0, type: 3}
   m_PrefabInstance: {fileID: 1959506236}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1959778970
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1959778971}
-  - component: {fileID: 1959778973}
-  - component: {fileID: 1959778972}
-  m_Layer: 5
-  m_Name: Panel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1959778971
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959778970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1268859796}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 85}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1959778972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959778970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.1981132, g: 0.16571732, b: 0.16571732, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1959778973
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959778970}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1965835127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38607,9 +39609,10 @@ GameObject:
   - component: {fileID: 1976084109}
   - component: {fileID: 1976084108}
   - component: {fileID: 1976084110}
+  - component: {fileID: 1976084111}
   m_Layer: 5
-  m_Name: Image (8)
-  m_TagString: Untagged
+  m_Name: 8
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38690,8 +39693,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1976084111}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -38706,8 +39709,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 1976084111}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -38718,6 +39721,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1976084111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976084106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1976110388
 GameObject:
   m_ObjectHideFlags: 0
@@ -39722,7 +40737,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 419f7e49d5cdeea4e820b243c9d2a880, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -39746,9 +40761,10 @@ GameObject:
   - component: {fileID: 2031523209}
   - component: {fileID: 2031523208}
   - component: {fileID: 2031523210}
+  - component: {fileID: 2031523211}
   m_Layer: 5
-  m_Name: Image (11)
-  m_TagString: Untagged
+  m_Name: 11
+  m_TagString: MagicCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39829,8 +40845,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 2031523211}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -39845,8 +40861,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 2031523211}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -39857,6 +40873,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2031523211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031523206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2032914720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40137,9 +41165,10 @@ GameObject:
   - component: {fileID: 2049237322}
   - component: {fileID: 2049237321}
   - component: {fileID: 2049237323}
+  - component: {fileID: 2049237324}
   m_Layer: 5
-  m_Name: Image (06)
-  m_TagString: Untagged
+  m_Name: 5
+  m_TagString: AcroCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40220,8 +41249,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 2049237324}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverEnter
           m_Mode: 1
           m_Arguments:
@@ -40236,8 +41265,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 836551406}
-          m_TargetAssemblyTypeName: HoverCardInfo, Assembly-CSharp
+        - m_Target: {fileID: 2049237324}
+          m_TargetAssemblyTypeName: HoverManager, Assembly-CSharp
           m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
@@ -40248,6 +41277,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2049237324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049237319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9532e7a90679944aad5bc8dd4a50138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2049565090
 GameObject:
   m_ObjectHideFlags: 0

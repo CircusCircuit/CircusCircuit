@@ -114,7 +114,7 @@ namespace Enemy
         }
         public void EndKnockback()
         {
-            Debug.Log("Endknockback");
+            //Debug.Log("Endknockback");
             isKnockback = false;
             movement.Turn();
             Think();

@@ -49,7 +49,7 @@ namespace controller
         [SerializeField] GameObject DodgeReloadObj;
         Image DodgeReloadImg;
 
-
+        [SerializeField] Image AttackedEffectPanel;
         SpriteRenderer spriteRenderer;
         Animator playerAnim;
         GameObject currentOneWayPlatform;
@@ -200,7 +200,7 @@ namespace controller
             if ((isBase || isGround) && !isDodge && collision.gameObject.tag == "EnemyBullet" && !isAttacked)
             {
                 //ÃÑ¾Ë ÇÇ°Ý ½Ã.
-                print("ÃÑ¾Ë ¸ÂÀ½");
+                //print("ÃÑ¾Ë ¸ÂÀ½");
 
                 isAttacked = true;
                 MinusHp(collision.transform.tag);
@@ -421,17 +421,24 @@ namespace controller
         {
             for (int i = 0; i < 3; i++)
             {
-                spriteRenderer.color = new Color32(121, 20, 20, 255);
+                AttackedEffectPanel.color = new Color32(183, 0, 0, 75);
                 yield return new WaitForSeconds(0.05f);
 
-                spriteRenderer.color = new Color32(255, 255, 255, 255);
+                AttackedEffectPanel.color = new Color32(0, 0, 0, 0);
                 yield return new WaitForSeconds(0.05f);
 
-                spriteRenderer.color = new Color32(121, 20, 20, 255);
-                yield return new WaitForSeconds(0.05f);
 
-                spriteRenderer.color = new Color32(255, 255, 255, 255);
-                yield return new WaitForSeconds(0.05f);
+                //spriteRenderer.color = new Color32(121, 20, 20, 255);
+                //yield return new WaitForSeconds(0.05f);
+
+                //spriteRenderer.color = new Color32(255, 255, 255, 255);
+                //yield return new WaitForSeconds(0.05f);
+
+                //spriteRenderer.color = new Color32(121, 20, 20, 255);
+                //yield return new WaitForSeconds(0.05f);
+
+                //spriteRenderer.color = new Color32(255, 255, 255, 255);
+                //yield return new WaitForSeconds(0.05f);
             }
         }
 

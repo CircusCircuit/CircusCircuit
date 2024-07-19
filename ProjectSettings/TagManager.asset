@@ -18,6 +18,9 @@ TagManager:
   - Wall
   - GroundCombination
   - InteractionManager
+  - MagicCard
+  - JuggCard
+  - AcroCard
   layers:
   - Default
   - TransparentFX
@@ -29,7 +32,7 @@ TagManager:
   - Player
   - Platform
   - Enemy
-  - 
+  - CardSelectUI
   - 
   - 
   - 

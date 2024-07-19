@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86;
 
 public class MapSpawnManager : MonoBehaviour
 {
@@ -57,46 +58,19 @@ public class MapSpawnManager : MonoBehaviour
             get { return healPacks; }
             set { healPacks = value; }
         }
-
-        public bool AllWave1EnemiesDefeated()
-        {
-            foreach (Transform enemy in wave1.transform)
-            {
-                if (enemy.gameObject.activeInHierarchy)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        public bool AllWave2EnemiesDefeated()
-        {
-            foreach (Transform enemy in wave2.transform)
-            {
-                if (enemy.gameObject.activeInHierarchy)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        public void ActivateWave2()
-        {
-            wave2.SetActive(true);
-            //return true;
-        }
-        public void ActivateHealPacks()
-        {
-            healPacks.SetActive(true);
-            //return true;
-        }
-
     }
+
+    int rIndex;
+
     [SerializeField] List<MapArray> stageArray;
     [SerializeField] GameObject leverObj;
     [SerializeField] GameObject player;
 
     bool doSpawn = false;
+    bool doHealPackSpawn = false;
+    //bool wave2Spawn = false;
+
+    GameObject curWaveObj;
 
     //private bool isClear=false;
     List<MapArray> dynamicStageArray;
@@ -127,17 +101,22 @@ public class MapSpawnManager : MonoBehaviour
 
         if (doSpawn)
         {
-            foreach (var stage in stageArray)
+            if (AllWave1EnemiesDefeated())
             {
-                if (stage.AllWave1EnemiesDefeated())
+                ActivateWave2();
+                if (!doHealPackSpawn)
                 {
-                    stage.ActivateWave2();
-                    stage.ActivateHealPacks();
+                    ActivateHealPacks();
                 }
-                if (stage.AllWave2EnemiesDefeated()/*&&isClear*/)
+
+
+                if (GameManager.Instance.Wave1Clear && AllWave2EnemiesDefeated())
                 {
                     GameManager.Instance.Clear = true;
-                    //isClear = false;
+                    GameManager.Instance.Wave1Clear = false;
+                    doHealPackSpawn = false;
+
+                    doSpawn = false;
                 }
             }
         }
@@ -164,12 +143,14 @@ public class MapSpawnManager : MonoBehaviour
 
     void MapSpawn()
     {
-        int rIndex = Random.Range(0, dynamicStageArray.Count);
+        rIndex = Random.Range(0, dynamicStageArray.Count);
 
         cam.transform.position = dynamicStageArray[rIndex].MapPos;
         leverObj.transform.position = dynamicStageArray[rIndex].LeverPos;
         player.transform.position = dynamicStageArray[rIndex].PlayerPos;
         dynamicStageArray[rIndex].EnemyPos.SetActive(true);
+
+        curWaveObj = dynamicStageArray[rIndex].EnemyPos.gameObject;
 
         dynamicStageArray[rIndex].Wave1.SetActive(true);
         dynamicStageArray[rIndex].Wave2.SetActive(false);
@@ -177,7 +158,37 @@ public class MapSpawnManager : MonoBehaviour
         dynamicStageArray.RemoveAt(rIndex);
 
         doSpawn = true;
+    }
 
+
+    bool AllWave1EnemiesDefeated()
+    {
+        if (/*stageArray[rIndex].Wave1*/curWaveObj.transform.GetChild(0).transform.childCount == 0)
+        {
+            print("wave1 Å¬¸®¾î");
+            return true;
+        }
+        return false;
+    }
+    bool AllWave2EnemiesDefeated()
+    {
+        if (/*stageArray[rIndex].Wave2*/curWaveObj.transform.GetChild(1).transform.childCount == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    void ActivateWave2()
+    {
+        curWaveObj.transform.GetChild(1).gameObject.SetActive(true);
+        GameManager.Instance.Wave1Clear = true;
+    }
+
+    void ActivateHealPacks()
+    {
+        stageArray[rIndex].HealPacks.SetActive(true);
+        doHealPackSpawn = true;
     }
 }
 

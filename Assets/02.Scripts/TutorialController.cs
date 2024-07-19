@@ -102,7 +102,7 @@ public class TutorialController : MonoBehaviour
         {
             SoundManager.instance.Play("Tutorial_Finish_01");
 
-            Debug.Log("End Tutorial");
+            //Debug.Log("End Tutorial");
             ReadyUI.SetActive(true);
             SkipUI.SetActive(false);
             Cursor.visible = true;

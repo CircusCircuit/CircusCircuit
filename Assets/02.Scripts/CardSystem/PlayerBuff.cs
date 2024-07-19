@@ -31,12 +31,12 @@ public class PlayerBuff : MonoBehaviour
 
     [Header("Base")]
     bool EnemyDetected = false;
-    bool isPlatform = false;
+    //bool isPlatform = false;
 
 
     [Header("SkillTree")]
     bool coolMagic1 = false;
-    bool coolMagic2 = false;
+    //bool coolMagic2 = false;
     bool coolMagic3 = false;
     bool coolMagic4 = false;
 

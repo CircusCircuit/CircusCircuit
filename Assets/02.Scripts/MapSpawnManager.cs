@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Unity.Burst.Intrinsics.X86;
 
 public class MapSpawnManager : MonoBehaviour
@@ -165,7 +166,7 @@ public class MapSpawnManager : MonoBehaviour
     {
         if (/*stageArray[rIndex].Wave1*/curWaveObj.transform.GetChild(0).transform.childCount == 0)
         {
-            print("wave1 클리어");
+            //print("wave1 클리어");
             return true;
         }
         return false;

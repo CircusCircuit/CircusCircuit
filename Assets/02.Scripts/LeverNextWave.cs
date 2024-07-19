@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LeverNextWave : MonoBehaviour
 {
@@ -84,12 +85,16 @@ public class LeverNextWave : MonoBehaviour
         var length = anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(length);
 
-        //GameManager.Instance.getNextWave = true;
-        CloseCurtain.SetActive(false);
-        transform.GetChild(0).gameObject.SetActive(false);
-
         GameManager.Instance.DoCardSelect = true;
         GameManager.Instance.StageCounter++;
+
+        if (GameManager.Instance.StageCounter >= 4)
+        {
+            SceneManager.LoadScene(4);
+        }
+
+        CloseCurtain.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
 
         //cardController.RandomCard();
         //Cursor.visible = true;

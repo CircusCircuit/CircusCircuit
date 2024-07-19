@@ -23,6 +23,8 @@ public class PlayerBuff : MonoBehaviour
         }
     }
 
+    GameObject player;
+
     public bool doBoss3Skill = false;
     bool coolBoss3 = false;
 
@@ -57,6 +59,7 @@ public class PlayerBuff : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("PlayerBody").gameObject;
         curScene = SceneManager.GetActiveScene().name;
         OriginPlayerSpeed = GameManager.Instance.PlayerSpeed;
         OriginAttackSpeed = GameManager.Instance.AttackSpeed;
@@ -65,6 +68,8 @@ public class PlayerBuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = player.transform.position;
+
         if (curScene != "Tutorial")
         {
             DetectMagicianSkills();

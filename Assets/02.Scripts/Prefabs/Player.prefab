@@ -233,6 +233,8 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: bc175c825ddad46cbbc247da7ea594fb, type: 3}
   ReloadGrid: {fileID: 0}
   loadingObj: {fileID: 0}
+  DeckUIActivation: {fileID: 0}
+  SelectUIActivation: {fileID: 0}
 --- !u!82 &5738023831974578254
 AudioSource:
   m_ObjectHideFlags: 0
@@ -449,6 +451,7 @@ MonoBehaviour:
   shooting: {fileID: 1718156013213353129}
   ReloadGrid: {fileID: 0}
   DodgeReloadObj: {fileID: 0}
+  AttackedEffectPanel: {fileID: 0}
 --- !u!95 &8577545040896413469
 Animator:
   serializedVersion: 4
@@ -632,7 +635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5684579115279189767
 Transform:
   m_ObjectHideFlags: 0

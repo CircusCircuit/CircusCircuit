@@ -203,6 +203,7 @@ namespace controller
                 //print("ÃÑ¾Ë ¸ÂÀ½");
 
                 isAttacked = true;
+
                 MinusHp(collision.transform.tag);
 
                 if (GameManager.Instance.curStageIndex == 1) return;

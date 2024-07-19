@@ -12,49 +12,49 @@ using Random = UnityEngine.Random;
 
 public class StageController : MonoBehaviour
 {
-    public AudioClip reverSound; 
-    public AudioClip curtainCloseSound; 
-    public AudioClip curtainOpenSound; 
+    //public AudioClip reverSound; 
+    //public AudioClip curtainCloseSound; 
+    //public AudioClip curtainOpenSound; 
 
 
 
-    private AudioSource audioSource; // AudioSource 컴포넌트
-    public static StageController Instance { get; private set; }
+    //private AudioSource audioSource; // AudioSource 컴포넌트
+    //public static StageController Instance { get; private set; }
 
-    //GameObject Lever;
-    //public bool isLever = false;
-    [SerializeField] Animator anim;
+    ////GameObject Lever;
+    ////public bool isLever = false;
+    //[SerializeField] Animator anim;
     [SerializeField] GameObject yellowCurtain;
 
-    [SerializeField] CardController cardController;
+    //[SerializeField] CardController cardController;
 
-    [SerializeField] GameObject SuccUI;
-    [SerializeField] GameObject openCurtain;
+    //[SerializeField] GameObject SuccUI;
+    //[SerializeField] GameObject openCurtain;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    //private void Awake()
+    //{
+    //    Instance = this;
+    //}
 
     // Start is called before the first frame update
     void Start()
     {
         //Lever = GameObject.Find("Lever").transform.GetChild(0).gameObject;
 
-        audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(curtainOpenSound);
+        //audioSource = GetComponent<AudioSource>();
+        //audioSource.PlayOneShot(curtainOpenSound);
         
-        if (openCurtain == null) { return; }
-        openCurtain.SetActive(true);
-        StartCoroutine(OpeningCurtain());
+        //if (openCurtain == null) { return; }
+        //openCurtain.SetActive(true);
+        //StartCoroutine(OpeningCurtain());
     }
 
-    IEnumerator OpeningCurtain()
-    {
-        yield return new WaitForSeconds(1.5f);
+    //IEnumerator OpeningCurtain()
+    //{
+    //    yield return new WaitForSeconds(1.5f);
 
-        openCurtain.SetActive(false);
-    }
+    //    openCurtain.SetActive(false);
+    //}
 
     // Update is called once per frame
     void Update()

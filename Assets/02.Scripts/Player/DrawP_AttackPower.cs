@@ -14,18 +14,19 @@ public class DrawP_AttackPower : MonoBehaviour
     {
         powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage;
         featherTxt.text = "Free Feather " + GameManager.Instance.FreeFeather + "%";
-        SceneManager.sceneLoaded += UpdateAttackPower;
+        //SceneManager.sceneLoaded += UpdateAttackPower;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    void UpdateAttackPower(Scene scene, LoadSceneMode mode)
-    {
-        powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage;
+        powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage + "00%";
         featherTxt.text = "Free Feather " + GameManager.Instance.FreeFeather + "%";
     }
+
+    //void UpdateAttackPower(Scene scene, LoadSceneMode mode)
+    //{
+    //    powerTxt.text = "POWER " + GameManager.Instance.M_AttackDamage;
+    //    featherTxt.text = "Free Feather " + GameManager.Instance.FreeFeather + "%";
+    //}
 }

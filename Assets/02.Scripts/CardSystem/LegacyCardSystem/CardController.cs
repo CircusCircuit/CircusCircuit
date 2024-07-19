@@ -47,7 +47,7 @@ public class CardController : MonoBehaviour
                 invenObj.GetComponent<Inventory>().ShowCard(pickCard);
 
                 GameManager.Instance.FreeFeather -= FeatherDeburf(pickCard);
-                StageController.Instance.CheckFetherCondition();
+                //StageController.Instance.CheckFetherCondition();
             }
         }
     }

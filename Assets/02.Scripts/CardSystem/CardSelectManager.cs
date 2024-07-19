@@ -107,7 +107,7 @@ namespace Card
 
         public void CardButton()
         {
-            string getCardImageNumber = EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite.name.Substring(1);
+            string getCardImageNumber = EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite.name.Substring(0, 1);
             if (getCardImageNumber == "m")
             {
                 PreCardIdx = 1;

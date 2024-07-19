@@ -70,6 +70,8 @@ public class MapSpawnManager : MonoBehaviour
     bool doHealPackSpawn = false;
     //bool wave2Spawn = false;
 
+    GameObject curWaveObj;
+
     //private bool isClear=false;
     List<MapArray> dynamicStageArray;
     private void Start()
@@ -99,8 +101,6 @@ public class MapSpawnManager : MonoBehaviour
 
         if (doSpawn)
         {
-            //print("@@@AllWave1EnemiesDefeated@@@ " + AllWave1EnemiesDefeated() + " , rIndex는 " + rIndex);
-
             if (AllWave1EnemiesDefeated())
             {
                 ActivateWave2();
@@ -115,21 +115,10 @@ public class MapSpawnManager : MonoBehaviour
                     GameManager.Instance.Clear = true;
                     GameManager.Instance.Wave1Clear = false;
                     doHealPackSpawn = false;
+
+                    doSpawn = false;
                 }
             }
-            //foreach (var stage in stageArray)
-            //{
-            //    if (stage.AllWave1EnemiesDefeated())
-            //    {
-            //        stage.ActivateWave2();
-            //        stage.ActivateHealPacks();
-            //    }
-            //    if (stage.AllWave2EnemiesDefeated()/*&&isClear*/)
-            //    {
-            //        GameManager.Instance.Clear = true;
-            //        //isClear = false;
-            //    }
-            //}
         }
 
         //if (Input.GetKeyDown(KeyCode.Escape))
@@ -161,6 +150,8 @@ public class MapSpawnManager : MonoBehaviour
         player.transform.position = dynamicStageArray[rIndex].PlayerPos;
         dynamicStageArray[rIndex].EnemyPos.SetActive(true);
 
+        curWaveObj = dynamicStageArray[rIndex].EnemyPos.gameObject;
+
         dynamicStageArray[rIndex].Wave1.SetActive(true);
         dynamicStageArray[rIndex].Wave2.SetActive(false);
 
@@ -172,40 +163,25 @@ public class MapSpawnManager : MonoBehaviour
 
     bool AllWave1EnemiesDefeated()
     {
-        if (stageArray[rIndex].Wave1.transform.childCount == 0)
+        if (/*stageArray[rIndex].Wave1*/curWaveObj.transform.GetChild(0).transform.childCount == 0)
         {
+            print("wave1 클리어");
             return true;
         }
         return false;
-        //foreach (Transform enemy in dynamicStageArray[rIndex].Wave1.transform)
-        //{
-        //    if (enemy.gameObject.activeInHierarchy)
-        //    {
-        //        return false;
-        //    }
-        //}
-        //return true;
     }
     bool AllWave2EnemiesDefeated()
     {
-        if (stageArray[rIndex].Wave2.transform.childCount == 0)
+        if (/*stageArray[rIndex].Wave2*/curWaveObj.transform.GetChild(1).transform.childCount == 0)
         {
             return true;
         }
         return false;
-        //foreach (Transform enemy in dynamicStageArray[rIndex].Wave2.transform)
-        //{
-        //    if (enemy.gameObject.activeInHierarchy)
-        //    {
-        //        return false;
-        //    }
-        //}
-        //return true;
     }
 
     void ActivateWave2()
     {
-        stageArray[rIndex].Wave2.SetActive(true);
+        curWaveObj.transform.GetChild(1).gameObject.SetActive(true);
         GameManager.Instance.Wave1Clear = true;
     }
 

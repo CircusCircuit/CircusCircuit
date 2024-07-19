@@ -9,7 +9,8 @@ public class HealPack : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 7)
+        //print(collision.gameObject.name);
+        if (collision.gameObject.tag == "Player")
         {
             float currentHP = GameManager.Instance.PlayerHp;
             if(currentHP<4){

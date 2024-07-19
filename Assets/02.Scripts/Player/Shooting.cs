@@ -39,6 +39,9 @@ public class Shooting : MonoBehaviour
 
     string curSenceIdx;
 
+    [SerializeField] GameObject DeckUIActivation;
+    [SerializeField] GameObject SelectUIActivation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,8 +97,14 @@ public class Shooting : MonoBehaviour
 
 
 
-        if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0 /*&& !Lever.activeSelf*/)
+        if (Input.GetMouseButtonDown(0) && canFire && GameManager.Instance.CurBulletCount > 0)
         {
+            if (DeckUIActivation != null || SelectUIActivation != null)
+            {
+                if (DeckUIActivation.activeSelf == true || SelectUIActivation.activeSelf == true) return;
+            }
+
+
             SoundManager.instance.Play("SFX_Gunshot_01");
 
             GameManager.Instance.CurBulletCount -= 1;

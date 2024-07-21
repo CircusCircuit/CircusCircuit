@@ -776,5 +776,31 @@ namespace Enemy
             // 스프라이트가 완전히 사라진 후 게임 오브젝트를 파괴
             GameObject.Destroy(enemy.gameObject);
         }
+
+        void DieSFX()
+        {
+            string name = this.gameObject.name;
+
+            if (name.Contains("MagicHat"))
+            {
+                SoundManager.instance.Play("Magic_hat_Die_01");
+            }
+            else if (name.Contains("Fanfare"))
+            {
+                SoundManager.instance.Play("Fanfare_Die_01");
+            }
+            else if (name.Contains("Hulahoop"))
+            {
+                SoundManager.instance.Play("Hoop_Die_01");
+            }
+            else if (name.Contains("Mask"))
+            {
+                SoundManager.instance.Play("Mask_Die_01");
+            }
+            else
+            {
+                SoundManager.instance.Play("Unicycle_Die_01");
+            }
+        }
     }
 }

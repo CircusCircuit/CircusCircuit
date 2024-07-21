@@ -14,6 +14,7 @@ public class LoadScenceController : MonoBehaviour
         if (buildIdx == 0)
         {
             Cursor.visible = true;
+            SoundManager.instance.Play("Main_Tema_", 0.8f, SoundType.BGM);
         }
     }
 
